@@ -221,13 +221,13 @@
         </div>
         <div>
           <label style="font-size:12.5px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">再选科目（选 2 门）</label>
-          <select class="inp" id="editSecondSubj" style="width:100%;font-size:12.5px" multiple size="4" title="按住 Ctrl/Cmd 可多选">
-            <option value="化学" selected>化学</option>
-            <option value="生物" selected>生物</option>
+          <select class="inp" id="editSecondSubj" style="width:100%;font-size:12.5px" multiple size="4" onclick="updateSubjPreview();renderSubjScores()" onchange="updateSubjPreview();renderSubjScores()">
+            <option value="化学">化学</option>
+            <option value="生物">生物</option>
             <option value="地理">地理</option>
             <option value="政治">政治</option>
           </select>
-          <p style="font-size:11px;color:var(--sub);margin-top:4px">已选择：<span id="subjPreview" style="color:var(--main);font-weight:600">物理 + 化学 + 生物</span></p>
+          <p style="font-size:11px;color:var(--sub);margin-top:4px">已选择：<span id="subjPreview" style="color:var(--main);font-weight:600">（未选择）</span></p>
         </div>
       </div>
       <div>
@@ -29198,20 +29198,61 @@ function getMathAttitude(){
 
   // 成绩信号优先（分数不会骗人）
   if(mathScore > 0){
-    if(mathRatio >= 0.82) attitude = 'love';       // 数学成绩高 → 视为数学优势
-    else if(mathRatio <= 0.55) attitude = 'hate';   // 数学成绩低 → 视为数学弱项
+    if(mathRatio >= 0.82) attitude = 'love';         // 数学成绩高 → 数学优势
+    else if(mathRatio <= 0.65) attitude = 'hate';     // 60% (90/150) 视为数学弱项（阈值 0.55→0.65）
+    else if(mathRatio < 0.75) attitude = 'weak';      // 中等偏下算偏弱（应用部分降权）
   }
   return {attitude, mathScore, mathRatio};
 }
 
 /* ================================================================
-   核心推荐：分数 + 性格 + 学科优势 多维匹配
+   核心推荐：分数 + 数学 + 偏好 + 性格 + 地域 多维匹配
    ================================================================ */
+// 偏好/性格 → 专业类别关键词映射
+const PREF_CATEGORY = {
+  human:  {kw:/哲学|文学|历史|中文|教育|心理|社会|思想|文化|阅读|写作/, cat:/哲学|汉语言|历史|文学|教育|心理学|社会学|思想政治|英语|新闻/},
+  art:    {kw:/艺术|设计|音乐|美术|绘画|影视|摄影|动画|创作/,         cat:/艺术|设计|动画|绘画|音乐|美术|广播电视|播音|表演/},
+  biz:    {kw:/经济|管理|商|金融|会计|营销|贸易|创业|管理|商业/,     cat:/经济|管理|金融|会计|市场营销|国际经济|贸易|电子商务|工商|财务管理/},
+  eng:    {kw:/工科|技术|工程|编程|代码|程序|机械|电子|制造|建造/,   cat:/工程|机械|电子|自动化|电气|计算机|软件|材料|土木|建筑|化学工程/},
+  sci:    {kw:/科研|研究|实验|理论|数理化|生物|医学|药|医|化学/,     cat:/数学|物理|化学|生物|医学|药学|临床|口腔|护理|医学影像/},
+  lang:   {kw:/语言|外语|英语|日语|法语|翻译|对外/,                   cat:/英语|日语|法语|翻译|商务英语|汉语国际教育/},
+  teach:  {kw:/老师|教师|师范|当老师|教书|育人/,                     cat:/师范|教育|学前教育|小学教育/},
+  law:    {kw:/法律|法学|律师|司法|政法/,                            cat:/法学|法律|知识产权|政治学/},
+};
+const PERSONA_CATEGORY = {
+  R:/机械|工程|土木|材料|自动化|电气|农学|林学|采矿/,
+  I:/数学|物理|化学|生物|医学|药学|心理学|研究/,
+  A:/艺术|设计|动画|绘画|音乐|美术|广播电视|播音|表演|文学/,
+  S:/教育|社会|心理|护理|医学|公共|政治/,
+  E:/工商|管理|市场营销|金融|电子商务|国际经济|贸易/,
+  C:/会计|金融|财务管理|统计学|经济|审计|税务/,
+};
+// 主流地域排除
+const EXCLUDE_REGIONS = { '东北':/辽宁|吉林|黑龙江|东北/ };
+
+function getUserSignal(){
+  const prefs = userProfile.prefs.join('，');
+  const persona = (typeof personaData!=='undefined' && personaData && personaData.top) ? personaData.top : [];
+  // 偏好 → 类别正则
+  const prefCats = new Set();
+  Object.values(PREF_CATEGORY).forEach(p=>{ if(p.kw.test(prefs)) prefCats.add(p.cat.source); });
+  // 性格前 2 维 → 类别正则
+  const personaCats = new Set();
+  persona.slice(0,2).forEach(t=>{ const re=PERSONA_CATEGORY[t]; if(re) personaCats.add(re.source); });
+  // 地域排除
+  const excludeRe = userProfile.exclude && EXCLUDE_REGIONS[userProfile.exclude];
+  return {prefCats, personaCats, excludeRe};
+}
+
 function getRecommendations(){
   const s = userProfile.score;
   const math = getMathAttitude();
+  const sig = getUserSignal();
+  // 合并偏好 + 性格类别
+  const wantCats = new Set([...sig.prefCats, ...sig.personaCats]);
 
   return SCHOOL_DB.filter(school => {
+    if(sig.excludeRe && sig.excludeRe.test(school.region)) return false;
     return s >= school.scoreRange[0] - 15 && s <= school.scoreRange[1] + 30;
   }).map(school => {
     const mid = (school.scoreRange[0] + school.scoreRange[1]) / 2;
@@ -29222,27 +29263,54 @@ function getRecommendations(){
     else if(s <= school.scoreRange[0] + 10) tier = '冲';
     else tier = '稳';
 
-    // 专业重排序：根据数学态度调整每个专业的适配度
+    // 专业重排序：数学态度 + 偏好/性格类别匹配
     const majors = school.majors.map(m => {
       const req = MATH_REQ[m.name] || '中';
       let boost = 0;
+      // 数学态度
       if(math.attitude === 'love' && req === '高') boost = 12;
-      if(math.attitude === 'love' && req === '低') boost = -8;
-      if(math.attitude === 'hate' && req === '高') boost = -15;
-      if(math.attitude === 'hate' && req === '低') boost = 10;
+      else if(math.attitude === 'love' && req === '低') boost = -8;
+      else if(math.attitude === 'hate' && req === '高') boost = -18;
+      else if(math.attitude === 'hate' && req === '中') boost = -6;
+      else if(math.attitude === 'hate' && req === '低') boost = 12;
+      else if(math.attitude === 'weak' && req === '高') boost = -10;
+      else if(math.attitude === 'weak' && req === '中') boost = -2;
+      // 偏好/性格类别匹配
+      if(wantCats.size){
+        const mname = m.name;
+        let hit = false;
+        wantCats.forEach(src => { if(new RegExp(src).test(mname) || new RegExp(src).test(m.desc||'')) hit = true; });
+        if(hit) boost += 8;
+      }
       const adjFit = Math.max(55, Math.min(99, (m.fit || 80) + boost));
       return {...m, mathReq: req, adjFit, boosted: boost !== 0};
     }).sort((a,b) => b.adjFit - a.adjFit);
 
-    // 生成学科相关归因
+    // 归因（解决 undefined）
+    const whyParts = [];
+    if(school.level?.includes('985')||school.level?.includes('双一流')||school.level?.includes('211')) whyParts.push('<mark>院校层次突出</mark>');
+    if(school.cat) whyParts.push(school.cat);
+    if(wantCats.size){
+      const hitMajor = majors.find(m=>{
+        let hit = false;
+        wantCats.forEach(src=>{ if(new RegExp(src).test(m.name)||new RegExp(src).test(m.desc||'')) hit=true; });
+        return hit && m.adjFit>=80;
+      });
+      if(hitMajor) whyParts.push(`含匹配你偏好/性格的「<mark>${hitMajor.name}</mark>」`);
+    }
+    const why = whyParts.join(' · ') || '综合院校层次、分数适配与专业匹配';
+
+    // 数学归因
     let mathWhy = '';
     if(math.attitude === 'love'){
       mathWhy = `你<mark>数学思维突出</mark>（${math.mathScore ? math.mathScore+'分' : '偏好数学'}），已优先推荐需要数理分析的专业。`;
     } else if(math.attitude === 'hate'){
-      mathWhy = `你<mark>数学是弱项</mark>，已为你避开数学要求过高的专业。`;
+      mathWhy = `你<mark>数学是弱项</mark>（${math.mathScore||'?'}分），已避开<mark>数学要求高</mark>的专业。`;
+    } else if(math.attitude === 'weak'){
+      mathWhy = `你<mark>数学偏弱</mark>（${math.mathScore||'?'}分），已降低数学要求较高专业的排序。`;
     }
 
-    return {...school, tier, fit, majors, mathWhy};
+    return {...school, tier, fit, majors, why, mathWhy};
   }).sort((a,b) => b.fit - a.fit);
 }
 
@@ -29467,20 +29535,35 @@ function onProvinceChange(){
   document.getElementById('provinceModeHint').textContent = cfg.hint;
   const firstSel = document.getElementById('editFirstSubj');
   const secSel = document.getElementById('editSecondSubj');
+
+  // 从 userProfile.subject 解析当前已选学科（如"物化生"或"物+化+生"），避免被默认值覆盖
+  const cur = String(userProfile.subject||'');
+  const curFirst = (mode==='3+1+2') ? (cur.startsWith('历')?'历史':'物理') : '';
+  const curSecond = new Set();
+  if(mode==='3+1+2'){
+    // 形如"物化生" / "历史+地理+政治"
+    const cleaned = cur.replace(/^物理|^历史/, '').replace(/[+＋，,\s]/g, '');
+    [...cleaned].forEach(c=>curSecond.add(c==='物'?'物理':c==='史'?'历史':c==='化'?'化学':c==='生'?'生物':c==='地'?'地理':c==='政'?'政治':c));
+  } else {
+    // 3+3 形如"物+化+生"或"物理化学生物"
+    ['物理','化学','生物','历史','地理','政治'].forEach(s=>{ if(cur.includes(s)) curSecond.add(s); });
+  }
+
   if(mode === '3+3'){
     firstSel.parentElement.style.display = 'none';
     secSel.innerHTML = cfg.second.map(s =>
-      `<option value="${s}" ${cfg.defaultSecond.includes(s)?'selected':''}>${s}</option>`).join('');
+      `<option value="${s}" ${curSecond.has(s)?'selected':cfg.defaultSecond.includes(s)?'selected':''}>${s}</option>`).join('');
     secSel.setAttribute('size','6');
   } else {
     firstSel.parentElement.style.display = '';
     firstSel.innerHTML = cfg.first.map(s =>
-      `<option value="${s}" ${s===cfg.defaultFirst?'selected':''}>${s}</option>`).join('');
+      `<option value="${s}" ${s===curFirst?'selected':s===cfg.defaultFirst?'selected':''}>${s}</option>`).join('');
     secSel.innerHTML = cfg.second.map(s =>
-      `<option value="${s}" ${cfg.defaultSecond.includes(s)?'selected':''}>${s}</option>`).join('');
+      `<option value="${s}" ${curSecond.has(s)?'selected':cfg.defaultSecond.includes(s)?'selected':''}>${s}</option>`).join('');
     secSel.setAttribute('size','4');
   }
   updateSubjPreview();
+  renderSubjScores();
 }
 function onFirstSubjChange(){ updateSubjPreview(); renderSubjScores(); }
 

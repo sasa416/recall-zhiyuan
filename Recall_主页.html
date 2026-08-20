@@ -29225,6 +29225,15 @@ const PERSONA_CATEGORY = {
 // 主流地域排除
 const EXCLUDE_REGIONS = { '东北':/辽宁|吉林|黑龙江|东北/ };
 
+// 从 userProfile.subject 推断用户选科类型（'物理' / '历史' / '不限'）
+// 兼容全称('物理化学生物'/'历史地理政治') 与 旧格式单字简称('物化生')
+function parseUserSubjectType(subject){
+  const s = String(subject||'');
+  if(/^历|^史|历史/.test(s)) return '历史';
+  if(/^物|物理/.test(s)) return '物理';
+  return '不限';
+}
+
 function getUserSignal(){
   const prefs = userProfile.prefs.join('，');
   const persona = (typeof personaData!=='undefined' && personaData && personaData.top) ? personaData.top : [];
@@ -29245,11 +29254,21 @@ function getRecommendations(){
   const sig = getUserSignal();
   // 合并偏好 + 性格类别
   const wantCats = new Set([...sig.prefCats, ...sig.personaCats]);
+  // 推断用户选科类型，用于过滤同名专业的物理/历史重复
+  const userSubj = parseUserSubjectType(userProfile.subject);
 
   return SCHOOL_DB.filter(school => {
     if(sig.excludeRe && sig.excludeRe.test(school.region)) return false;
     return s >= school.scoreRange[0] - 15 && s <= school.scoreRange[1] + 30;
   }).map(school => {
+    // 先按选科过滤掉不匹配的专业（防止同校同名"物理+历史"两条都显示）
+    const subjFiltered = (school.majors||[]).filter(m => {
+      if(!m.subject) return true;                    // 不限科
+      if(userSubj === '不限') return true;           // 3+3 模式或无法判定，全部保留
+      return m.subject === userSubj;                 // 匹配用户选科
+    });
+    if(!subjFiltered.length) return null;            // 过滤后无专业，整校跳过
+
     const mid = (school.scoreRange[0] + school.scoreRange[1]) / 2;
     let fit = Math.max(60, Math.min(98, Math.round(100 - Math.abs(s - mid) / 2)));
 
@@ -29259,7 +29278,7 @@ function getRecommendations(){
     else tier = '稳';
 
     // 专业重排序：数学态度 + 偏好/性格类别匹配
-    const majors = school.majors.map(m => {
+    const majors = subjFiltered.map(m => {
       const req = MATH_REQ[m.name] || '中';
       let boost = 0;
       // 数学态度
@@ -29306,7 +29325,7 @@ function getRecommendations(){
     }
 
     return {...school, tier, fit, majors, why, mathWhy};
-  }).sort((a,b) => b.fit - a.fit);
+  }).filter(x => x).sort((a,b) => b.fit - a.fit);
 }
 
 function getScoreTier(score){
@@ -29324,13 +29343,20 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;',
 function searchAllDB(kw){
   const s = userProfile.score;
   const math = getMathAttitude();
+  const userSubj = parseUserSubjectType(userProfile.subject);
   return SCHOOL_DB.filter(school =>
-    school.school.includes(kw) || school.majors.some(m => m.name.includes(kw))
+    school.school.includes(kw) || (school.majors||[]).some(m => m.name && m.name.includes(kw))
   ).map(school => {
+    const subjFiltered = (school.majors||[]).filter(m => {
+      if(!m.subject) return true;
+      if(userSubj === '不限') return true;
+      return m.subject === userSubj;
+    });
+    if(!subjFiltered.length) return null;
     const mid = (school.scoreRange[0] + school.scoreRange[1]) / 2;
     let fit = Math.max(60, Math.min(98, Math.round(100 - Math.abs(s - mid) / 2)));
     let tier = s >= school.scoreRange[1] - 5 ? '保' : (s <= school.scoreRange[0] + 10 ? '冲' : '稳');
-    const majors = school.majors.map(m => {
+    const majors = subjFiltered.map(m => {
       const req = MATH_REQ[m.name] || '中';
       let boost = 0;
       if(math.attitude === 'love' && req === '高') boost = 12;
@@ -29341,7 +29367,7 @@ function searchAllDB(kw){
       return {...m, mathReq: req, adjFit, boosted: boost !== 0};
     }).sort((a,b) => b.adjFit - a.adjFit);
     return {...school, tier, fit, majors, mathWhy: ''};
-  }).sort((a,b) => b.fit - a.fit);
+  }).filter(x => x).sort((a,b) => b.fit - a.fit);
 }
 
 function render(){

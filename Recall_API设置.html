@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recall · API 模型设置</title>
+<link rel="stylesheet" href="recall-ui.css" />
+<style>
+  .page-narrow{max-width:680px;margin:0 auto;padding:30px 24px 60px}
+  .settings-card{padding:30px 34px}
+  .settings-card h2{font-size:19px;margin-bottom:6px}
+  .settings-card .desc{font-size:12.5px;color:var(--sub);margin-bottom:22px;line-height:1.7}
+  .form-row{margin-bottom:20px}
+  .form-row label{display:block;font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:7px}
+  .form-row label .req{color:var(--danger);margin-left:2px}
+  .form-row .hint{font-size:11px;color:var(--sub);margin-top:5px;line-height:1.6}
+  .form-row .inp{width:100%}
+  .key-wrap{display:flex;gap:8px;align-items:center}
+  .key-wrap .inp{flex:1}
+  .eye-btn{flex-shrink:0;padding:9px 14px;border:1.5px solid var(--line);border-radius:11px;background:#fff;color:var(--sub);font-size:15px;transition:.15s}
+  .eye-btn:hover{color:var(--main);border-color:var(--sec)}
+  .model-presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+  .mp-chip{padding:8px 15px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer;
+    border:1.5px solid var(--line);background:#fff;color:var(--sub);transition:.15s}
+  .mp-chip:hover{border-color:var(--sec);color:var(--main)}
+  .mp-chip.on{background:linear-gradient(135deg,rgba(91,141,239,.14),rgba(168,216,234,.28));border-color:var(--main);color:var(--main)}
+  .conn-status{display:flex;align-items:center;gap:9px;padding:12px 15px;border-radius:12px;font-size:13px;font-weight:600;margin-bottom:22px}
+  .conn-status.ok{background:#EEFAF0;color:#2DA44E;border:1px solid #C9F0D1}
+  .conn-status.fail{background:#FFF1F1;color:var(--danger);border:1px solid #FFD2D2}
+  .conn-status.testing{background:#F1F7FD;color:var(--main);border:1px solid #DCE8F5}
+  .conn-status.hidden{display:none}
+  .conn-status .dot{width:9px;height:9px;border-radius:50%;background:currentColor;flex-shrink:0}
+  .btn-row{display:flex;gap:10px;margin-top:8px}
+  .btn-row .btn{flex:1;justify-content:center}
+  .backend-guide{margin:18px 0 8px;font-size:12px;line-height:1.8;color:var(--ink);background:#F8FAFC;border:1px dashed var(--line);border-radius:12px;padding:14px 16px}
+  .backend-guide b{color:var(--main)}
+  .backend-guide code{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1px 5px;font-family:monospace;font-size:11.5px}
+  .security-note{margin-top:20px;font-size:11.5px;color:var(--sub);background:#FFF9EE;border:1px dashed rgba(255,179,71,.45);border-radius:12px;padding:12px 15px;line-height:1.7}
+  .security-note b{color:#B27A1F}
+</style>
+</head>
+<body>
+
+<!-- file:// 错误打开方式警告：仅当用户错误地用 file:// 双击打开时显示 -->
+<div id="fileWarn" style="display:none;background:#FFF1F1;border-bottom:1px solid #FFD2D2;color:#C0392B;font-size:12.5px;padding:11px 20px;text-align:center;line-height:1.7">
+  ⚠️ 检测到你用 <b>file://</b> 方式打开了本页面，浏览器会拦截对后端的请求（Failed to fetch）。<br>
+  请改用 <b>http://localhost:8011/pages/Recall_API设置.html</b> 访问 —— 双击 <code>backend\start.bat</code> 启动后会自动打开。
+</div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="logo" href="Recall_主页.html"><span class="logo-badge">✨</span>Recall</a>
+    <nav class="nav">
+      <a href="Recall_主页.html">主页</a>
+      <a href="Recall_测评.html">性格测评</a>
+      <a href="Recall_推荐详情.html">推荐详情</a>
+      <a href="Recall_方案管理.html">方案管理</a>
+      <a href="Recall_AI答疑.html">AI 答疑</a>
+      <a href="Recall_API设置.html" class="on">API 设置</a>
+    </nav>
+    <span class="plan-ind">当前方案：<b>A-610分留省内</b></span>
+  </div>
+</header>
+
+<div class="page page-narrow">
+  <section class="card settings-card">
+    <h2>🔌 AI 模型设置</h2>
+    <p class="desc">配置大模型 API 后，AI 答疑、归因推荐等功能将由真实模型驱动。由于浏览器安全策略限制，前端不直接调用模型 API，需要通过本地 FastAPI 后端代理。</p>
+
+    <!-- 连接状态 -->
+    <div class="conn-status hidden" id="connStatus">
+      <span class="dot"></span>
+      <span id="connStatusText"></span>
+    </div>
+
+    <!-- 后端启动指引 -->
+    <div class="backend-guide">
+      <b>🚀 先启动后端服务（只需一次）：</b><br>
+      1. 打开终端，进入 <code>backend</code> 目录<br>
+      2. 安装依赖：<code>pip install -r requirements.txt</code><br>
+      3. 复制配置文件：<code>cp .env.example .env</code>，编辑填入 <code>DEEPSEEK_API_KEY=sk-xxx</code><br>
+      4. 启动：<code>python main.py</code><br>
+      5. 看到 <code>Uvicorn running on http://0.0.0.0:8000</code> 后再点「测试连接」
+    </div>
+
+    <!-- 预设模型 -->
+    <div class="form-row">
+      <label>快速选择模型</label>
+      <div class="model-presets" id="modelPresets"></div>
+    </div>
+
+    <!-- 模型名称 -->
+    <div class="form-row">
+      <label>模型名称 <span class="req">*</span></label>
+      <input class="inp" id="modelName" placeholder="如 deepseek-chat" />
+      <p class="hint">模型 ID，需与你的 API 服务商匹配。</p>
+    </div>
+
+    <!-- API Key -->
+    <div class="form-row">
+      <label>API Key <span class="req">*</span></label>
+      <div class="key-wrap">
+        <input class="inp" id="apiKey" type="password" placeholder="后端 .env 中配置的 Key，前端可任意填" autocomplete="off" />
+        <button class="eye-btn" onclick="toggleKey()" title="显示/隐藏">👁</button>
+      </div>
+      <p class="hint">真实 Key 由后端从环境变量读取；这里填写的内容仅作本地校验占位，不会上传。</p>
+    </div>
+
+    <!-- Base URL -->
+    <div class="form-row">
+      <label>Base URL <span class="req">*</span></label>
+      <input class="inp" id="baseUrl" placeholder="http://localhost:8011" />
+      <p class="hint">本地后端地址固定为 <code>http://localhost:8011</code>。正式上线后改为你的后端域名。</p>
+    </div>
+
+    <!-- 系统提示词（可选） -->
+    <div class="form-row">
+      <label>系统提示词 <span style="color:var(--sub);font-weight:400">(可选)</span></label>
+      <textarea class="inp" id="sysPrompt" rows="3" style="resize:vertical;line-height:1.7"
+        placeholder="自定义 AI 的角色设定…"></textarea>
+      <p class="hint">留空则使用默认提示词（志愿填报助手的角色设定）。</p>
+    </div>
+
+    <!-- 按钮 -->
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="saveConfig()">💾 保存配置</button>
+      <button class="btn btn-o" onclick="testConnection()">🔍 测试连接</button>
+      <button class="btn btn-d" onclick="resetConfig()">重置</button>
+      <button class="btn btn-o" onclick="checkBackend()" title="查看本地后端是否在运行">后端状态</button>
+    </div>
+
+    <!-- 后端运行状态 -->
+    <div id="backendPanel" style="display:none;margin-top:14px;padding:14px 16px;background:#F8FAFC;border:1px dashed var(--line);border-radius:12px;font-size:12px;line-height:1.7">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <b style="color:var(--ink)">📡 本地后端状态</b>
+        <span id="backendDot" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#ccc"></span>
+      </div>
+      <div id="backendDetail" style="color:var(--sub);font-family:monospace;font-size:11.5px"></div>
+      <div style="margin-top:10px;color:var(--sub);font-size:11.5px">
+        💡 启动方式：双击 <code style="background:#fff;padding:1px 5px;border:1px solid var(--line);border-radius:4px">backend\start.bat</code>
+      </div>
+    </div>
+
+    <div class="security-note">
+      <b>🔐 安全提示：</b>API Key 只保存在后端 <code>.env</code> 文件中，前端不持有真实密钥。这是个人开发者最稳妥的 MVP 方案。
+    </div>
+  </section>
+</div>
+
+<button class="help-float" title="帮助" onclick="showHelpTip(this)">?</button>
+
+<div id="helpTip" style="display:none;position:fixed;right:78px;bottom:28px;width:300px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 16px 40px rgba(30,41,59,.15);z-index:65;font-size:12.5px;line-height:1.8;color:var(--sub)">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <b style="font-size:13.5px;color:var(--ink)">📖 API 设置帮助</b>
+    <button onclick="document.getElementById('helpTip').style.display='none'" style="font-size:16px;color:var(--sub);background:none;border:none;cursor:pointer;padding:2px 6px">✕</button>
+  </div>
+  <p style="margin-bottom:6px">• <b>DeepSeek 本地代理</b>：推荐默认选项，通过本地后端转发</p>
+  <p style="margin-bottom:6px">• 先启动后端（<code>backend\start.bat</code>），再点测试连接</p>
+  <p style="margin-bottom:6px">· API Key 在 <a href="https://platform.deepseek.com" target="_blank" style="color:var(--main)">platform.deepseek.com</a> 获取</p>
+  <p>· 正确打开方式：<code>http://localhost:8011/pages/index.html</code></p>
+</div>
+
+<script>
+/* ================================================================
+   预设模型
+   ================================================================ */
+const PRESETS = [
+  {name:'DeepSeek 本地代理', model:'deepseek-chat', base:'http://localhost:8011', desc:'通过本地 FastAPI 后端代理'},
+  {name:'自定义后端', model:'', base:'', desc:'手动填写'}
+];
+
+const CFG_KEY = 'recall_api_config';
+const DEFAULT_SYS = '你是 Recall，一名面向高三毕业生的 AI 志愿填报助手。请根据用户的分数、选科、性格测评和偏好，给出专业、温暖的院校与专业建议，并说明推荐理由。';
+
+let curPreset = 0;
+
+function renderPresets(){
+  document.getElementById('modelPresets').innerHTML = PRESETS.map((p,i)=>
+    `<span class="mp-chip ${i===curPreset?'on':''}" onclick="pickPreset(${i})">${p.name}</span>`
+  ).join('');
+}
+
+function pickPreset(i){
+  curPreset = i;
+  renderPresets();
+  const p = PRESETS[i];
+  if(p.model) document.getElementById('modelName').value = p.model;
+  if(p.base) document.getElementById('baseUrl').value = p.base;
+  if(i === PRESETS.length-1){
+    document.getElementById('modelName').value = '';
+    document.getElementById('baseUrl').value = '';
+    document.getElementById('modelName').focus();
+  }
+}
+
+/* ================================================================
+   保存 / 读取 / 重置
+   ================================================================ */
+function saveConfig(){
+  const model = document.getElementById('modelName').value.trim();
+  const key = document.getElementById('apiKey').value.trim();
+  const base = document.getElementById('baseUrl').value.trim().replace(/\/+$/,'');
+  const sys = document.getElementById('sysPrompt').value.trim() || DEFAULT_SYS;
+
+  if(!model){ showToast('请填写模型名称'); return; }
+  if(!base){ showToast('请填写 Base URL'); return; }
+
+  const cfg = {model, key, base, sys};
+  try{ localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); }catch(e){}
+  hideConnStatus();
+  showToast('✅ 配置已保存');
+}
+
+function loadConfig(){
+  try{
+    const raw = localStorage.getItem(CFG_KEY);
+    if(!raw){
+      // 默认选中本地代理
+      pickPreset(0);
+      return;
+    }
+    const cfg = JSON.parse(raw);
+    document.getElementById('modelName').value = cfg.model || '';
+    document.getElementById('apiKey').value = cfg.key || '';
+    document.getElementById('baseUrl').value = cfg.base || '';
+    document.getElementById('sysPrompt').value = cfg.sys || '';
+    const idx = PRESETS.findIndex(p => p.model===cfg.model && p.base===cfg.base);
+    curPreset = idx >= 0 ? idx : PRESETS.length - 1;
+    renderPresets();
+  }catch(e){}
+}
+
+function resetConfig(){
+  if(!confirm('确定重置所有配置吗？')) return;
+  try{ localStorage.removeItem(CFG_KEY); }catch(e){}
+  document.getElementById('modelName').value = '';
+  document.getElementById('apiKey').value = '';
+  document.getElementById('baseUrl').value = '';
+  document.getElementById('sysPrompt').value = '';
+  curPreset = 0; renderPresets();
+  hideConnStatus();
+  showToast('已重置');
+}
+
+function toggleKey(){
+  const el = document.getElementById('apiKey');
+  el.type = el.type==='password' ? 'text' : 'password';
+}
+
+/* ================================================================
+   后端状态检测
+   ================================================================ */
+async function checkBackend(){
+  const base = (document.getElementById('baseUrl').value.trim() || 'http://localhost:8011').replace(/\/+$/,'');
+  const panel = document.getElementById('backendPanel');
+  const dot = document.getElementById('backendDot');
+  const detail = document.getElementById('backendDetail');
+
+  panel.style.display = 'block';
+  dot.style.background = '#FFB347';
+  detail.textContent = '正在探测 ' + base + ' ...';
+
+  const t0 = Date.now();
+  try{
+    const res = await fetch(base + '/', { method:'GET' });
+    const dt = Date.now() - t0;
+    if(res.ok){
+      const data = await res.json();
+      dot.style.background = '#2DA44E';
+      detail.innerHTML = `✅ <b style="color:#2DA44E">后端运行中</b>（${dt}ms）<br>
+        服务名：${data.service || 'Recall Backend'}<br>
+        版本：${data.version || '-'}<br>
+        时间：${data.time || '-'}`;
+    } else {
+      dot.style.background = '#FF6B6B';
+      detail.innerHTML = `❌ 返回异常 HTTP ${res.status}`;
+    }
+  }catch(e){
+    dot.style.background = '#FF6B6B';
+    const isFile = location.protocol === 'file:';
+    detail.innerHTML = `❌ 连不上：${e.message}<br><br>
+      <b style="color:var(--danger)">最常见原因：用 file:// 双击打开了页面</b><br>
+      • 浏览器会拦截 file:// 页面对后端 http:// 的请求（Failed to fetch）<br>
+      • <b>正确做法</b>：用 <code>http://localhost:8011/pages/Recall_API设置.html</code> 打开<br>
+      • 双击 <code>backend\\start.bat</code> 启动后会自动打开正确地址<br>
+      ${isFile ? '<br>👆 你当前正是 file:// 打开，请切到上面的地址。' : '• 或后端没启动 / Base URL 填错'}`;
+  }
+}
+
+// 启动时自动探测一次（不展开面板）
+window.addEventListener('load', async () => {
+  setTimeout(async () => {
+    try{
+      const res = await fetch('http://localhost:8011/', { method:'GET' });
+      if(res.ok){
+        document.getElementById('backendPanel').style.display = 'block';
+        document.getElementById('backendDot').style.background = '#2DA44E';
+        document.getElementById('backendDetail').innerHTML = '✅ 后端已自动启动并响应';
+      }
+    }catch(e){ /* 不动，保持隐藏 */ }
+  }, 600);
+});
+
+/* ================================================================
+   测试连接 -> 本地后端 /api/test
+   ================================================================ */
+function showConnStatus(type, text){
+  const s = document.getElementById('connStatus');
+  s.className = 'conn-status ' + type;
+  document.getElementById('connStatusText').textContent = text;
+}
+function hideConnStatus(){
+  document.getElementById('connStatus').className = 'conn-status hidden';
+}
+
+async function testConnection(){
+  const model = document.getElementById('modelName').value.trim();
+  let base = document.getElementById('baseUrl').value.trim().replace(/\/+$/,'');
+
+  if(!model){ showToast('请填写模型名称'); return; }
+  if(!base){ showToast('请填写 Base URL'); return; }
+
+  showConnStatus('testing', '正在连接本地后端…');
+
+  try{
+    const res = await fetch(base + '/api/test', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({model, base_url: base})
+    });
+
+    if(res.ok){
+      const data = await res.json();
+      showConnStatus('ok', '✅ ' + (data.message || '连接成功') + '（模型：' + model + '）');
+      showToast('✅ 连接成功');
+    } else {
+      let detail = '';
+      try{
+        const e = await res.json();
+        detail = e.detail || JSON.stringify(e);
+      }catch(_){ detail = await res.text(); }
+      showConnStatus('fail', '❌ 连接失败（' + res.status + '）：' + detail.slice(0,120));
+    }
+  }catch(e){
+    showConnStatus('fail', '❌ 连不上本地后端：' + e.message + '。请先运行 python main.py');
+  }
+}
+
+/* ================================================================
+   Toast
+   ================================================================ */
+let _t;
+function showToast(msg){
+  let t = document.getElementById('toast');
+  if(!t){
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-100px);background:linear-gradient(135deg,#5B8DEF,#7FA8F5);color:#fff;padding:13px 26px;border-radius:99px;font-size:13.5px;font-weight:600;box-shadow:0 10px 30px rgba(91,141,239,.4);z-index:200;transition:.3s;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(_t);
+  _t = setTimeout(()=>{ t.style.transform='translateX(-50%) translateY(-100px)'; }, 2500);
+}
+
+/* 初始化 */
+if(location.protocol === 'file:'){
+  document.getElementById('fileWarn').style.display = 'block';
+}
+renderPresets();
+loadConfig();
+
+/* 帮助浮层 */
+function showHelpTip(el){
+  const tip=document.getElementById('helpTip');
+  if(!tip) return;
+  tip.style.display=tip.style.display!=='none'?'none':'block';
+  if(tip.style.display==='block'){ setTimeout(()=>{ document.addEventListener('click',function h(e){ if(e.target.closest('#helpTip')||e.target.classList.contains('help-float')) return; tip.style.display='none'; document.removeEventListener('click',h); }); },10); }
+}
+</script>
+</body>
+</html>

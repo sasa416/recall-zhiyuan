@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recall · 性格与职业倾向测评</title>
+<link rel="stylesheet" href="recall-ui.css" />
+<style>
+  body{background:
+    radial-gradient(900px 400px at 10% -5%, #E3F0FC 0%, transparent 55%),
+    radial-gradient(800px 360px at 95% 0%, #FFF3E2 0%, transparent 50%), var(--bg)}
+  .quiz-wrap{max-width:700px;margin:0 auto;padding:34px 24px 60px}
+  .step-meta{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--sub);margin-bottom:8px}
+  .dim-tag{font-size:11.5px;color:var(--main);background:#EDF5FC;padding:4px 12px;border-radius:99px;font-weight:600}
+  .quiz-card{margin-top:18px;padding:30px 32px}
+  .q{margin-bottom:26px}
+  .q p{font-size:15px;font-weight:600;margin-bottom:14px}
+  .q p .qn{color:var(--main);margin-right:8px;font-weight:800}
+  .q p .qdim{font-size:11px;color:var(--sub);font-weight:500;margin-left:10px;background:#F1F7FD;padding:2px 10px;border-radius:99px}
+  .scale{display:flex;justify-content:space-between;align-items:center;gap:6px}
+  .scale .lab{font-size:11.5px;color:var(--sub);width:64px}
+  .dots{display:flex;gap:14px;flex:1;justify-content:center}
+  .dot{width:26px;height:26px;border-radius:50%;border:2.5px solid var(--line);background:#fff;cursor:pointer;transition:.15s}
+  .dot:hover{border-color:var(--sec);transform:scale(1.12)}
+  .dot.on{border-color:var(--main);background:var(--main);box-shadow:0 4px 12px rgba(91,141,239,.4)}
+  .quiz-actions{display:flex;justify-content:space-between;margin-top:8px}
+  .note{margin-top:18px;font-size:12px;color:var(--sub);background:#F6FAFD;border:1px dashed var(--sec);border-radius:12px;padding:12px 14px;line-height:1.8}
+  /* 结果页 */
+  .result{display:none}
+  .result-head{text-align:center;margin-bottom:22px}
+  .result-head h2{font-size:22px;margin-bottom:6px}
+  .result-head .sub{color:var(--sub);font-size:13px}
+  .radar-box{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;margin:10px 0 20px}
+  .r-dim .dim{display:flex;justify-content:space-between;font-size:12.5px;color:var(--sub);margin-bottom:5px}
+  .r-dim .dim b{color:var(--ink)}
+  .r-dim .dim.top{color:var(--main)}
+  .r-dim .dim.top b{color:var(--main)}
+  .r-dim .progress{margin-bottom:12px}
+  .persona-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:18px 0 22px}
+  .p-card{border-radius:16px;padding:16px;text-align:center;border:1.5px solid var(--line);background:#fff}
+  .p-card.hl{border-color:var(--main);background:#F6FAFD;box-shadow:0 8px 22px rgba(91,141,239,.12)}
+  .p-card .pc-icon{font-size:28px;margin-bottom:6px}
+  .p-card .pc-type{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+  .p-card .pc-desc{font-size:11.5px;color:var(--sub);line-height:1.6}
+  .keywords{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:22px}
+  .keywords span{font-size:12px;color:#B27A1F;background:#FFF9EE;border:1px dashed rgba(255,179,71,.5);padding:5px 13px;border-radius:99px}
+  .fit-hint{font-size:12.5px;color:var(--sub);background:#F6FAFD;border-radius:12px;padding:14px 16px;line-height:1.9;margin-bottom:22px}
+  .fit-hint b{color:var(--ink)}
+  @media (max-width:640px){.radar-box{grid-template-columns:1fr}.persona-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="logo" href="Recall_主页.html"><span class="logo-badge">✨</span>Recall</a>
+    <nav class="nav">
+      <a href="Recall_主页.html">主页</a>
+      <a href="Recall_测评.html" class="on">性格测评</a>
+      <a href="Recall_推荐详情.html">推荐详情</a>
+      <a href="Recall_方案管理.html">方案管理</a>
+      <a href="Recall_AI答疑.html">AI 答疑</a>
+      <a href="Recall_API设置.html">API 设置</a>
+    </nav>
+    <span class="plan-ind">当前方案：<b>A-610分留省内</b></span>
+  </div>
+</header>
+
+<div class="quiz-wrap">
+  <div class="step-meta">
+    <span id="stepLabel">Step 1 / 6</span>
+    <span class="dim-tag" id="dimTag">现实型 · 研究型 · 艺术型</span>
+  </div>
+  <div class="progress"><i id="bar" style="width:16%"></i></div>
+
+  <!-- ===== 测评题 ===== -->
+  <section class="card quiz-card" id="quizView">
+    <div id="questions"></div>
+    <div class="quiz-actions">
+      <button class="btn btn-o" id="btnPrev">← 上一步</button>
+      <button class="btn btn-p" id="btnNext">下一步 →</button>
+    </div>
+    <div class="note">📘 测评说明：本测评基于<strong>霍兰德职业兴趣理论</strong>，共 18 题、约 4 分钟完成，从「现实 / 研究 / 艺术 / 社会 / 企业 / 常规」六个维度刻画你的职业性格，结果将用于专业匹配推荐。答案没有对错，凭直觉选择即可。</div>
+  </section>
+
+  <!-- ===== 结果页 ===== -->
+  <section class="card quiz-card result" id="resultView">
+    <div class="result-head">
+      <h2>🎉 你的性格画像已生成</h2>
+      <p class="sub" id="resultSub">研究型 I ＋ 艺术型 A</p>
+    </div>
+
+    <div class="radar-box">
+      <svg id="radarSvg" viewBox="0 0 400 340" style="width:100%"></svg>
+      <div class="r-dim" id="dimBars"></div>
+    </div>
+
+    <div class="persona-cards" id="personaCards"></div>
+
+    <div class="keywords" id="keywords"></div>
+
+    <div class="fit-hint" id="fitHint"></div>
+
+    <a class="btn btn-p" href="Recall_主页.html" style="display:flex;justify-content:center;padding:15px;font-size:15px">开始智能推荐 →</a>
+  </section>
+</div>
+
+<button class="help-float" title="使用帮助" onclick="showHelpTip(this)">?</button>
+
+<div id="helpTip" style="display:none;position:fixed;right:78px;bottom:28px;width:280px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 16px 40px rgba(30,41,59,.15);z-index:65;font-size:12.5px;line-height:1.8;color:var(--sub)">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <b style="font-size:13.5px;color:var(--ink)">📖 测评帮助</b>
+    <button onclick="document.getElementById('helpTip').style.display='none'" style="font-size:16px;color:var(--sub);background:none;border:none;cursor:pointer;padding:2px 6px">✕</button>
+  </div>
+  <p style="margin-bottom:6px">• 共 <b>18 题</b>，分 6 步完成，约 4 分钟</p>
+  <p style="margin-bottom:6px">• 每题选 1–5 分（非常不同意 → 非常同意）</p>
+  <p style="margin-bottom:6px">• 结果自动保存到主页画像卡</p>
+  <p>• 基于<b>霍兰德职业兴趣理论</b>六维评估</p>
+</div>
+
+<script>
+/* ================================================================
+   18 题：霍兰德六型 × 3 题
+   ================================================================ */
+const DIMS = [
+  {key:'R', name:'现实型 Realistic', icon:'🔧', desc:'喜欢动手操作、户外与工具机械，务实可靠', kws:['动手能力','户外','机械','工程','体能']},
+  {key:'I', name:'研究型 Investigative', icon:'🔬', desc:'喜欢分析、探究与解决难题，理性好奇', kws:['分析','探究','逻辑','实验','创新']},
+  {key:'A', name:'艺术型 Artistic', icon:'🎨', desc:'喜欢创造、表达与审美，自由开放', kws:['创造','表达','设计','美学','想象']},
+  {key:'S', name:'社会型 Social', icon:'🤝', desc:'喜欢助人、教学与沟通，温暖共情', kws:['助人','教学','沟通','公益','倾听']},
+  {key:'E', name:'企业型 Enterprising', icon:'🚀', desc:'喜欢领导、说服与经营，自信进取', kws:['领导','谈判','经营','竞争','冒险']},
+  {key:'C', name:'常规型 Conventional', icon:'📊', desc:'喜欢秩序、数据与细致工作，严谨可靠', kws:['细致','数据','规范','条理','稳定']}
+];
+
+const QUESTIONS = [
+  // 现实型 R ×3
+  {q:"我喜欢动手组装、修理或操作工具", dim:'R'},
+  {q:"比起在室内办公，我更喜欢户外活动", dim:'R'},
+  {q:"我做事讲究实际效果，不太喜欢空谈", dim:'R'},
+  // 研究型 I ×3
+  {q:"我喜欢独立完成复杂的分析任务", dim:'I'},
+  {q:"我对事物背后的原理和规律充满好奇", dim:'I'},
+  {q:"遇到问题我喜欢先研究清楚再行动", dim:'I'},
+  // 艺术型 A ×3
+  {q:"我常会冒出新的创意点子并想动手实现", dim:'A'},
+  {q:"我喜欢绘画、音乐、写作等创作活动", dim:'A'},
+  {q:"我注重美感，对颜色、排版、氛围敏感", dim:'A'},
+  // 社会型 S ×3
+  {q:"我享受帮助他人解决问题", dim:'S'},
+  {q:"我擅长倾听，朋友常找我倾诉", dim:'S'},
+  {q:"我喜欢参与团队合作并照顾他人感受", dim:'S'},
+  // 企业型 E ×3
+  {q:"我喜欢带领别人一起完成任务", dim:'E'},
+  {q:"我有较强的说服力，能影响他人观点", dim:'E'},
+  {q:"我对商业、经营、创业的话题感兴趣", dim:'E'},
+  // 常规型 C ×3
+  {q:"我喜欢有条理地整理资料和数据", dim:'C'},
+  {q:"我喜欢按既定流程规范地完成工作", dim:'C'},
+  {q:"我做事细心，注重细节和准确性", dim:'C'}
+];
+
+const PER_STEP = 3;
+const TOTAL = Math.ceil(QUESTIONS.length / PER_STEP); // 6 步
+const STEP_DIM = [
+  ['现实型 R','研究型 I','艺术型 A'],
+  ['社会型 S','企业型 E','常规型 C']
+];
+
+let step = 0;
+const answers = new Array(QUESTIONS.length).fill(0);
+
+function renderStep(){
+  document.getElementById('stepLabel').textContent = `Step ${step+1} / ${TOTAL}`;
+  document.getElementById('bar').style.width = ((step+1)/TOTAL*100) + '%';
+
+  // 本步涉及的维度标签
+  const qs = QUESTIONS.slice(step*PER_STEP, step*PER_STEP+PER_STEP);
+  const dims = [...new Set(qs.map(x=>x.dim))].map(d =>
+    DIMS.find(x=>x.key===d).name.split(' ')[0]).join(' · ');
+  document.getElementById('dimTag').textContent = dims;
+
+  document.getElementById('questions').innerHTML = qs.map((item,i)=>{
+    const gi = step*PER_STEP+i;
+    const dim = DIMS.find(x=>x.key===item.dim);
+    return `<div class="q">
+      <p><span class="qn">Q${gi+1}</span>${item.q}<span class="qdim">${dim.name.split(' ')[0]}</span></p>
+      <div class="scale">
+        <span class="lab">非常不同意</span>
+        <div class="dots">${[1,2,3,4,5].map(v=>
+          `<span class="dot ${answers[gi]===v?'on':''}" onclick="pick(${gi},${v})"></span>`).join('')}</div>
+        <span class="lab" style="text-align:right">非常同意</span>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('btnPrev').disabled = step===0;
+  document.getElementById('btnNext').textContent = step===TOTAL-1 ? '完成测评 ✓' : '下一步 →';
+}
+function pick(gi,v){ answers[gi]=v; renderStep(); }
+document.getElementById('btnPrev').onclick = ()=>{ if(step>0){step--; renderStep();} };
+document.getElementById('btnNext').onclick = ()=>{
+  const need = QUESTIONS.slice(step*PER_STEP, step*PER_STEP+PER_STEP).length;
+  const got = answers.slice(step*PER_STEP, step*PER_STEP+PER_STEP).filter(v=>v>0).length;
+  if(got<need){ showToast('⚠️ 请先回答本页所有题目'); return; }
+  if(step<TOTAL-1){ step++; renderStep(); }
+  else { showResult(); }
+};
+
+/* ================================================================
+   结果计算：六维得分 → 画像
+   ================================================================ */
+function showResult(){
+  document.getElementById('quizView').style.display='none';
+  document.getElementById('resultView').style.display='block';
+  document.getElementById('stepLabel').textContent='测评完成';
+  document.getElementById('bar').style.width='100%';
+
+  // 各维度平均分（1–5 分 → 0–100%）
+  const scores = {};
+  DIMS.forEach(d => {
+    const idxs = QUESTIONS.map((x,i)=>x.dim===d.key?i:-1).filter(i=>i>=0);
+    const sum = idxs.reduce((s,i)=>s+answers[i],0);
+    scores[d.key] = Math.round((sum / idxs.length - 1) / 4 * 100);
+  });
+
+  // 排序取前两名
+  const sorted = [...DIMS].sort((a,b)=>scores[b.key]-scores[a.key]);
+  const top1 = sorted[0], top2 = sorted[1];
+
+  // 结果副标题
+  document.getElementById('resultSub').innerHTML =
+    `${top1.name.split(' ')[0]}型 ${top1.key} ＋ ${top2.name.split(' ')[0]}型 ${top2.key}` +
+    `<span style="display:block;margin-top:8px;font-size:12px;color:var(--main);font-weight:600">✅ 画像已保存到你的主页（刷新主页即可看到更新）</span>`;
+
+  // 雷达图（动态）
+  renderRadar(scores);
+
+  // 维度进度条
+  document.getElementById('dimBars').innerHTML = DIMS.map(d => {
+    const isTop = d.key===top1.key || d.key===top2.key;
+    return `<div class="dim ${isTop?'top':''}">
+      <span>${d.icon} ${d.name}</span><b>${scores[d.key]}%</b>
+    </div><div class="progress"><i style="width:${scores[d.key]}%;${isTop?'background:linear-gradient(90deg,#5B8DEF,#FFB347)':''}"></i></div>`;
+  }).join('');
+
+  // 人格卡片（前3）
+  document.getElementById('personaCards').innerHTML = sorted.slice(0,3).map((d,i)=>{
+    const hl = i<2 ? 'hl' : '';
+    return `<div class="p-card ${hl}">
+      <div class="pc-icon">${d.icon}</div>
+      <div class="pc-type">${d.name.split(' ')[0]}型 ${d.key} · ${scores[d.key]}%</div>
+      <div class="pc-desc">${d.desc}</div>
+    </div>`;
+  }).join('');
+
+  // 关键词
+  document.getElementById('keywords').innerHTML =
+    [...new Set([...top1.kws, ...top2.kws])].slice(0,6).map(k=>`<span># ${k}</span>`).join('');
+
+  // 专业匹配提示
+  const MATCH = {
+    R:['机械工程','土木工程','电气工程','运动训练','测绘'],
+    I:['心理学','物理学','计算机科学','生物科学','数学','医学'],
+    A:['建筑设计','工业设计','视觉传达','数字媒体艺术','汉语言文学'],
+    S:['教育学','护理学','社会工作','新闻传播','心理学(咨询)'],
+    E:['工商管理','市场营销','金融学','国际经济与贸易','电子商务'],
+    C:['会计学','财务管理','审计学','档案管理','人力资源']
+  };
+  const recMajors = [...new Set([...MATCH[top1.key], ...MATCH[top2.key]])].slice(0,6);
+  document.getElementById('fitHint').innerHTML =
+    `🧭 <b>推荐专业方向：</b>${recMajors.join('、')}<br>` +
+    `你的核心特质是<strong>「${top1.name.split(' ')[0]}型+${top2.name.split(' ')[0]}型」</strong>，匹配逻辑：${top1.desc}；${top2.desc}。<br>` +
+    `下一步：结合你的分数与学科成绩，AI 将生成「分数+性格」多维推荐方案。`;
+
+  // 写入画像到 localStorage（主页读取）
+  try{
+    localStorage.setItem('recall_persona', JSON.stringify({
+      label: `${top1.key}${top2.key}`, top: [top1.key, top2.key], scores
+    }));
+  }catch(e){}
+}
+
+/* ====== 动态雷达图 ====== */
+function renderRadar(scores){
+  const cx=200, cy=170, R=100;
+  const keys = ['R','I','A','S','E','C'];
+  const n = keys.length;
+  const ang = (i)=> -Math.PI/2 + i*2*Math.PI/n;
+  const pt = (i,r)=> `${cx+r*Math.cos(ang(i))},${cy+r*Math.sin(ang(i))}`;
+
+  // 网格
+  let grid = '';
+  [0.33,0.66,1].forEach(frac=>{
+    grid += `<polygon points="${keys.map((k,i)=>pt(i,R*frac)).join(' ')}" fill="none" stroke="#E6EEF6" stroke-width="1.5"/>`;
+  });
+  keys.forEach((k,i)=>{ grid += `<line x1="${cx}" y1="${cy}" x2="${pt(i,R).split(',')[0]}" y2="${pt(i,R).split(',')[1]}" stroke="#E6EEF6"/>`; });
+
+  // 数据多边形
+  const dataPts = keys.map((k,i)=>pt(i, Math.max(6, scores[k]/100*R))).join(' ');
+  const dotPts = keys.map((k,i)=>{
+    const p = pt(i, Math.max(6, scores[k]/100*R)).split(',');
+    return `<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#fff" stroke="#5B8DEF" stroke-width="2.5"/>`;
+  }).join('');
+
+  // 标签（含分值）
+  const labels = keys.map((k,i)=>{
+    const [x,y] = pt(i,R+26).split(',').map(Number);
+    const anchor = Math.abs(x-cx)<8 ? 'middle' : (x>cx?'start':'end');
+    return `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="12.5" fill="#64748B">${DIMS.find(d=>d.key===k).name.split(' ')[0]} ${scores[k]}%</text>`;
+  }).join('');
+
+  document.getElementById('radarSvg').innerHTML = grid +
+    `<polygon points="${dataPts}" fill="rgba(91,141,239,.22)" stroke="#5B8DEF" stroke-width="2.5"/>` + dotPts + labels;
+}
+
+renderStep();
+
+/* 帮助浮层 */
+function showHelpTip(el){
+  const tip=document.getElementById('helpTip');
+  if(!tip) return;
+  tip.style.display=tip.style.display!=='none'?'none':'block';
+  if(tip.style.display==='block'){ setTimeout(()=>{ document.addEventListener('click',function h(e){ if(e.target.closest('#helpTip')||e.target.classList.contains('help-float')) return; tip.style.display='none'; document.removeEventListener('click',h); }); },10); }
+}
+
+/* 轻提示 */
+let _toastT;
+function showToast(msg){
+  let t = document.getElementById('toast') || (()=>{
+    const el=document.createElement('div'); el.id='toast';
+    el.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%)translateY(-100px);background:linear-gradient(135deg,var(--main),#7FA8F5);color:#fff;padding:12px 24px;border-radius:99px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(91,141,239,.4);z-index:200;transition:.3s;pointer-events:none';
+    document.body.appendChild(el); return el;
+  })();
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(_toastT); _toastT=setTimeout(()=>t.classList.remove('show'),2200);
+}
+</script>
+</body>
+</html>

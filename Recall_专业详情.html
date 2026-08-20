@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>专业详情 · Recall</title>
+<link rel="stylesheet" href="recall-ui.css">
+<style>
+.page{max-width:860px;margin:24px auto 50px;padding:0 18px}
+/* 面包屑 */
+.crumb{font-size:12.5px;color:var(--sub);margin-bottom:16px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.crumb a{color:var(--main);text-decoration:none}
+.crumb a:hover{text-decoration:underline}
+
+/* 头部卡片 */
+.detail-hero{
+  background:var(--card);border:1px solid var(--line);border-radius:22px;
+  padding:24px 26px;box-shadow:0 8px 28px rgba(30,41,59,.05);margin-bottom:18px
+}
+.dh-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.dh-title{font-size:23px;font-weight:700;color:var(--ink);margin:0}
+.dh-sub{font-size:13px;color:var(--sub);margin-top:8px}
+.dh-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600}
+.tag-blue{background:#EDF5FC;color:var(--main)}
+.tag-orange{background:#FFF3E2;color:#E08A1E}
+.tag-green{background:#EEFAF0;color:#2DA44E}
+.tag-gray{background:#F1F5F9;color:#64748B}
+.tag-red{background:#FFF1F1;color:#E25555}
+.dh-actions{display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.btn-s{
+  padding:11px 18px;border-radius:13px;font-size:13px;font-weight:600;cursor:pointer;
+  background:linear-gradient(135deg,var(--main),#7FA8F5);color:#fff;border:none;
+  box-shadow:0 6px 18px rgba(91,141,239,.28);transition:.18s;white-space:nowrap
+}
+.btn-s:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(91,141,239,.38)}
+.btn-o{
+  padding:11px 18px;border-radius:13px;font-size:13px;font-weight:600;cursor:pointer;
+  background:#F6FAFD;color:var(--main);border:1.5px solid var(--line);transition:.15s;white-space:nowrap
+}
+.btn-o:hover{background:#EDF5FC;border-color:var(--sec)}
+
+/* 信息条 */
+.factbar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.fact{background:#FAFCFF;border:1px solid #E6EEF6;border-radius:14px;padding:14px 16px}
+.fact .fk{font-size:11.5px;color:var(--sub);margin-bottom:6px}
+.fact .fv{font-size:15px;font-weight:700;color:var(--ink)}
+.fact .fv small{font-size:11px;font-weight:500;color:var(--sub)}
+
+/* 区块 */
+.section{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:22px 24px;margin-bottom:16px;box-shadow:0 6px 22px rgba(30,41,59,.04)
+}
+.section h3{font-size:16px;color:var(--ink);margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.section h3 .ic{font-size:18px}
+.sec-body{font-size:13.5px;line-height:1.85;color:#334155}
+.sec-body p{margin:0 0 10px}
+.sec-body p:last-child{margin-bottom:0}
+.sec-body b{color:var(--ink)}
+
+/* 课程 chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip-c{background:#F6FAFD;color:var(--main);border:1px solid #E1ECF8;
+  padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:500}
+
+/* 学费强调 */
+.fee-box{
+  background:linear-gradient(135deg,#FFF8EE,#FFF3E2);border:1px solid #FFE3BE;
+  border-radius:14px;padding:16px 18px;margin-top:4px
+}
+.fee-big{font-size:26px;font-weight:800;color:#E08A1E;line-height:1.1}
+.fee-note{font-size:11.5px;color:#B27A1F;margin-top:8px;line-height:1.6}
+
+/* 前景评估条 */
+.bars{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.bar-row{display:flex;align-items:center;gap:12px}
+.bar-row .bl{width:78px;font-size:12.5px;color:var(--sub);flex-shrink:0}
+.bar-track{flex:1;height:9px;background:#EEF3F8;border-radius:99px;overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;background:linear-gradient(135deg,var(--main),#7FA8F5)}
+.bar-row .bv{width:42px;text-align:right;font-size:13px;font-weight:700;color:var(--ink)}
+
+/* 适配度 */
+.fit-pill{display:inline-flex;align-items:center;gap:6px;background:#EEFAF0;color:#2DA44E;
+  padding:5px 13px;border-radius:999px;font-size:13px;font-weight:700}
+
+@media(max-width:640px){
+  .factbar{grid-template-columns:1fr}
+  .dh-actions{flex-direction:row;width:100%}
+  .dh-actions .btn-s,.dh-actions .btn-o{flex:1}
+}
+</style>
+</head>
+<body>
+
+<!-- file:// 警告 -->
+<div id="fileWarn" style="display:none;background:#FFF1F1;border-bottom:1px solid #FFD2D2;color:#C0392B;font-size:12.5px;padding:11px 20px;text-align:center;line-height:1.7">
+  ⚠️ 检测到你用 <b>file://</b> 方式打开本页面，数据读取可能异常。<br>
+  请改用 <b>http://localhost:8011/pages/Recall_专业详情.html</b> 访问 —— 双击 <code>backend\start.bat</code> 启动后会自动打开。
+</div>
+
+<!-- 顶栏（6 项导航，与全局一致） -->
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="Recall_主页.html" class="logo"><div class="logo-badge">R</div> Recall</a>
+    <nav class="nav">
+      <a href="Recall_主页.html">主页</a>
+      <a href="Recall_测评.html">性格测评</a>
+      <a href="Recall_推荐详情.html">推荐详情</a>
+      <a href="Recall_方案管理.html">方案管理</a>
+      <a href="Recall_AI答疑.html">AI 答疑</a>
+      <a href="Recall_API设置.html">API 设置</a>
+    </nav>
+    <span class="plan-ind">当前方案：<b>A · 610分</b></span>
+  </div>
+</header>
+
+<div class="page" id="app">
+  <div class="crumb">
+    <a href="Recall_主页.html">主页</a> ›
+    <a href="Recall_推荐详情.html">推荐详情</a> ›
+    <span id="crumbMajor">专业详情</span>
+  </div>
+  <div id="detailRoot">加载中…</div>
+</div>
+
+<!-- 悬浮帮助 -->
+<div class="help-float" title="使用帮助" onclick="showHelpTip(this)">?</div>
+<div id="helpTip" style="display:none;position:fixed;right:78px;bottom:28px;width:280px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 16px 40px rgba(30,41,59,.15);z-index:65;font-size:12.5px;line-height:1.8;color:var(--sub)">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <b style="font-size:13.5px;color:var(--ink)">📖 专业详情帮助</b>
+    <button onclick="document.getElementById('helpTip').style.display='none'" style="font-size:16px;color:var(--sub);background:none;border:none;cursor:pointer;padding:2px 6px">✕</button>
+  </div>
+  <p style="margin-bottom:6px">· 展示专业简介、核心课程、就业前景与学费</p>
+  <p style="margin-bottom:6px">· 点击「问 AI 这个专业」可带着上下文去答疑页</p>
+  <p>· 学费为参考区间，以院校当年招生章程为准</p>
+</div>
+
+<script>
+/* ========== 参数读取 ========== */
+const params = new URLSearchParams(location.search);
+const SCHOOL = params.get('school') || '未知院校';
+const MAJOR = params.get('major') || '专业';
+const SCORE = params.get('score') || null;
+
+/* ========== 院校类型 → 学费档位 ========== */
+const MINBAN = ['珠海科技学院','广州南方学院','广州城市理工学院','广东白云学院','广州软件学院','广州华商学院','广州工商学院','广州理工学院','广州科技职业技术大学','广东科技学院','广东理工学院','广东培正学院','广州商学院','广州应用科技学院','华南农业大学珠江学院','广东外语外贸大学南国商学院','电子科技大学中山学院','北京理工大学珠海学院','广州新华学院','广东东软学院','广州华立学院','湛江科技学院','广州工商职业技术大学','广州城建职业学院','广州南洋理工职业学院','广州涉外经济职业技术学院'];
+const HEBAN = ['香港中文大学（深圳）','香港科技大学（广州）','深圳北理莫斯科大学','北师浸会','广东以色列理工学院'];
+
+function schoolType(name){
+  if(HEBAN.some(s=>name.includes(s))) return 'heban';
+  if(MINBAN.some(s=>name.includes(s))) return 'minban';
+  return 'gongban';
+}
+
+/* ========== 专业分类 ========== */
+function detectCategory(n){
+  n = String(n).replace(/（[^（）]*）/g,'').replace(/\([^()]*\)/g,'').trim();
+  if(/临床|口腔|麻醉|医学影像|医学检验|预防医学|护理|中医|针灸|中西医|儿科学|基础医学|法医|康复|眼视光|助产|医学实验|卫生检验|精神医学|智能医学|医学技术|康复治疗/.test(n)) return '医学';
+  if(/药学|制药|药物|生物制药|中药|中草药|化妆品科学|化妆品技术/.test(n)) return '药学';
+  if(/计算机|软件|网络工程|物联网|数据科学|大数据|人工智能|智能科学|网络空间|信息安全|区块链|信息对抗|数字媒体技术|密码|虚拟现实/.test(n)) return '计算机';
+  if(/电子|通信|光电|信息工程|集成电路|微电子|电气|自动化|机械|土木|材料|化工|化学工程|环境|交通|车辆|能源|测绘|水利|地质|船舶|航海|轮机|港口|建筑|城乡|风景园林|安全|测控|仪器|工程力学|遥感|生物医学|生物工程|食品|纺织|石油|刑事科学|物证|智能制造|机器人|工程造价|工业工程|航空航天|核工程|智能建造|给排水|采矿|冶金|智能感知|工科|试验班|储能|光源|包装工程|微机电|无人驾驶|航空器|木材|汽车服务|油气储运|消防工程|焊接|环保设备|资源勘查|资源循环|过程装备|道路桥梁|数字印刷|印刷/.test(n)) return '工学';
+  if(/数学|物理|化学|统计|生物科学|应用物理|应用化学|心理学|地理|生态|大气|海洋|天文|力学|地球|系统科学|生物技术|生物信息|信息与计算科学|量子|应用气象|数理基础|数据计算/.test(n)) return '理学';
+  if(/师范|教育|学前|小学|思政|思想政治|科学教育|特殊教育|汉语国际|体育教育|马克思主义/.test(n)) return '教育';
+  if(/汉语言|汉语|文学|新闻|传播|广告|播音|编导|英语|俄语|日语|法语|德语|西班牙语|翻译|社会学|历史|哲学|语言学|网络与新媒体|广播电视|文化遗产|文物保护|秘书|意大利语|朝鲜语|葡萄牙语|档案|文物/.test(n)) return '人文';
+  if(/法学|法律|知识产权|监狱|信用|公安|侦查|治安|警务|司法|国际事务|社会工作|国际政治|政治学|国际法|国际经贸规则|禁毒|警犬/.test(n)) return '法学';
+  if(/经济|金融|国贸|国际商务|财政|税收|保险|投资|会计|财务|工商|市场|人力资源|物流|管理|电子商务|旅游|行政|公共|工程管理|信息管理与信息系统|审计|资产评估|文化产业|信用管理|劳动与社会保障|精算/.test(n)) return '经管';
+  if(/设计|美术|音乐|舞蹈|雕塑|绘画|摄影|书法|艺术|视觉|环境设计|产品|服装|表演|动画|数媒艺术|艺术与科技|戏剧|作曲|中国画/.test(n)) return '艺术';
+  if(/体育|运动|武术|休闲|社会体育|运动人体|运动训练/.test(n)) return '体育';
+  if(/农学|园艺|植物|动物|农业|林学|水产|种子|茶学|动物医学|兽医|蚕学|草业|园林|土地科学|牧业|森林保护|生物育种/.test(n)) return '农学';
+  return '其他';
+}
+
+/* ========== 分类知识库（简介/前景/课程） ========== */
+const LIB = {
+  '医学':{
+    intro:'临床医学类培养具备基础医学与临床医学理论、能在各级医院从事疾病诊断与治疗的临床医师。学制多数为五年，课程重理论与见习并重，毕业后需参加住院医师规范化培训。职业门槛高、培养周期长，但社会需求稳定、职业荣誉感强。',
+    prospect:'各级综合医院、专科医院、社区卫生服务中心是主要去向；亦可进入科研院所、医药企业、公共卫生系统。随着老龄化与分级诊疗推进，优质临床人才长期紧缺。广东考生留大湾区三甲医院竞争激烈，地市级医院与基层医疗空间较大。',
+    courses:['人体解剖学','生理学','生物化学','病理学','药理学','诊断学','内科学','外科学','妇产科学','儿科学'],
+    bars:{就业稳定性:92,薪资潜力:80,深造需求:88,地域适配:84}
+  },
+  '药学':{
+    intro:'药学类研究药物的研发、生产、质控与合理使用，涵盖化学药、中药、生物药三大方向。培养能在药企、医院药剂科、药检所从事药物开发、制剂、质检与药事服务的人才。',
+    prospect:'广东是全国医药产业重镇（广州、中山、深圳），制药企业与 CRO 机构密集，研发、注册、质检岗位需求旺。医院药剂科稳定但编制有限。近年生物制药、创新药方向薪资上升明显。',
+    courses:['药物化学','药剂学','药理学','药物分析','生药学','药事管理学','生物制药技术'],
+    bars:{就业稳定性:84,薪资潜力:78,深造需求:80,地域适配:88}
+  },
+  '计算机':{
+    intro:'计算机类专业以算法、系统与软件为核心，培养具备程序设计、数据结构、网络与系统能力的工程人才。是当前就业面最广、起薪最高的工科方向之一，也是人工智能时代的基础学科。',
+    prospect:'互联网、金融科技、智能制造、政务数字化均大量需求。广东（深圳、广州）IT 产业发达，开发与算法岗机会丰富。需注意行业周期性波动，持续学习能力强者长期受益。数学基础好者在算法、AI 方向更具优势。',
+    courses:['数据结构与算法','计算机组成原理','操作系统','计算机网络','数据库系统','软件工程','机器学习','编译原理'],
+    bars:{就业稳定性:82,薪资潜力:94,深造需求:70,地域适配:92}
+  },
+  '工学':{
+    intro:'工学大类覆盖机械、电子、电气、土木、化工、交通、建筑等实体产业方向，强调工程实践与系统设计能力，是制造业与基建的支柱。选科普遍要求物理，部分要求化学。',
+    prospect:'粤港澳大湾区先进制造、新能源、智能装备、低空经济等产业扩张，工程师需求稳。传统土建有所调整，但电气、自动化、电子信息、车辆（新能源）持续向好。就业地域性强，广东本地产业配套完整。',
+    courses:['工程制图','理论力学','材料力学','电路原理','自动控制原理','信号与系统','制造技术基础'],
+    bars:{就业稳定性:85,薪资潜力:80,深造需求:68,地域适配:86}
+  },
+  '理学':{
+    intro:'理学研究自然规律的基础学科，包括数学、物理、化学、生物、统计等。培养科研思维与建模能力，是进一步深造（硕博、交叉学科）的优质跳板，亦适配金融、数据、教研等方向。',
+    prospect:'纯基础研究岗位有限，多通过读研转向应用（统计→数据科学、数学→量化金融、生物→生物医药）。数学与统计在 AI 与金融科技中价值凸显。适合学术志向或计划跨考者，直接就业需补充应用技能。',
+    courses:['数学分析','高等代数','概率论','普通物理','有机化学','分子生物学','数理统计'],
+    bars:{就业稳定性:72,薪资潜力:78,深造需求:90,地域适配:80}
+  },
+  '教育':{
+    intro:'师范教育类培养中小学及学前教育师资，覆盖语文、数学、英语、物理等学科。强调教育理论与教学技能，需通过教师资格证与招考。公费师范、优师计划有定向就业政策。',
+    prospect:'教师职业稳定、社会认可度高、寒暑假完善，是理科/文科生常见优选。广东珠三角编制竞争大、待遇好；粤东西北需求多。需注意出生率下行对长期岗位的影响，综合素养与跨学科能力更受青睐。',
+    courses:['教育学原理','教育心理学','学科教学论','班级管理','教育技术应用','教师口语'],
+    bars:{就业稳定性:90,薪资潜力:68,深造需求:60,地域适配:82}
+  },
+  '人文':{
+    intro:'人文类涵盖汉语言、新闻传播、外语、历史等，培养文字表达、信息传播与跨文化沟通能力。文科核心方向，适配媒体、文案、外事、出版、公务员等。',
+    prospect:'新媒体、国际传播、跨境电商催生内容创作与外语复合岗。传统纸媒收缩，但融媒体运营、品牌传播、对外交流需求在增长。外语类受 AI 翻译冲击，需叠加专业领域（法律、商务、技术）提升壁垒。',
+    courses:['中国文学史','现代汉语','新闻采访写作','传播学概论','高级英语','跨文化交际'],
+    bars:{就业稳定性:70,薪资潜力:66,深造需求:62,地域适配:78}
+  },
+  '法学':{
+    intro:'法学类研习法律体系与实务，培养法律思维与辩论能力。通过法考是核心门槛，适配律师、法务、公检法、合规等。公安类另含体能体测要求。',
+    prospect:'法治建设与合规需求扩大，企业法务、知识产权、数据合规岗位增长。考公（法官、检察官、选调）是重要去向。法考通过率有限，行业分层明显，名校与实务能力决定上限。',
+    courses:['法理学','宪法学','民法学','刑法学','行政法与行政诉讼法','诉讼法学','国际法'],
+    bars:{就业稳定性:78,薪资潜力:76,深造需求:66,地域适配:80}
+  },
+  '经管':{
+    intro:'经管类包括金融、会计、工商、市场等，培养资源配置与商业运营能力。文理兼收，应用性强。数学基础影响金融工程、量化等方向上限。',
+    prospect:'大湾区金融（深圳前海、广州南沙）、跨境电商、制造业管理岗密集。会计、审计稳健；金融薪资高但波动大、门槛升。数字化使传统职能向数据分析转型，复合型人才更优。',
+    courses:['微观经济学','宏观经济学','会计学','财务管理','管理学原理','市场营销','计量经济学'],
+    bars:{就业稳定性:76,薪资潜力:80,深造需求:64,地域适配:86}
+  },
+  '艺术':{
+    intro:'艺术类专业含设计、美术、音乐、传媒等，强调创作与审美表达，多数需艺考（省统考/校考）。培养面向文创、互联网体验、空间与产品设计的创作者。',
+    prospect:'数字媒体、游戏、UI/UX、短视频等内容产业需求旺，广东游戏与设计产业领先。纯艺术岗位窄、自由职业多。需作品集与持续创作力，产业结合度决定就业质量。',
+    courses:['造型基础','设计概论','中外美术史','数字造型','版式设计','动态影像','用户研究'],
+    bars:{就业稳定性:64,薪资潜力:78,深造需求:58,地域适配:84}
+  },
+  '体育':{
+    intro:'体育学类培养体育教学、运动训练、健康指导人才，含体育教育、运动人体科学、休闲体育等。需体能与专项技能，部分方向偏理论。',
+    prospect:'学校体育教师、健身教练、赛事运营、体质健康管理是主要去向。全民健身与体教融合扩大需求，但编制有限、自由职业占比高。运动人体科学可跨医疗康复。',
+    courses:['运动生理学','运动训练学','体育心理学','田径/球类专项','运动营养学'],
+    bars:{就业稳定性:72,薪资潜力:64,深造需求:55,地域适配:76}
+  },
+  '农学':{
+    intro:'农学类研究作物、园艺、动物生产与农业生态，服务乡村振兴与现代农业。含动物医学（兽医）等热门方向，选科多要求物理/化学/生物。',
+    prospect:'现代农业、宠物医疗（动医）、种业、智慧农业兴起，广东园艺与水产特色明显。动医就业较好、宠物经济带动薪资。传统农学基层岗多，读研转向科研或交叉更具空间。',
+    courses:['植物生理学','遗传学','作物栽培学','园艺学','动物解剖生理学','兽医病理学'],
+    bars:{就业稳定性:74,薪资潜力:66,深造需求:70,地域适配:72}
+  },
+  '其他':{
+    intro:'该专业培养特定领域实务与复合能力，课程兼顾理论与应用，就业面向行业岗位与公共服务。',
+    prospect:'行业需求总体平稳，建议结合院校优势与地域产业选择，并提前补充实习与证书以提升竞争力。',
+    courses:['专业导论','学科基础','实务训练','综合实践'],
+    bars:{就业稳定性:72,薪资潜力:70,深造需求:62,地域适配:78}
+  }
+};
+
+/* ========== 学费计算 ========== */
+function feeInfo(type, cat){
+  // 艺术 / 医学类公办学费更高
+  const premium = (cat==='艺术' || cat==='医学' || cat==='药学');
+  if(type==='heban') return {min:95000, max:120000, label:'中外合办 / 特殊类'};
+  if(type==='minban'){
+    if(cat==='艺术') return {min:35000, max:55000, label:'民办本科'};
+    return {min:28000, max:49800, label:'民办本科'};
+  }
+  // 公办
+  if(cat==='艺术') return {min:10000, max:15000, label:'公办本科'};
+  if(premium) return {min:6960, max:10000, label:'公办本科（医学/药学类）'};
+  return {min:6060, max:8000, label:'公办本科'};
+}
+
+/* ========== 渲染 ========== */
+const cat = detectCategory(MAJOR);
+const info = LIB[cat];
+const stype = schoolType(SCHOOL);
+const fee = feeInfo(stype, cat);
+
+document.getElementById('crumbMajor').textContent = MAJOR;
+const root = document.getElementById('detailRoot');
+root.innerHTML = `
+  <div class="detail-hero">
+    <div class="dh-top">
+      <div>
+        <h1 class="dh-title">${MAJOR}</h1>
+        <div class="dh-sub">📍 ${SCHOOL}${SCORE?` · 该专业参考分 <b style="color:var(--main)">${SCORE}</b>`:''}</div>
+        <div class="dh-tags">
+          <span class="tag tag-blue">${cat}</span>
+          <span class="tag tag-orange">${stype==='gongban'?'公办本科':stype==='minban'?'民办本科':'中外合办'}</span>
+          <span class="tag tag-gray">${SCHOOL}</span>
+        </div>
+      </div>
+      <div class="dh-actions">
+        <button class="btn-s" onclick="askAIAbout()">🤖 问 AI 这个专业</button>
+        <button class="btn-o" onclick="saveMajor()">⭐ 收藏专业</button>
+      </div>
+    </div>
+    <div class="factbar">
+      <div class="fact"><div class="fk">所属学科门类</div><div class="fv">${cat}</div></div>
+      <div class="fact"><div class="fk">院校类型</div><div class="fv">${stype==='gongban'?'公办':stype==='minban'?'民办':'合办'}</div></div>
+      <div class="fact"><div class="fk">参考学费 / 年</div><div class="fv">¥${fee.min.toLocaleString()}–${fee.max.toLocaleString()}<small> 元</small></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3><span class="ic">📖</span>专业简介</h3>
+    <div class="sec-body"><p>${info.intro}</p></div>
+  </div>
+
+  <div class="section">
+    <h3><span class="ic">🧩</span>核心课程</h3>
+    <div class="chips">${info.courses.map(c=>`<span class="chip-c">${c}</span>`).join('')}</div>
+  </div>
+
+  <div class="section">
+    <h3><span class="ic">🚀</span>就业前景</h3>
+    <div class="sec-body"><p>${info.prospect}</p></div>
+    <div class="bars">
+      ${Object.entries(info.bars).map(([k,v])=>`
+        <div class="bar-row">
+          <div class="bl">${k}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${v}%"></div></div>
+          <div class="bv">${v}</div>
+        </div>`).join('')}
+    </div>
+  </div>
+
+  <div class="section">
+    <h3><span class="ic">💰</span>学费标准</h3>
+    <div class="fee-box">
+      <div class="fee-big">¥${fee.min.toLocaleString()} – ${fee.max.toLocaleString()} <span style="font-size:14px;font-weight:600">元 / 年</span></div>
+      <div class="fee-note">院校类型：${fee.label}。以上为参考区间，最终以《招生章程》与入学通知为准；中外合办、民办及艺术/医学类普遍高于普通公办专业。</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3><span class="ic">🧠</span>适配建议</h3>
+    <div class="sec-body">
+      <p>该专业属 <b>${cat}</b>。建议结合你的性格测评与学科优势判断是否匹配：</p>
+      <p>• 理工 / 医学 / 药学类普遍对<b>数学、物理、化学</b>有要求；若你数学偏弱，可在 AI 答疑中让我优先避开强数理专业。</p>
+      <p>• 经管 / 法学 / 人文类对数理要求相对低，更看重表达、记忆与逻辑。</p>
+      <p>• 想看更个性化的匹配，点右上角「问 AI 这个专业」，我会结合你的画像给出白盒归因建议。</p>
+    </div>
+  </div>
+`;
+
+/* ========== 交互 ========== */
+function askAIAbout(){
+  const q = `请结合我的画像，详细分析「${SCHOOL} · ${MAJOR}」这个专业：它的课程难度、数学要求、就业前景，以及是否适合我？用因为…所以…说明理由。`;
+  try{ localStorage.setItem('recall_prefill', q); }catch(e){}
+  location.href = 'Recall_AI答疑.html';
+}
+function saveMajor(){
+  let favs = [];
+  try{ favs = JSON.parse(localStorage.getItem('recall_fav_majors')||'[]'); }catch(e){}
+  const key = SCHOOL+' / '+MAJOR;
+  if(favs.includes(key)){ showToast('已收藏过该专业'); return; }
+  favs.push(key);
+  try{ localStorage.setItem('recall_fav_majors', JSON.stringify(favs)); }catch(e){}
+  showToast('⭐ 已收藏：'+key);
+}
+function showToast(msg){
+  let t = document.getElementById('toast');
+  if(!t){
+    t=document.createElement('div'); t.id='toast';
+    t.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%)translateY(-100px);background:linear-gradient(135deg,var(--main),#7FA8F5);color:#fff;padding:12px 24px;border-radius:99px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(91,141,239,.4);z-index:200;transition:.3s;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg; t.style.transform='translateX(-50%)translateY(0)';
+  clearTimeout(window.__tt); window.__tt=setTimeout(()=>t.style.transform='translateX(-50%)translateY(-100px)',2200);
+}
+
+/* file:// 警告 */
+if(location.protocol==='file:'){ document.getElementById('fileWarn').style.display='block'; }
+
+/* 帮助浮层 */
+function showHelpTip(el){
+  const tip=document.getElementById('helpTip');
+  if(!tip) return;
+  tip.style.display=tip.style.display!=='none'?'none':'block';
+  if(tip.style.display==='block'){ setTimeout(()=>{ document.addEventListener('click',function h(e){ if(e.target.closest('#helpTip')||e.target.classList.contains('help-float')) return; tip.style.display='none'; document.removeEventListener('click',h); }); },10); }
+}
+</script>
+</body>
+</html>

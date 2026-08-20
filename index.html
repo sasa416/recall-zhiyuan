@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recall · 原型入口</title>
+<link rel="stylesheet" href="recall-ui.css" />
+<style>
+  .wrap{max-width:760px;margin:0 auto;padding:48px 24px 60px}
+  .hero{text-align:center;margin-bottom:36px}
+  .hero .badge{font-size:34px}
+  .hero h1{font-size:28px;margin:10px 0 6px;color:var(--ink)}
+  .hero p{color:var(--sub);font-size:14px;line-height:1.7}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .card-link{display:block;text-decoration:none;padding:20px 22px;border-radius:16px;border:1.5px solid var(--line);background:#fff;transition:.18s;color:var(--ink)}
+  .card-link:hover{border-color:var(--main);box-shadow:0 8px 24px rgba(91,141,239,.16);transform:translateY(-2px)}
+  .card-link .t{font-size:15px;font-weight:700;margin-bottom:4px}
+  .card-link .d{font-size:12px;color:var(--sub);line-height:1.6}
+  .note{margin-top:32px;font-size:12.5px;color:var(--sub);background:#FFF9EE;border:1px dashed rgba(255,179,71,.45);border-radius:12px;padding:14px 18px;line-height:1.8}
+  .note b{color:#B27A1F}
+  .note code{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-family:monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="badge">✨</div>
+    <h1>Recall 志愿填报原型</h1>
+    <p>本地原型总入口。所有页面与后端同源，AI 答疑 / API 设置可直连真实模型。</p>
+  </div>
+
+  <div class="grid">
+    <a class="card-link" href="/pages/Recall_主页.html"><div class="t">🏠 主页</div><div class="d">画像卡、推荐概览、快速入口</div></a>
+    <a class="card-link" href="/pages/Recall_测评.html"><div class="t">🧠 性格测评</div><div class="d">18 题性格 + 学科优势评估</div></a>
+    <a class="card-link" href="/pages/Recall_推荐详情.html"><div class="t">🎯 推荐详情</div><div class="d">白盒归因的院校专业推荐</div></a>
+    <a class="card-link" href="/pages/Recall_方案管理.html"><div class="t">📋 方案管理</div><div class="d">多方案对比、编辑、新建</div></a>
+    <a class="card-link" href="/pages/Recall_AI答疑.html"><div class="t">💬 AI 答疑</div><div class="d">真实模型驱动的志愿填报问答</div></a>
+    <a class="card-link" href="/pages/Recall_API设置.html"><div class="t">🔌 API 设置</div><div class="d">配置 DeepSeek，测试连接</div></a>
+  </div>
+
+  <div class="note">
+    <b>正确打开方式：</b>本入口地址必须是 <code>http://localhost:8011/pages/index.html</code>。<br>
+    不要用 <code>file://</code> 双击 HTML 文件打开 —— 浏览器会拦截对后端的请求（Failed to fetch）。<br>
+    启动方式：双击 <code>backend\start.bat</code>，它会自动打开此页面。
+  </div>
+</div>
+</body>
+</html>

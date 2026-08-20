@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recall · 模拟推演与方案管理</title>
+<link rel="stylesheet" href="recall-ui.css" />
+<style>
+  .layout{display:grid;grid-template-columns:320px 1fr;gap:22px;align-items:start}
+  .plan-card{padding:16px 18px;margin-bottom:12px;cursor:pointer;transition:.18s;border:2px solid transparent}
+  .plan-card:hover{border-color:var(--sec)}
+  .plan-card.sel{border-color:var(--main);box-shadow:0 10px 26px rgba(91,141,239,.14)}
+  .plan-card .pc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .plan-card h4{font-size:14.5px}
+  .plan-card .pc-meta{font-size:12px;color:var(--sub);line-height:1.9}
+  .cur-badge{font-size:10.5px;background:linear-gradient(135deg,var(--main),#7FA8F5);color:#fff;padding:2px 9px;border-radius:99px;font-weight:700}
+  .pc-check{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:12px;color:var(--sub)}
+  .pc-check input{accent-color:var(--main);width:15px;height:15px}
+  /* 详情 */
+  .detail-card{padding:24px}
+  .d-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+  .d-top h2{font-size:18px}
+  .d-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .inherit-note{font-size:11.5px;color:var(--sub);margin-left:4px}
+  .d-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+  /* 对比视图 */
+  .compare-view{display:none}
+  .cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+  .cmp-col h4{font-size:14px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .cmp-item{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border:1px solid var(--line);border-radius:12px;margin-bottom:8px;font-size:13px;background:#fff}
+  .cmp-item.diff{background:#FFF9EE;border-color:#FFDCAE}
+  .cmp-item .tag{font-size:10.5px}
+  .cmp-legend{font-size:12px;color:var(--sub);margin-top:10px}
+  .cmp-legend i{display:inline-block;width:12px;height:12px;border-radius:4px;background:#FFF9EE;border:1px solid #FFDCAE;vertical-align:-2px;margin:0 5px 0 12px}
+  /* 弹窗 */
+  .form-row{margin-bottom:16px}
+  .form-row label{display:block;font-size:12.5px;color:var(--sub);margin-bottom:6px}
+  .form-row .inp{width:100%}
+  .err{font-size:11.5px;color:var(--danger);margin-top:5px;display:none}
+  /* 方案内推荐预览 */
+  .rec-preview{margin-top:14px;padding:14px;background:#FAFCFF;border:1px solid #E6EEF6;border-radius:14px}
+  .rec-preview h4{font-size:13.5px;margin-bottom:10px}
+  .rec-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-radius:9px;background:#fff;border:1px solid #E6EEF6;margin-bottom:6px;font-size:12.5px}
+  .rec-row:last-child{margin-bottom:0}
+  .rec-row .tag{font-size:10.5px}
+  .rec-row .rr-name{font-weight:600;color:var(--ink)}
+  .rec-row .rr-score{color:var(--main);font-weight:700}
+  .empty-mini{text-align:center;color:var(--sub);padding:18px;font-size:12.5px}
+  /* 成功提示 */
+  .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-100px);
+    background:linear-gradient(135deg,var(--main),#7FA8F5);color:#fff;padding:12px 24px;
+    border-radius:99px;font-size:13.5px;font-weight:600;box-shadow:0 10px 30px rgba(91,141,239,.4);
+    z-index:200;transition:.3s}
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  @media (max-width:900px){.layout{grid-template-columns:1fr}.cmp-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="logo" href="Recall_主页.html"><span class="logo-badge">✨</span>Recall</a>
+    <nav class="nav">
+      <a href="Recall_主页.html">主页</a>
+      <a href="Recall_测评.html">性格测评</a>
+      <a href="Recall_推荐详情.html">推荐详情</a>
+      <a href="Recall_方案管理.html" class="on">方案管理</a>
+      <a href="Recall_AI答疑.html">AI 答疑</a>
+      <a href="Recall_API设置.html">API 设置</a>
+    </nav>
+    <span class="plan-ind">当前方案：<b id="curInd">A-610分留省内</b></span>
+  </div>
+</header>
+
+<div class="page">
+  <div class="layout">
+
+    <!-- ===== 左：方案列表 ===== -->
+    <aside>
+      <div id="planList"></div>
+      <button class="btn btn-p" style="width:100%;justify-content:center;margin-bottom:10px" onclick="openCreateModal()">＋ 创建新方案</button>
+      <button class="btn btn-o" style="width:100%;justify-content:center" id="btnCompare" disabled>⚖️ 对比选中方案（选 2 个）</button>
+    </aside>
+
+    <!-- ===== 右：方案详情 ===== -->
+    <main>
+      <section class="card detail-card" id="detailView">
+        <div class="d-top">
+          <h2 id="dName">—</h2>
+          <div class="d-actions">
+            <button class="btn btn-o" onclick="openRenameModal()">✏️ 重命名</button>
+            <button class="btn btn-o" onclick="openEditParamModal()">📝 修改参数</button>
+            <button class="btn btn-o" onclick="copyPlan()">📋 复制</button>
+            <button class="btn btn-d" onclick="deletePlan()">🗑 删除</button>
+          </div>
+        </div>
+        <h5 style="font-size:12.5px;color:var(--sub);margin-bottom:8px">核心参数</h5>
+        <div class="chips" id="dChips"></div>
+        <p class="inherit-note" style="margin-bottom:18px">※ 性格标签继承自主画像，不可单独修改；修改请前往「性格测评」。</p>
+
+        <h5 style="font-size:12.5px;color:var(--sub);margin-bottom:8px">该方案下的推荐院校（<span id="dRecCount">0</span> 所）</h5>
+        <div class="rec-preview" id="dRecPreview"></div>
+
+        <div class="d-row" style="margin-top:22px">
+          <button class="btn btn-p" onclick="openCreateModal()">＋ 创建新版本</button>
+          <a class="btn btn-s" href="Recall_推荐详情.html">查看完整推荐详情 →</a>
+          <a class="btn btn-o" href="Recall_主页.html">← 回到主页</a>
+        </div>
+        <div class="why" style="font-size:12.5px">💡 创建新版本将<b>自动克隆当前画像</b>，仅变更你指定的参数（预估分或地域），新旧方案记忆互相隔离，互不影响。</div>
+      </section>
+
+      <!-- 对比视图 -->
+      <section class="card detail-card compare-view" id="compareView">
+        <div class="d-top">
+          <h2>⚖️ 方案对比</h2>
+          <button class="btn btn-o" onclick="backToDetail()">← 返回详情</button>
+        </div>
+        <div class="cmp-grid" id="cmpGrid"></div>
+        <p class="cmp-legend">图例：<i></i>仅该方案出现的院校（差异项）　<span style="margin-left:14px">⬜ 两方共有</span></p>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- 创建版本弹窗 -->
+<div class="modal-mask" id="createModal">
+  <div class="modal">
+    <h3 style="margin-bottom:18px">＋ 创建新方案</h3>
+    <div class="form-row">
+      <label>方案名称</label>
+      <input class="inp" id="cmName" placeholder="如：方案C-630分冲外省" />
+    </div>
+    <div class="form-row">
+      <label>预估分（450–750）</label>
+      <input class="inp" id="cmScore" type="number" placeholder="610" min="450" max="750" />
+      <p class="err" id="cmErrScore">分数需在 450–750 之间</p>
+    </div>
+    <div class="form-row">
+      <label>地域限制</label>
+      <select class="inp" id="cmRegion">
+        <option>不限</option><option>留省内</option><option>仅沿海</option><option>出省</option>
+      </select>
+    </div>
+    <div class="why" style="margin-bottom:18px">💡 将克隆当前画像（性格/偏好），仅变更以上参数。</div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-p" style="flex:1;justify-content:center" onclick="doCreate()">生成新方案</button>
+      <button class="btn btn-o" style="flex:1;justify-content:center" onclick="closeCreateModal()">取消</button>
+    </div>
+  </div>
+</div>
+
+<!-- 重命名弹窗 -->
+<div class="modal-mask" id="renameModal">
+  <div class="modal" style="max-width:420px">
+    <h3 style="margin-bottom:18px">✏️ 重命名方案</h3>
+    <div class="form-row">
+      <label>新方案名称</label>
+      <input class="inp" id="rnName" />
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-p" style="flex:1;justify-content:center" onclick="doRename()">保存</button>
+      <button class="btn btn-o" style="flex:1;justify-content:center" onclick="closeRenameModal()">取消</button>
+    </div>
+  </div>
+</div>
+
+<!-- 修改参数弹窗 -->
+<div class="modal-mask" id="editParamModal">
+  <div class="modal">
+    <h3 style="margin-bottom:18px">📝 修改方案参数</h3>
+    <div class="form-row">
+      <label>预估分（450–750）</label>
+      <input class="inp" id="epScore" type="number" min="450" max="750" />
+      <p class="err" id="epErrScore">分数需在 450–750 之间</p>
+    </div>
+    <div class="form-row">
+      <label>地域限制</label>
+      <select class="inp" id="epRegion">
+        <option>不限</option><option>留省内</option><option>仅沿海</option><option>出省</option>
+      </select>
+    </div>
+    <div class="why" style="margin-bottom:18px">💡 性格标签和选科继承自主画像，不在此处修改。</div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-p" style="flex:1;justify-content:center" onclick="doEditParam()">保存修改</button>
+      <button class="btn btn-o" style="flex:1;justify-content:center" onclick="closeEditParamModal()">取消</button>
+    </div>
+  </div>
+</div>
+
+<!-- 删除确认弹窗 -->
+<div class="modal-mask" id="deleteModal">
+  <div class="modal" style="max-width:400px;text-align:center">
+    <div style="font-size:36px;margin-bottom:12px">⚠️</div>
+    <h3 style="margin-bottom:10px">确认删除方案？</h3>
+    <p id="deleteTargetName" style="font-size:13px;color:var(--sub);margin-bottom:20px"></p>
+    <p style="font-size:12px;color:var(--danger);background:#FFF1F1;border-radius:10px;padding:10px 14px;margin-bottom:20px">该操作不可恢复，方案下的推荐数据将一并清除。</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-o" style="flex:1;justify-content:center" onclick="closeDeleteModal()">取消</button>
+      <button class="btn btn-d" style="flex:1;justify-content:center" onclick="doDelete()">确认删除</button>
+    </div>
+  </div>
+</div>
+
+<!-- 成功提示 -->
+<div class="toast" id="toast">操作成功</div>
+
+<button class="help-float" title="使用帮助" onclick="showHelpTip(this)">?</button>
+
+<div id="helpTip" style="display:none;position:fixed;right:78px;bottom:28px;width:280px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 16px 40px rgba(30,41,59,.15);z-index:65;font-size:12.5px;line-height:1.8;color:var(--sub)">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <b style="font-size:13.5px;color:var(--ink)">📖 方案管理帮助</b>
+    <button onclick="document.getElementById('helpTip').style.display='none'" style="font-size:16px;color:var(--sub);background:none;border:none;cursor:pointer;padding:2px 6px">✕</button>
+  </div>
+  <p style="margin-bottom:6px">• 左侧点击方案查看详情，勾选后可对比</p>
+  <p style="margin-bottom:6px">• 「创建新方案」可模拟不同分数的推荐</p>
+  <p style="margin-bottom:6px">• 「设为当前」将方案分数同步到主页</p>
+  <p>· 支持重命名 / 修改参数 / 复制 / 删除</p>
+</div>
+
+<script>
+/* ================================================================
+   内置院校库（精简版，与主页同步）
+   ================================================================ */
+const SCHOOL_DB = [
+  {school:"中山大学", tier:"冲", level:"985/双一流", region:"广州", cat:"综合", scoreRange:[615,650],
+   majors:["心理学","数字媒体艺术","建筑学","新闻传播学"]},
+  {school:"深圳大学", tier:"稳", level:"一本", region:"深圳", cat:"综合", scoreRange:[575,610],
+   majors:["工业设计","建筑学","心理学","数字媒体技术"]},
+  {school:"华南师范大学", tier:"稳", level:"211/双一流", region:"广州", cat:"师范", scoreRange:[565,595],
+   majors:["心理学","新闻传播学","视觉传达设计","教育技术学"]},
+  {school:"广东工业大学", tier:"稳", level:"一本", region:"广州", cat:"理工", scoreRange:[540,575],
+   majors:["数字媒体技术","工业设计","建筑学","工商管理"]},
+  {school:"汕头大学", tier:"保", level:"一本", region:"汕头", cat:"综合", scoreRange:[520,555],
+   majors:["新闻传播学","艺术设计","工商管理","计算机科学"]},
+  {school:"广州大学", tier:"稳", level:"一本", region:"广州", cat:"综合", scoreRange:[530,565],
+   majors:["建筑学","新闻与传播学","心理学","广播电视编导"]},
+  {school:"广东财经大学", tier:"保", level:"二本A", region:"广州", cat:"财经", scoreRange:[500,535],
+   majors:["新闻学","艺术设计学","工商管理","应用心理学"]},
+  {school:"广东海洋大学", tier:"保", level:"二本", region:"湛江", cat:"理工", scoreRange:[480,515],
+   majors:["视觉传达设计","新闻学","工商管理","电子信息工程"]},
+  {school:"五邑大学", tier:"保", level:"二本", region:"江门", cat:"综合", scoreRange:[470,500],
+   majors:["艺术设计学","汉语言文学","市场营销","纺织工程"]},
+  {school:"广州航海学院", tier:"保", level:"二本", region:"广州", cat:"理工", scoreRange:[460,495],
+   majors:["交通运输","航海技术","物流管理","电气工程"]}
+];
+
+/* 根据分数动态计算方案下的推荐 */
+function calcRecs(score){
+  return SCHOOL_DB.filter(s => score >= s.scoreRange[0]-20 && score <= s.scoreRange[1]+25)
+    .map(s => {
+      const mid = (s.scoreRange[0]+s.scoreRange[1])/2;
+      let tier = score >= s.scoreRange[1]-5 ? '保' : score <= s.scoreRange[0]+10 ? '冲' : '稳';
+      return {school:s.school, tier, score:s.scoreRange[0]};
+    });
+}
+
+/* ================================================================
+   方案数据
+   ================================================================ */
+let plans = [
+  {name:"我的方案A-610分留省内", date:"2026-08-15", score:610, region:"留省内", current:true},
+  {name:"我的方案B-620分冲沿海", date:"2026-08-17", score:620, region:"仅沿海", current:false}
+];
+let sel = 0, checked = new Set();
+let renameTargetIdx = -1;
+
+/* ================================================================
+   与主页跨页同步（localStorage）
+   ================================================================ */
+const PLAN_KEY = 'recall_current_plan';
+function syncCurrentPlan(){
+  const cur = plans.find(p=>p.current);
+  if(!cur) return;
+  try{
+    localStorage.setItem(PLAN_KEY, JSON.stringify({
+      name: cur.name.replace('我的方案',''),
+      score: cur.score,
+      region: cur.region
+    }));
+  }catch(e){}
+}
+function loadPlanFromStorage(){
+  try{
+    const raw = localStorage.getItem(PLAN_KEY);
+    if(!raw) return;
+    const plan = JSON.parse(raw);
+    // 用本地存储的分数更新当前方案的分数（若分数匹配不上就保持默认）
+    const cur = plans.find(p=>p.current);
+    if(cur && plan.score && plan.score >= 450 && plan.score <= 750){
+      cur.score = plan.score;
+      if(plan.name) cur.name = '我的方案'+plan.name;
+    }
+  }catch(e){}
+}
+loadPlanFromStorage();
+// 顶栏同步当前方案名
+(function(){
+  const cur = plans.find(p=>p.current);
+  if(cur) document.getElementById('curInd').textContent = cur.name.replace('我的方案','');
+})();
+
+/* ================================================================
+   渲染
+   ================================================================ */
+function renderList(){
+  document.getElementById('planList').innerHTML = plans.map((p,i)=>`
+    <div class="card plan-card ${i===sel?'sel':''}" onclick="selectPlan(${i})">
+      <div class="pc-top"><h4>${p.name}</h4>${p.current?'<span class="cur-badge">当前</span>':''}</div>
+      <p class="pc-meta">📅 ${p.date}　📊 ${p.score}分　📍 ${p.region}</p>
+      <label class="pc-check" onclick="event.stopPropagation()">
+        <input type="checkbox" ${checked.has(i)?'checked':''} onchange="toggleCheck(${i})" /> 加入对比
+      </label>
+      ${p.current?'':`<button class="btn btn-s" style="margin-top:10px;padding:6px 12px;font-size:12px" onclick="event.stopPropagation();setCurrent(${i})">设为当前</button>`}
+    </div>`).join('');
+  document.getElementById('btnCompare').disabled = checked.size!==2;
+}
+function renderDetail(){
+  const p = plans[sel];
+  if(!p) return;
+  document.getElementById('dName').textContent = p.name;
+  // 从 localStorage 读画像，不再硬编码
+  const prof = (function(){
+    try{ return JSON.parse(localStorage.getItem('recall_profile')); }catch(e){ return null; }
+  })();
+  const pr = prof || {};
+  const prefs = (pr.prefs||[]).join(' · ') || '暂无';
+  document.getElementById('dChips').innerHTML = `
+    <span class="chip score"><span class="k">预估分</span>${p.score}</span>
+    <span class="chip"><span class="k">地域</span>${p.region}</span>
+    <span class="chip"><span class="k">选科</span>${pr.subject||'物化生'}</span>
+    <span class="chip persona">${pr.persona||'研究型 I ＋ 艺术型 A'}</span>
+    <span class="chip pref">${prefs}</span>`;
+
+  // 渲染该方案下的推荐
+  const recs = calcRecs(p.score);
+  document.getElementById('dRecCount').textContent = recs.length;
+  const preview = document.getElementById('dRecPreview');
+  if(!recs.length){
+    preview.innerHTML = '<div class="empty-mini">当前分数段下暂无推荐院校，可调整分数或创建新方案</div>';
+  } else {
+    preview.innerHTML = recs.slice(0,5).map(r =>
+      `<div class="rec-row">
+        <span class="rr-name">${r.school}</span>
+        <span class="tag tag-${r.tier==='冲'?'chong':r.tier==='稳'?'wen':'bao'}">${r.tier}</span>
+        <span class="rr-score">${r.score}+ 分</span>
+      </div>`
+    ).join('') + (recs.length>5?`<div style="text-align:center;color:var(--sub);font-size:11.5px;margin-top:6px">还有 ${recs.length-5} 所…</div>`:'');
+  }
+}
+function selectPlan(i){ sel=i; backToDetail(); }
+function setCurrent(i){
+  plans.forEach(p=>p.current=false); plans[i].current=true;
+  document.getElementById('curInd').textContent = plans[i].name.replace('我的方案','');
+  syncCurrentPlan();
+  renderList(); showToast('已切换为当前方案：'+plans[i].name);
+}
+function toggleCheck(i){ checked.has(i)?checked.delete(i):checked.add(i); renderList(); }
+
+/* ================================================================
+   重命名（用弹窗，不用 prompt）
+   ================================================================ */
+function openRenameModal(){
+  if(!plans[sel]){ showToast('请先选择方案'); return; }
+  renameTargetIdx = sel;
+  document.getElementById('rnName').value = plans[sel].name;
+  document.getElementById('renameModal').classList.add('show');
+  setTimeout(()=>document.getElementById('rnName').focus(), 100);
+}
+function closeRenameModal(){ document.getElementById('renameModal').classList.remove('show'); }
+function doRename(){
+  const n = document.getElementById('rnName').value.trim();
+  if(!n){ showToast('方案名不能为空'); return; }
+  plans[renameTargetIdx].name = n;
+  if(plans[renameTargetIdx].current){
+    document.getElementById('curInd').textContent = n.replace('我的方案','');
+  }
+  closeRenameModal();
+  renderList(); renderDetail();
+  showToast('✅ 重命名成功');
+}
+document.getElementById('renameModal').addEventListener('click', e=>{ if(e.target.id==='renameModal') closeRenameModal(); });
+
+/* ================================================================
+   修改参数（分数/地域）
+   ================================================================ */
+function openEditParamModal(){
+  if(!plans[sel]){ showToast('请先选择方案'); return; }
+  document.getElementById('epScore').value = plans[sel].score;
+  document.getElementById('epRegion').value = plans[sel].region;
+  document.getElementById('epErrScore').style.display = 'none';
+  document.getElementById('editParamModal').classList.add('show');
+}
+function closeEditParamModal(){
+  document.getElementById('editParamModal').classList.remove('show');
+  document.getElementById('epErrScore').style.display = 'none';
+}
+function doEditParam(){
+  const sc = parseInt(document.getElementById('epScore').value);
+  const rg = document.getElementById('epRegion').value;
+  if(isNaN(sc) || sc<450 || sc>750){ document.getElementById('epErrScore').style.display='block'; return; }
+  plans[sel].score = sc; plans[sel].region = rg;
+  if(plans[sel].current){
+    document.getElementById('curInd').textContent = plans[sel].name.replace('我的方案','');
+    syncCurrentPlan();
+  }
+  closeEditParamModal();
+  renderList(); renderDetail();
+  showToast('✅ 参数已更新');
+}
+document.getElementById('editParamModal').addEventListener('click', e=>{ if(e.target.id==='editParamModal') closeEditParamModal(); });
+
+/* ================================================================
+   复制 / 删除
+   ================================================================ */
+function copyPlan(){
+  const p = plans[sel];
+  if(!p){ showToast('请先选择方案'); return; }
+  const newName = p.name+'（副本）';
+  plans.push({name:newName, date:'2026-08-19', score:p.score, region:p.region, current:false});
+  sel = plans.length-1;
+  renderList(); renderDetail();
+  showToast('✅ 已复制为：'+newName);
+}
+function deletePlan(){
+  if(plans.length<=1){ showToast('⚠️ 至少保留一个方案'); return; }
+  const name = plans[sel].name;
+  document.getElementById('deleteTargetName').textContent = '「' + name + '」';
+  document.getElementById('deleteModal').classList.add('show');
+}
+function closeDeleteModal(){ document.getElementById('deleteModal').classList.remove('show'); }
+function doDelete(){
+  const name = plans[sel].name;
+  if(plans.length<=1){ closeDeleteModal(); return; }
+  plans.splice(sel,1);
+  checked.clear();
+  sel = Math.min(sel, plans.length-1);
+  closeDeleteModal();
+  renderList(); renderDetail();
+  showToast('🗑 已删除：'+name);
+}
+document.getElementById('deleteModal').addEventListener('click', e=>{ if(e.target.id==='deleteModal') closeDeleteModal(); });
+
+/* ================================================================
+   创建新方案（弹窗）
+   ================================================================ */
+function openCreateModal(){
+  // 重置表单
+  const nextName = '我的方案' + String.fromCharCode(65 + plans.length) + '-' + 600 + '分';
+  document.getElementById('cmName').value = nextName;
+  document.getElementById('cmScore').value = '';
+  document.getElementById('cmRegion').value = '不限';
+  document.getElementById('cmErrScore').style.display = 'none';
+  document.getElementById('createModal').classList.add('show');
+  setTimeout(()=>document.getElementById('cmScore').focus(), 100);
+}
+function closeCreateModal(){
+  document.getElementById('createModal').classList.remove('show');
+  document.getElementById('cmErrScore').style.display = 'none';
+}
+function doCreate(){
+  let name = document.getElementById('cmName').value.trim();
+  const score = parseInt(document.getElementById('cmScore').value);
+  const region = document.getElementById('cmRegion').value;
+  if(isNaN(score) || score<450 || score>750){
+    document.getElementById('cmErrScore').style.display='block';
+    return;
+  }
+  if(!name) name = '方案'+String.fromCharCode(65+plans.length)+'-'+score+'分'+region;
+  const newPlan = {name, date:'2026-08-19', score, region, current:false};
+  plans.push(newPlan);
+  sel = plans.length - 1;
+  closeCreateModal();
+  renderList(); renderDetail();
+  showToast('✅ 新方案已创建：'+name);
+}
+document.getElementById('createModal').addEventListener('click', e=>{ if(e.target.id==='createModal') closeCreateModal(); });
+
+/* ================================================================
+   对比
+   ================================================================ */
+document.getElementById('btnCompare').addEventListener('click', ()=>{
+  const [a,b] = [...checked];
+  const A = plans[a], B = plans[b];
+  const recA = calcRecs(A.score), recB = calcRecs(B.score);
+  const setA = new Set(recA.map(r=>r.school)), setB = new Set(recB.map(r=>r.school));
+  const col = (p, recs, other) => `
+    <div class="cmp-col">
+      <h4>📁 ${p.name}</h4>
+      <p style="font-size:11.5px;color:var(--sub);margin-bottom:10px">📊 ${p.score}分 · 📍 ${p.region} · ${recs.length} 所推荐</p>
+      ${recs.length ? recs.map(r=>`<div class="cmp-item ${other.has(r.school)?'':'diff'}">
+        <span>${r.school}</span><span class="tag tag-${r.tier==='冲'?'chong':r.tier==='稳'?'wen':'bao'}">${r.tier} ${r.score}+分</span>
+      </div>`).join('') : '<div class="empty-mini">无推荐院校</div>'}
+    </div>`;
+  document.getElementById('cmpGrid').innerHTML = col(A, recA, setB) + col(B, recB, setA);
+  document.getElementById('detailView').style.display='none';
+  document.getElementById('compareView').style.display='block';
+});
+function backToDetail(){
+  document.getElementById('detailView').style.display='block';
+  document.getElementById('compareView').style.display='none';
+  renderList(); renderDetail();
+}
+
+/* ================================================================
+   Toast 提示
+   ================================================================ */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+// 键盘 ESC 关闭弹窗
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){
+    closeCreateModal(); closeRenameModal(); closeEditParamModal(); closeDeleteModal();
+  }
+});
+
+/* 初始化 */
+renderList(); renderDetail();
+
+/* 帮助浮层 */
+function showHelpTip(el){
+  const tip=document.getElementById('helpTip');
+  if(!tip) return;
+  tip.style.display=tip.style.display!=='none'?'none':'block';
+  if(tip.style.display==='block'){ setTimeout(()=>{ document.addEventListener('click',function h(e){ if(e.target.closest('#helpTip')||e.target.classList.contains('help-float')) return; tip.style.display='none'; document.removeEventListener('click',h); }); },10); }
+}
+</script>
+</body>
+</html>

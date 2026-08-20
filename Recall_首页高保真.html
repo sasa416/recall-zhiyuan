@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recall · AI志愿填报助手</title>
+<style>
+  :root {
+    --main: #5B8DEF;
+    --sec: #A8D8EA;
+    --accent: #FFB347;
+    --ink: #3D4A5C;
+    --ink-soft: #8A97A8;
+    --card: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 500px at 10% -5%, #E3F0FC 0%, transparent 55%),
+      radial-gradient(1000px 420px at 95% 0%, #FFF3E2 0%, transparent 50%),
+      linear-gradient(180deg, #F4F8FD 0%, #FDF7F0 100%);
+    min-height: 100vh;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+  /* ===== 顶栏 ===== */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(255,255,255,.75);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(168,216,234,.45);
+  }
+  .nav {
+    max-width: 1120px; margin: 0 auto; padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: var(--main); }
+  .logo-badge {
+    width: 38px; height: 38px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--main), var(--sec));
+    display: grid; place-items: center; font-size: 18px; color: #fff;
+    box-shadow: 0 6px 16px rgba(91,141,239,.35);
+  }
+  .nav-links { display: flex; gap: 8px; }
+  .nav-links a {
+    padding: 9px 20px; border-radius: 999px; font-size: 14px; text-decoration: none;
+    color: var(--ink-soft); transition: .2s;
+  }
+  .nav-links a.active, .nav-links a:hover {
+    background: linear-gradient(135deg, rgba(91,141,239,.14), rgba(168,216,234,.22));
+    color: var(--main); font-weight: 600;
+  }
+
+  /* ===== 画像摘要卡 ===== */
+  .profile {
+    margin-top: 34px;
+    background: var(--card);
+    border-radius: 28px;
+    padding: 30px 34px;
+    box-shadow: 0 14px 40px rgba(91,141,239,.13);
+    border: 1px solid rgba(168,216,234,.5);
+    position: relative; overflow: hidden;
+  }
+  .profile::before {
+    content: ""; position: absolute; inset: 0 0 auto 0; height: 6px;
+    background: linear-gradient(90deg, var(--main), var(--sec), var(--accent));
+  }
+  .profile-top { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .avatar {
+    width: 58px; height: 58px; border-radius: 50%;
+    background: linear-gradient(135deg, #FFD9A0, var(--accent));
+    display: grid; place-items: center; font-size: 26px;
+  }
+  .greet h2 { font-size: 21px; }
+  .greet p { font-size: 13px; color: var(--ink-soft); margin-top: 3px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 600;
+    background: #EDF5FC; color: var(--main); border: 1px solid rgba(168,216,234,.6);
+  }
+  .chip.score { background: linear-gradient(135deg, #5B8DEF, #7FA8F5); color: #fff; border: none; }
+  .chip.persona { background: #FFF3E2; color: #E08A1E; border: 1px solid rgba(255,179,71,.5); }
+  .chip.pref { background: #FFF9EE; color: #B27A1F; border: 1px dashed rgba(255,179,71,.6); font-weight: 500; }
+  .chip .k { font-weight: 500; color: var(--ink-soft); font-size: 12.5px; }
+  .chip.score .k, .chip.persona .k { color: inherit; opacity: .85; }
+
+  /* ===== CTA ===== */
+  .cta { text-align: center; margin: 34px 0 40px; }
+  .btn-main {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 18px 64px; border: none; border-radius: 999px; cursor: pointer;
+    font-size: 18px; font-weight: 700; color: #fff;
+    background: linear-gradient(135deg, var(--main) 0%, #7FA8F5 55%, var(--sec) 100%);
+    box-shadow: 0 14px 32px rgba(91,141,239,.38);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-main:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(91,141,239,.45); }
+  .btn-ghost {
+    margin-left: 16px; padding: 14px 30px; border-radius: 999px; cursor: pointer;
+    background: transparent; color: var(--ink-soft);
+    border: 1.5px solid rgba(168,216,234,.9); font-size: 15px; font-weight: 600; transition: .2s;
+  }
+  .btn-ghost:hover { color: var(--main); border-color: var(--main); }
+  .cta-note { margin-top: 12px; font-size: 12.5px; color: var(--ink-soft); }
+
+  /* ===== 推荐院校卡 ===== */
+  .rec-title { display: flex; align-items: baseline; gap: 10px; margin-bottom: 18px; }
+  .rec-title h3 { font-size: 19px; }
+  .rec-title span { font-size: 12.5px; color: var(--ink-soft); }
+  .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; padding-bottom: 56px; }
+  .rec-card {
+    background: var(--card); border-radius: 22px; padding: 22px;
+    border: 1px solid rgba(168,216,234,.5);
+    box-shadow: 0 10px 28px rgba(91,141,239,.09);
+    transition: transform .2s, box-shadow .2s;
+    position: relative; overflow: hidden;
+  }
+  .rec-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(91,141,239,.16); }
+  .rec-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--sec), var(--main));
+  }
+  .rec-card.gold::before { background: linear-gradient(90deg, var(--accent), #FFD9A0); }
+  .rec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .rec-head h4 { font-size: 17px; }
+  .tag {
+    font-size: 11.5px; padding: 4px 12px; border-radius: 999px; font-weight: 600;
+    background: #EDF5FC; color: var(--main);
+  }
+  .tag.gold { background: #FFF3E2; color: #E08A1E; }
+  .rec-major { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 14px; }
+  .rec-score {
+    display: flex; align-items: baseline; gap: 6px; margin-bottom: 14px;
+    font-size: 13px; color: var(--ink-soft);
+  }
+  .rec-score b { font-size: 24px; color: var(--main); font-weight: 700; }
+  .why {
+    background: #F6FAFD; border-radius: 14px; padding: 12px 14px;
+    font-size: 12.5px; line-height: 1.75; color: var(--ink-soft);
+    border-left: 3px solid var(--sec);
+  }
+  .why b { color: var(--main); font-weight: 600; }
+  .rec-card.gold .why { border-left-color: var(--accent); }
+  .rec-card.gold .why b { color: #E08A1E; }
+
+  footer { text-align: center; padding: 22px 0 34px; font-size: 12px; color: var(--ink-soft); }
+
+  @media (max-width: 860px) {
+    .rec-grid { grid-template-columns: 1fr; }
+    .btn-ghost { margin: 14px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===== 顶部导航 ===== -->
+  <header>
+    <div class="nav">
+      <div class="logo"><span class="logo-badge">✨</span> Recall</div>
+      <nav class="nav-links">
+        <a href="#" class="active">测评</a>
+        <a href="#">院校库</a>
+        <a href="#">我的方案</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ===== 用户画像摘要卡片 ===== -->
+    <section class="profile">
+      <div class="profile-top">
+        <div class="avatar">🎓</div>
+        <div class="greet">
+          <h2>你好，沙同学</h2>
+          <p>AI 已为你生成「分数 × 性格」画像，一切都在掌握中</p>
+        </div>
+      </div>
+      <div class="chips">
+        <span class="chip"><span class="k">省份</span> 广东</span>
+        <span class="chip"><span class="k">选科</span> 物理类</span>
+        <span class="chip score"><span class="k">预估分</span> 610</span>
+        <span class="chip persona">性格 · 研究型 ＋ 艺术型</span>
+        <span class="chip pref">偏好 · 怕数学</span>
+        <span class="chip pref">偏好 · 想去沿海</span>
+      </div>
+    </section>
+
+    <!-- ===== 主 CTA ===== -->
+    <section class="cta">
+      <button class="btn-main">开始测评 →</button>
+      <button class="btn-ghost">重新测评</button>
+      <p class="cta-note">6–8 道题，约 1 分钟 · 数据仅保存在本地</p>
+    </section>
+
+    <!-- ===== 推荐院校 ===== -->
+    <section>
+      <div class="rec-title">
+        <h3>为你推荐的院校</h3>
+        <span>基于画像与偏好 · 每条都告诉你「为什么」</span>
+      </div>
+      <div class="rec-grid">
+
+        <div class="rec-card">
+          <div class="rec-head"><h4>厦门大学</h4><span class="tag">稳妥</span></div>
+          <p class="rec-major">建筑学 · 本科一批</p>
+          <div class="rec-score">往年录取 <b>612</b> 分</div>
+          <div class="why">因为您是<b>研究型</b>，且偏好<b>想去沿海</b>——厦大地处厦门，建筑学兼具理性分析与设计创造，与您高度契合。</div>
+        </div>
+
+        <div class="rec-card gold">
+          <div class="rec-head"><h4>深圳大学</h4><span class="tag gold">冲刺</span></div>
+          <p class="rec-major">工业设计 · 本科一批</p>
+          <div class="rec-score">往年录取 <b>598</b> 分</div>
+          <div class="why">因为您有<b>艺术型</b>倾向——工业设计重创意表达；深圳为沿海创新城市，实习机会多，录取分留出冲刺空间。</div>
+        </div>
+
+        <div class="rec-card">
+          <div class="rec-head"><h4>华南师范大学</h4><span class="tag">保底</span></div>
+          <p class="rec-major">心理学 · 本科一批</p>
+          <div class="rec-score">往年录取 <b>585</b> 分</div>
+          <div class="why">因为您说过<b>怕数学</b>——心理学课程对数学要求低；研究型性格适合心理实验与数据分析，稳妥保底。</div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>Recall · 让志愿选择有据可依，不慌不忙</footer>
+
+</body>
+</html>

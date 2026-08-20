@@ -1,0 +1,5546 @@
+[
+ {
+  "school": "广东第二师范学院",
+  "region": "广州",
+  "cat": "师范",
+  "level": "二本（师范）",
+  "majors": [
+   {
+    "name": "汉语言文学",
+    "subject": "物理",
+    "score": 537,
+    "rank": 100656,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "汉语国际教育",
+    "subject": "物理",
+    "score": 531,
+    "rank": 111101,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "教育技术学",
+    "subject": "物理",
+    "score": 518,
+    "rank": 132723,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "教育技术学",
+    "subject": "物理",
+    "score": 522,
+    "rank": 126318,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "小学教育",
+    "subject": "物理",
+    "score": 525,
+    "rank": 119729,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "金融数学",
+    "subject": "物理",
+    "score": 518,
+    "rank": 132704,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "物理",
+    "score": 539,
+    "rank": 98002,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "翻译",
+    "subject": "物理",
+    "score": 534,
+    "rank": 105565,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "商务英语",
+    "subject": "物理",
+    "score": 534,
+    "rank": 105965,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "特殊教育",
+    "subject": "物理",
+    "score": 522,
+    "rank": 125871,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "学前教育",
+    "subject": "物理",
+    "score": 523,
+    "rank": 124643,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "应用心理学",
+    "subject": "物理",
+    "score": 527,
+    "rank": 117248,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "环境生态工程",
+    "subject": "物理",
+    "score": 515,
+    "rank": 137924,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "物理学",
+    "subject": "物理",
+    "score": 545,
+    "rank": 88803,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 536,
+    "rank": 101676,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 537,
+    "rank": 100717,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "软件工程",
+    "subject": "物理",
+    "score": 535,
+    "rank": 103208,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "数据科学与大数据技术",
+    "subject": "物理",
+    "score": 535,
+    "rank": 104651,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "网络工程",
+    "subject": "物理",
+    "score": 534,
+    "rank": 104847,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "数学与应用数学",
+    "subject": "物理",
+    "score": 539,
+    "rank": 97700,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "统计学",
+    "subject": "物理",
+    "score": 536,
+    "rank": 101899,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "食品质量与安全",
+    "subject": "物理",
+    "score": 519,
+    "rank": 130274,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "思想政治教育",
+    "subject": "物理",
+    "score": 541,
+    "rank": 94154,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "材料化学",
+    "subject": "物理",
+    "score": 518,
+    "rank": 132559,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "化学",
+    "subject": "物理",
+    "score": 530,
+    "rank": 112025,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "生物科学",
+    "subject": "物理",
+    "score": 528,
+    "rank": 115347,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "应用化学",
+    "subject": "物理",
+    "score": 518,
+    "rank": 132601,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "历史",
+    "score": 554,
+    "rank": 21927,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "汉语国际教育",
+    "subject": "历史",
+    "score": 550,
+    "rank": 23960,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "历史学",
+    "subject": "历史",
+    "score": 551,
+    "rank": 23735,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "小学教育",
+    "subject": "历史",
+    "score": 550,
+    "rank": 23980,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "电子商务",
+    "subject": "历史",
+    "score": 549,
+    "rank": 24541,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "酒店管理",
+    "subject": "历史",
+    "score": 549,
+    "rank": 24527,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "旅游管理与服务教育",
+    "subject": "历史",
+    "score": 549,
+    "rank": 24432,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "社会工作",
+    "subject": "历史",
+    "score": 549,
+    "rank": 24624,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "翻译",
+    "subject": "历史",
+    "score": 552,
+    "rank": 23198,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "商务英语",
+    "subject": "历史",
+    "score": 552,
+    "rank": 23229,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 554,
+    "rank": 22140,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "特殊教育",
+    "subject": "历史",
+    "score": 541,
+    "rank": 28965,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "学前教育",
+    "subject": "历史",
+    "score": 541,
+    "rank": 28995,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "应用心理学",
+    "subject": "历史",
+    "score": 544,
+    "rank": 27292,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "思想政治教育",
+    "subject": "历史",
+    "score": 556,
+    "rank": 21028,
+    "desc": "(师范)",
+    "fee": 5050,
+    "est": true
+   },
+   {
+    "name": "广播电视编导",
+    "subject": "历史",
+    "score": 534,
+    "rank": 33769,
+    "desc": "",
+    "fee": 5050,
+    "est": true
+   }
+  ]
+ },
+ {
+  "school": "广州航海学院",
+  "region": "广州",
+  "cat": "理工",
+  "level": "二本",
+  "majors": [
+   {
+    "name": "航海技术",
+    "subject": "物理",
+    "score": 516,
+    "rank": 136186,
+    "desc": "提前批·非军检",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "轮机工程",
+    "subject": "物理",
+    "score": 512,
+    "rank": 142393,
+    "desc": "提前批·非军检",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "船舶电子电气工程",
+    "subject": "物理",
+    "score": 519,
+    "rank": 131122,
+    "desc": "提前批·非军检",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "人工智能",
+    "subject": "物理",
+    "score": 521,
+    "rank": 126700,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "智能海洋装备",
+    "subject": "物理",
+    "score": 519,
+    "rank": 131681,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 525,
+    "rank": 119777,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "车辆工程",
+    "subject": "物理",
+    "score": 519,
+    "rank": 130150,
+    "desc": "轨道车辆",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "车辆工程",
+    "subject": "物理",
+    "score": 520,
+    "rank": 129716,
+    "desc": "汽车车辆",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "船舶与海洋工程",
+    "subject": "物理",
+    "score": 518,
+    "rank": 131794,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工程管理",
+    "subject": "物理",
+    "score": 519,
+    "rank": 131740,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "邮轮工程与管理",
+    "subject": "物理",
+    "score": 519,
+    "rank": 131614,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "能源与动力工程",
+    "subject": "物理",
+    "score": 521,
+    "rank": 127100,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "电气工程及其自动化",
+    "subject": "物理",
+    "score": 530,
+    "rank": 112073,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "无人驾驶航空器系统工程",
+    "subject": "物理",
+    "score": 521,
+    "rank": 127362,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "智慧交通",
+    "subject": "物理",
+    "score": 515,
+    "rank": 137665,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "软件工程",
+    "subject": "物理",
+    "score": 522,
+    "rank": 126441,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "机械工程",
+    "subject": "物理",
+    "score": 517,
+    "rank": 134675,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "港口航道与海岸工程",
+    "subject": "物理",
+    "score": 515,
+    "rank": 137556,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "道路桥梁与渡河工程",
+    "subject": "物理",
+    "score": 515,
+    "rank": 137552,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "交通运输",
+    "subject": "物理",
+    "score": 515,
+    "rank": 137672,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "机器人工程",
+    "subject": "物理",
+    "score": 518,
+    "rank": 133065,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 521,
+    "rank": 127750,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "物联网工程",
+    "subject": "物理",
+    "score": 517,
+    "rank": 134466,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "物理",
+    "score": 526,
+    "rank": 119071,
+    "desc": "海商法",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "海事管理",
+    "subject": "物理",
+    "score": 524,
+    "rank": 122511,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "交通管理",
+    "subject": "物理",
+    "score": 518,
+    "rank": 133264,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "物流管理",
+    "subject": "物理",
+    "score": 515,
+    "rank": 138069,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "旅游管理",
+    "subject": "物理",
+    "score": 515,
+    "rank": 138117,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "物理",
+    "score": 515,
+    "rank": 138225,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "财务管理",
+    "subject": "物理",
+    "score": 520,
+    "rank": 129256,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "跨境电子商务",
+    "subject": "物理",
+    "score": 516,
+    "rank": 135966,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "国际商务",
+    "subject": "物理",
+    "score": 517,
+    "rank": 134582,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "商务英语",
+    "subject": "物理",
+    "score": 515,
+    "rank": 138131,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "意大利语",
+    "subject": "物理",
+    "score": 515,
+    "rank": 138349,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 495,
+    "rank": 174104,
+    "desc": "中外合作办学",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 513,
+    "rank": 140457,
+    "desc": "中外联合培养",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "交通运输",
+    "subject": "物理",
+    "score": 491,
+    "rank": 180884,
+    "desc": "中外合作办学",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "物理",
+    "score": 506,
+    "rank": 153254,
+    "desc": "中外联合培养",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "物理",
+    "score": 514,
+    "rank": 139344,
+    "desc": "中外联合培养",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "历史",
+    "score": 546,
+    "rank": 26199,
+    "desc": "海商法",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "海事管理",
+    "subject": "历史",
+    "score": 545,
+    "rank": 26833,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "交通管理",
+    "subject": "历史",
+    "score": 541,
+    "rank": 29061,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "物流管理",
+    "subject": "历史",
+    "score": 537,
+    "rank": 31498,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "旅游管理",
+    "subject": "历史",
+    "score": 539,
+    "rank": 30496,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "历史",
+    "score": 539,
+    "rank": 30364,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "财务管理",
+    "subject": "历史",
+    "score": 542,
+    "rank": 28325,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "跨境电子商务",
+    "subject": "历史",
+    "score": 536,
+    "rank": 32201,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "国际商务",
+    "subject": "历史",
+    "score": 538,
+    "rank": 30713,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "商务英语",
+    "subject": "历史",
+    "score": 536,
+    "rank": 32199,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "意大利语",
+    "subject": "历史",
+    "score": 536,
+    "rank": 31921,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "历史",
+    "score": 516,
+    "rank": 45432,
+    "desc": "中外联合培养",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "历史",
+    "score": 532,
+    "rank": 34449,
+    "desc": "中外联合培养",
+    "fee": 5710,
+    "est": true
+   }
+  ]
+ },
+ {
+  "school": "佛山科学技术学院",
+  "region": "佛山",
+  "cat": "理工",
+  "level": "二本",
+  "majors": [
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 563,
+    "rank": 63175,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 561,
+    "rank": 65619,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "集成电路设计与集成系统",
+    "subject": "物理",
+    "score": 560,
+    "rank": 67021,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "智能科学与技术",
+    "subject": "物理",
+    "score": 560,
+    "rank": 67230,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "物联网工程",
+    "subject": "物理",
+    "score": 560,
+    "rank": 67916,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "网络工程",
+    "subject": "物理",
+    "score": 560,
+    "rank": 67861,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "数学与应用数学",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80560,
+    "desc": "(师范)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "物理学",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80916,
+    "desc": "(师范)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "数据科学与大数据技术",
+    "subject": "物理",
+    "score": 552,
+    "rank": 77980,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "数据科学与大数据技术",
+    "subject": "物理",
+    "score": 553,
+    "rank": 76401,
+    "desc": "数据智能",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "数学与应用数学",
+    "subject": "物理",
+    "score": 551,
+    "rank": 79242,
+    "desc": "数理金融",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "物理学",
+    "subject": "物理",
+    "score": 552,
+    "rank": 78370,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "车辆工程",
+    "subject": "物理",
+    "score": 554,
+    "rank": 75310,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "机械电子工程",
+    "subject": "物理",
+    "score": 556,
+    "rank": 73326,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "土木工程",
+    "subject": "物理",
+    "score": 553,
+    "rank": 76463,
+    "desc": "建筑工程",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "土木工程",
+    "subject": "物理",
+    "score": 553,
+    "rank": 77552,
+    "desc": "智能建设",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "土木工程",
+    "subject": "物理",
+    "score": 552,
+    "rank": 78610,
+    "desc": "交通土建",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "土木工程",
+    "subject": "物理",
+    "score": 551,
+    "rank": 79165,
+    "desc": "创新班",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "光电信息科学与工程",
+    "subject": "物理",
+    "score": 556,
+    "rank": 72309,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "光电信息科学与工程",
+    "subject": "物理",
+    "score": 557,
+    "rank": 70890,
+    "desc": "创新实验班",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "光源与照明",
+    "subject": "物理",
+    "score": 554,
+    "rank": 74812,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "光源与照明",
+    "subject": "物理",
+    "score": 557,
+    "rank": 71921,
+    "desc": "卓越工程师班",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "物理",
+    "score": 548,
+    "rank": 84241,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "物理",
+    "score": 544,
+    "rank": 90653,
+    "desc": "涉外法治",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "知识产权",
+    "subject": "物理",
+    "score": 543,
+    "rank": 91831,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "物理",
+    "score": 546,
+    "rank": 86582,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "物理",
+    "score": 547,
+    "rank": 85854,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "人力资源管理",
+    "subject": "物理",
+    "score": 543,
+    "rank": 90797,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工商管理",
+    "subject": "物理",
+    "score": 543,
+    "rank": 90864,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "市场营销",
+    "subject": "物理",
+    "score": 543,
+    "rank": 91297,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "旅游管理",
+    "subject": "物理",
+    "score": 543,
+    "rank": 91561,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工业工程",
+    "subject": "物理",
+    "score": 544,
+    "rank": 90157,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "国际经济与贸易",
+    "subject": "物理",
+    "score": 543,
+    "rank": 91714,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "物理",
+    "score": 543,
+    "rank": 91390,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "教育技术学",
+    "subject": "物理",
+    "score": 543,
+    "rank": 91968,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "动物医学",
+    "subject": "物理",
+    "score": 546,
+    "rank": 87652,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "动物科学",
+    "subject": "物理",
+    "score": 544,
+    "rank": 89495,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "生物工程",
+    "subject": "物理",
+    "score": 544,
+    "rank": 89380,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "材料科学与工程",
+    "subject": "物理",
+    "score": 546,
+    "rank": 86518,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "材料化学",
+    "subject": "物理",
+    "score": 545,
+    "rank": 87713,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "新能源材料与器件",
+    "subject": "物理",
+    "score": 547,
+    "rank": 85637,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "储能科学与工程",
+    "subject": "物理",
+    "score": 545,
+    "rank": 88525,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "化学工程与工艺",
+    "subject": "物理",
+    "score": 548,
+    "rank": 84048,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "食品科学与工程",
+    "subject": "物理",
+    "score": 545,
+    "rank": 88680,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "食品质量与安全",
+    "subject": "物理",
+    "score": 544,
+    "rank": 89488,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工业设计",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80478,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "数字媒体技术",
+    "subject": "物理",
+    "score": 554,
+    "rank": 75042,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "交通工程",
+    "subject": "物理",
+    "score": 547,
+    "rank": 84615,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "物理",
+    "score": 552,
+    "rank": 78213,
+    "desc": "(师范)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "物理",
+    "score": 550,
+    "rank": 81498,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "口腔医学",
+    "subject": "物理",
+    "score": 563,
+    "rank": 63250,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 542,
+    "rank": 92379,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "医学检验技术",
+    "subject": "物理",
+    "score": 542,
+    "rank": 93053,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "机械设计制造",
+    "subject": "物理",
+    "score": 529,
+    "rank": 113204,
+    "desc": "联合培养(爱尔兰)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "自动化",
+    "subject": "物理",
+    "score": 527,
+    "rank": 117436,
+    "desc": "联合培养(爱尔兰)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "物理",
+    "score": 548,
+    "rank": 83511,
+    "desc": "(师范)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "教育技术学",
+    "subject": "物理",
+    "score": 545,
+    "rank": 88989,
+    "desc": "(师范)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "思想政治教育",
+    "subject": "物理",
+    "score": 551,
+    "rank": 79200,
+    "desc": "(师范)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "人文地理与城乡规划",
+    "subject": "物理",
+    "score": 542,
+    "rank": 93604,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "自动化",
+    "subject": "物理",
+    "score": 563,
+    "rank": 64113,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "电气工程及其自动化",
+    "subject": "物理",
+    "score": 564,
+    "rank": 62093,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "机械设计制造及其自动化",
+    "subject": "物理",
+    "score": 562,
+    "rank": 65419,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "环境工程",
+    "subject": "物理",
+    "score": 492,
+    "rank": 178895,
+    "desc": "中外合作办学",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "数字媒体技术",
+    "subject": "物理",
+    "score": 532,
+    "rank": 108817,
+    "desc": "联合培养",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "旅游管理",
+    "subject": "物理",
+    "score": 506,
+    "rank": 154685,
+    "desc": "联合培养",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "材料化学",
+    "subject": "物理",
+    "score": 536,
+    "rank": 102982,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "化学工程与工艺",
+    "subject": "物理",
+    "score": 534,
+    "rank": 105023,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "环境工程",
+    "subject": "物理",
+    "score": 530,
+    "rank": 111375,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 531,
+    "rank": 110140,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "动物科学",
+    "subject": "物理",
+    "score": 531,
+    "rank": 110113,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "护理学",
+    "subject": "物理",
+    "score": 527,
+    "rank": 117558,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "园艺",
+    "subject": "物理",
+    "score": 527,
+    "rank": 117707,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "环境科学",
+    "subject": "物理",
+    "score": 529,
+    "rank": 113592,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "资源循环科学与工程",
+    "subject": "物理",
+    "score": 531,
+    "rank": 111087,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "历史",
+    "score": 562,
+    "rank": 18356,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "历史",
+    "score": 560,
+    "rank": 19230,
+    "desc": "涉外法治",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "知识产权",
+    "subject": "历史",
+    "score": 559,
+    "rank": 19457,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "旅游管理",
+    "subject": "历史",
+    "score": 558,
+    "rank": 20163,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "人力资源管理",
+    "subject": "历史",
+    "score": 558,
+    "rank": 20169,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工商管理",
+    "subject": "历史",
+    "score": 558,
+    "rank": 20162,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "历史",
+    "score": 560,
+    "rank": 19353,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "市场营销",
+    "subject": "历史",
+    "score": 558,
+    "rank": 20170,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "国际经济与贸易",
+    "subject": "历史",
+    "score": 558,
+    "rank": 19954,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "历史",
+    "score": 559,
+    "rank": 19854,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "历史",
+    "score": 565,
+    "rank": 16972,
+    "desc": "(师范)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "历史",
+    "score": 563,
+    "rank": 17927,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 560,
+    "rank": 19057,
+    "desc": "(师范)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 559,
+    "rank": 19728,
+    "desc": "",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "思想政治教育",
+    "subject": "历史",
+    "score": 563,
+    "rank": 17952,
+    "desc": "(师范)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "旅游管理",
+    "subject": "历史",
+    "score": 518,
+    "rank": 43964,
+    "desc": "联合培养",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "人文地理与城乡规划",
+    "subject": "历史",
+    "score": 536,
+    "rank": 32428,
+    "desc": "地方专项",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "学前教育",
+    "subject": "历史",
+    "score": 536,
+    "rank": 32246,
+    "desc": "(师范)地方专项",
+    "fee": 5710,
+    "est": true
+   }
+  ]
+ },
+ {
+  "school": "广东药科大学",
+  "region": "广州",
+  "cat": "医药",
+  "level": "二本（医药）",
+  "majors": [
+   {
+    "name": "口腔医学",
+    "subject": "物理",
+    "score": 559,
+    "rank": 69376,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "临床医学",
+    "subject": "物理",
+    "score": 553,
+    "rank": 77199,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中西医临床医学",
+    "subject": "物理",
+    "score": 552,
+    "rank": 78347,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中医学",
+    "subject": "物理",
+    "score": 549,
+    "rank": 82980,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 541,
+    "rank": 94796,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "临床药学",
+    "subject": "物理",
+    "score": 537,
+    "rank": 101024,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中药学",
+    "subject": "物理",
+    "score": 536,
+    "rank": 102816,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "物理",
+    "score": 533,
+    "rank": 107247,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药物制剂",
+    "subject": "物理",
+    "score": 533,
+    "rank": 106494,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 532,
+    "rank": 108434,
+    "desc": "外包特色班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "制药工程",
+    "subject": "物理",
+    "score": 532,
+    "rank": 108795,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药物分析",
+    "subject": "物理",
+    "score": 532,
+    "rank": 109332,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物制药",
+    "subject": "物理",
+    "score": 531,
+    "rank": 111214,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "医学检验技术",
+    "subject": "物理",
+    "score": 530,
+    "rank": 111400,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "海洋药学",
+    "subject": "物理",
+    "score": 529,
+    "rank": 113776,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物技术",
+    "subject": "物理",
+    "score": 529,
+    "rank": 113693,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物科学",
+    "subject": "物理",
+    "score": 529,
+    "rank": 113706,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中药制药",
+    "subject": "物理",
+    "score": 529,
+    "rank": 113153,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 524,
+    "rank": 121945,
+    "desc": "云浮校区",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "数字媒体技术",
+    "subject": "物理",
+    "score": 524,
+    "rank": 122078,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "康复治疗学",
+    "subject": "物理",
+    "score": 524,
+    "rank": 122866,
+    "desc": "创新班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 523,
+    "rank": 124067,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "预防医学",
+    "subject": "物理",
+    "score": 523,
+    "rank": 124249,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "卫生检验与检疫",
+    "subject": "物理",
+    "score": 522,
+    "rank": 125418,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物信息学",
+    "subject": "物理",
+    "score": 520,
+    "rank": 129748,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "化妆品科学与技术",
+    "subject": "物理",
+    "score": 518,
+    "rank": 132462,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "国际经济与贸易",
+    "subject": "物理",
+    "score": 513,
+    "rank": 140774,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 513,
+    "rank": 141469,
+    "desc": "国际班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "经济学",
+    "subject": "物理",
+    "score": 512,
+    "rank": 143873,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物医学工程",
+    "subject": "物理",
+    "score": 512,
+    "rank": 143453,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "智能医学工程",
+    "subject": "物理",
+    "score": 512,
+    "rank": 142537,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "康复治疗学",
+    "subject": "物理",
+    "score": 511,
+    "rank": 144631,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "电子商务",
+    "subject": "物理",
+    "score": 509,
+    "rank": 149384,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "人力资源管理",
+    "subject": "物理",
+    "score": 509,
+    "rank": 148789,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "高分子材料与工程",
+    "subject": "物理",
+    "score": 509,
+    "rank": 147841,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "应用化学",
+    "subject": "物理",
+    "score": 509,
+    "rank": 148847,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "市场营销",
+    "subject": "物理",
+    "score": 508,
+    "rank": 150869,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中药学",
+    "subject": "物理",
+    "score": 508,
+    "rank": 149529,
+    "desc": "云浮校区",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "化学工程与工艺",
+    "subject": "物理",
+    "score": 508,
+    "rank": 149872,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "食品科学与工程",
+    "subject": "物理",
+    "score": 508,
+    "rank": 150758,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "健康服务与管理",
+    "subject": "物理",
+    "score": 507,
+    "rank": 151740,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "物流管理",
+    "subject": "物理",
+    "score": 507,
+    "rank": 151622,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "公共事业管理",
+    "subject": "物理",
+    "score": 507,
+    "rank": 151774,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "护理学",
+    "subject": "物理",
+    "score": 507,
+    "rank": 152825,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中草药栽培与鉴定",
+    "subject": "物理",
+    "score": 507,
+    "rank": 152527,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中药资源与开发",
+    "subject": "物理",
+    "score": 507,
+    "rank": 152801,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "食品营养与健康",
+    "subject": "物理",
+    "score": 507,
+    "rank": 152806,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "食品质量与安全",
+    "subject": "物理",
+    "score": 507,
+    "rank": 152782,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药事管理",
+    "subject": "物理",
+    "score": 507,
+    "rank": 152659,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物制药",
+    "subject": "物理",
+    "score": 504,
+    "rank": 158200,
+    "desc": "国际班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 547,
+    "rank": 25604,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "护理学",
+    "subject": "历史",
+    "score": 520,
+    "rank": 42626,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 517,
+    "rank": 44719,
+    "desc": "国际班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中医学",
+    "subject": "历史",
+    "score": 568,
+    "rank": 15656,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "健康服务与管理",
+    "subject": "历史",
+    "score": 528,
+    "rank": 37556,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "物流管理",
+    "subject": "历史",
+    "score": 527,
+    "rank": 37843,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "公共事业管理",
+    "subject": "历史",
+    "score": 527,
+    "rank": 37821,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "电子商务",
+    "subject": "历史",
+    "score": 528,
+    "rank": 37354,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "市场营销",
+    "subject": "历史",
+    "score": 527,
+    "rank": 37733,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "人力资源管理",
+    "subject": "历史",
+    "score": 529,
+    "rank": 36934,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "经济学",
+    "subject": "历史",
+    "score": 530,
+    "rank": 35912,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "国际经济与贸易",
+    "subject": "历史",
+    "score": 526,
+    "rank": 38000,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   }
+  ]
+ },
+ {
+  "school": "东莞理工学院",
+  "region": "东莞",
+  "cat": "理工",
+  "level": "二本",
+  "majors": [
+   {
+    "name": "电气工程及其自动化",
+    "subject": "物理",
+    "score": 562,
+    "rank": 65469,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 562,
+    "rank": 64802,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 562,
+    "rank": 65445,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "机器人工程",
+    "subject": "物理",
+    "score": 561,
+    "rank": 66323,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "智能制造工程",
+    "subject": "物理",
+    "score": 559,
+    "rank": 68531,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "自动化",
+    "subject": "物理",
+    "score": 559,
+    "rank": 68131,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "机械设计制造及其自动化",
+    "subject": "物理",
+    "score": 557,
+    "rank": 70756,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "通信工程",
+    "subject": "物理",
+    "score": 557,
+    "rank": 71595,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "微电子科学与工程",
+    "subject": "物理",
+    "score": 554,
+    "rank": 75765,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "光电信息科学与工程",
+    "subject": "物理",
+    "score": 556,
+    "rank": 73322,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "机械电子工程",
+    "subject": "物理",
+    "score": 556,
+    "rank": 72832,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "食品营养与健康",
+    "subject": "物理",
+    "score": 556,
+    "rank": 72918,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "能源与动力工程",
+    "subject": "物理",
+    "score": 554,
+    "rank": 74874,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工业软件",
+    "subject": "物理",
+    "score": 555,
+    "rank": 74683,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "信息与计算科学",
+    "subject": "物理",
+    "score": 557,
+    "rank": 71541,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "材料成型及控制工程",
+    "subject": "物理",
+    "score": 552,
+    "rank": 78497,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "材料类",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80557,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "微机电系统工程",
+    "subject": "物理",
+    "score": 553,
+    "rank": 77156,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工程管理",
+    "subject": "物理",
+    "score": 553,
+    "rank": 76978,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "道路桥梁与渡河工程",
+    "subject": "物理",
+    "score": 553,
+    "rank": 76630,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "土木工程",
+    "subject": "物理",
+    "score": 551,
+    "rank": 80245,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "环境工程",
+    "subject": "物理",
+    "score": 551,
+    "rank": 80067,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "食品科学与工程",
+    "subject": "物理",
+    "score": 551,
+    "rank": 79865,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "应用化学",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80456,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "化学工程与工艺",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80520,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工业设计",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80452,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "能源化学工程",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80377,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "智能医学工程",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80352,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "物理",
+    "score": 545,
+    "rank": 88794,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "翻译",
+    "subject": "物理",
+    "score": 542,
+    "rank": 93508,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工商管理",
+    "subject": "物理",
+    "score": 536,
+    "rank": 102837,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "广播电视学",
+    "subject": "物理",
+    "score": 540,
+    "rank": 96282,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "国际经济与贸易",
+    "subject": "物理",
+    "score": 544,
+    "rank": 90049,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "物理",
+    "score": 543,
+    "rank": 91048,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "物理",
+    "score": 541,
+    "rank": 94424,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "经济与金融",
+    "subject": "物理",
+    "score": 544,
+    "rank": 89334,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "人力资源管理",
+    "subject": "物理",
+    "score": 539,
+    "rank": 97551,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "社会工作",
+    "subject": "物理",
+    "score": 539,
+    "rank": 97994,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "文化产业管理",
+    "subject": "物理",
+    "score": 539,
+    "rank": 98089,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "小学教育",
+    "subject": "物理",
+    "score": 541,
+    "rank": 95064,
+    "desc": "(师范)市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "物理",
+    "score": 543,
+    "rank": 92123,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "知识产权",
+    "subject": "物理",
+    "score": 541,
+    "rank": 94421,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "质量管理工程",
+    "subject": "物理",
+    "score": 536,
+    "rank": 102979,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 562,
+    "rank": 65374,
+    "desc": "市内",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 559,
+    "rank": 68740,
+    "desc": "市内",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "电气工程及其自动化",
+    "subject": "物理",
+    "score": 557,
+    "rank": 70793,
+    "desc": "市内",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "材料科学与工程",
+    "subject": "物理",
+    "score": 551,
+    "rank": 79155,
+    "desc": "医工联合(广医)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 555,
+    "rank": 74517,
+    "desc": "医工联合(广医)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "应用化学",
+    "subject": "物理",
+    "score": 550,
+    "rank": 80517,
+    "desc": "医工联合(广医)",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "机械设计制造及其自动化",
+    "subject": "物理",
+    "score": 537,
+    "rank": 100202,
+    "desc": "中外合作",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "软件工程",
+    "subject": "物理",
+    "score": 539,
+    "rank": 96910,
+    "desc": "中外合作",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "通信工程",
+    "subject": "物理",
+    "score": 536,
+    "rank": 101745,
+    "desc": "中外合作",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "历史",
+    "score": 555,
+    "rank": 21506,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "翻译",
+    "subject": "历史",
+    "score": 547,
+    "rank": 25502,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "工商管理",
+    "subject": "历史",
+    "score": 544,
+    "rank": 27371,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "广播电视学",
+    "subject": "历史",
+    "score": 544,
+    "rank": 27247,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "国际经济与贸易",
+    "subject": "历史",
+    "score": 552,
+    "rank": 22859,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "历史",
+    "score": 552,
+    "rank": 23061,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "历史",
+    "score": 556,
+    "rank": 20971,
+    "desc": "(师范)市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "历史",
+    "score": 549,
+    "rank": 24391,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "经济与金融",
+    "subject": "历史",
+    "score": 548,
+    "rank": 24901,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "人力资源管理",
+    "subject": "历史",
+    "score": 544,
+    "rank": 27361,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "社会工作",
+    "subject": "历史",
+    "score": 547,
+    "rank": 25472,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "文化产业管理",
+    "subject": "历史",
+    "score": 544,
+    "rank": 27327,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 551,
+    "rank": 23634,
+    "desc": "市外",
+    "fee": 5710,
+    "est": true
+   }
+  ]
+ },
+ {
+  "school": "广东医科大学",
+  "region": "湛江",
+  "cat": "医药",
+  "level": "二本（医药）",
+  "majors": [
+   {
+    "name": "口腔医学",
+    "subject": "物理",
+    "score": 566,
+    "rank": 59478,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "临床医学",
+    "subject": "物理",
+    "score": 554,
+    "rank": 75923,
+    "desc": "东莞校区",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "临床医学",
+    "subject": "物理",
+    "score": 547,
+    "rank": 85334,
+    "desc": "湛江校区",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "智能医学工程",
+    "subject": "物理",
+    "score": 550,
+    "rank": 81400,
+    "desc": "联合学士学位",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "医学影像学",
+    "subject": "物理",
+    "score": 544,
+    "rank": 89399,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "麻醉学",
+    "subject": "物理",
+    "score": 543,
+    "rank": 90978,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "儿科学",
+    "subject": "物理",
+    "score": 542,
+    "rank": 93155,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 541,
+    "rank": 94995,
+    "desc": "联合学士学位",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "应用心理学",
+    "subject": "物理",
+    "score": 538,
+    "rank": 99318,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "智能医学工程",
+    "subject": "物理",
+    "score": 534,
+    "rank": 104976,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物医学工程",
+    "subject": "物理",
+    "score": 532,
+    "rank": 109281,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "法医学",
+    "subject": "物理",
+    "score": 531,
+    "rank": 110440,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "物理",
+    "score": 530,
+    "rank": 112470,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "数据科学与大数据技术",
+    "subject": "物理",
+    "score": 530,
+    "rank": 112506,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "智能科学与技术",
+    "subject": "物理",
+    "score": 530,
+    "rank": 112707,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "医学检验技术",
+    "subject": "物理",
+    "score": 529,
+    "rank": 113019,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物医药数据科学",
+    "subject": "物理",
+    "score": 528,
+    "rank": 116290,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物统计学",
+    "subject": "物理",
+    "score": 528,
+    "rank": 116127,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "口腔医学技术",
+    "subject": "物理",
+    "score": 528,
+    "rank": 115960,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 526,
+    "rank": 119373,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "海洋药学",
+    "subject": "物理",
+    "score": 524,
+    "rank": 121552,
+    "desc": "联合学士学位",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "眼视光学",
+    "subject": "物理",
+    "score": 524,
+    "rank": 121433,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "化妆品科学与技术",
+    "subject": "物理",
+    "score": 524,
+    "rank": 122699,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "康复治疗学",
+    "subject": "物理",
+    "score": 524,
+    "rank": 121444,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "医学实验技术",
+    "subject": "物理",
+    "score": 523,
+    "rank": 123225,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物技术",
+    "subject": "物理",
+    "score": 522,
+    "rank": 125595,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "康复物理治疗",
+    "subject": "物理",
+    "score": 522,
+    "rank": 125655,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "健康服务与管理",
+    "subject": "物理",
+    "score": 521,
+    "rank": 127492,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "卫生检验与检疫",
+    "subject": "物理",
+    "score": 521,
+    "rank": 126986,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "护理学",
+    "subject": "物理",
+    "score": 520,
+    "rank": 128428,
+    "desc": "湛江校区",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中药制药",
+    "subject": "物理",
+    "score": 520,
+    "rank": 129888,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药物分析",
+    "subject": "物理",
+    "score": 520,
+    "rank": 128742,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "公共事业管理",
+    "subject": "物理",
+    "score": 519,
+    "rank": 131756,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中药学",
+    "subject": "物理",
+    "score": 519,
+    "rank": 131136,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "临床药学",
+    "subject": "物理",
+    "score": 519,
+    "rank": 131536,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "信息管理与信息系统",
+    "subject": "物理",
+    "score": 518,
+    "rank": 132304,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "医疗保险",
+    "subject": "物理",
+    "score": 518,
+    "rank": 132150,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "社会工作",
+    "subject": "物理",
+    "score": 518,
+    "rank": 132299,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "护理学",
+    "subject": "物理",
+    "score": 518,
+    "rank": 132506,
+    "desc": "东莞校区",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "海洋药学",
+    "subject": "物理",
+    "score": 518,
+    "rank": 133407,
+    "desc": "湛江校区",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "助产学",
+    "subject": "物理",
+    "score": 517,
+    "rank": 134924,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "预防医学",
+    "subject": "物理",
+    "score": 516,
+    "rank": 135309,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "应用心理学",
+    "subject": "历史",
+    "score": 553,
+    "rank": 22719,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "健康服务与管理",
+    "subject": "历史",
+    "score": 548,
+    "rank": 25083,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "社会工作",
+    "subject": "历史",
+    "score": 543,
+    "rank": 28161,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "医疗保险",
+    "subject": "历史",
+    "score": 541,
+    "rank": 28845,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "公共事业管理",
+    "subject": "历史",
+    "score": 541,
+    "rank": 28899,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 535,
+    "rank": 32660,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   }
+  ]
+ },
+ {
+  "school": "暨南大学",
+  "region": "广州",
+  "cat": "综合",
+  "level": "211/双一流",
+  "majors": [
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 619,
+    "rank": 14831,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "软件工程",
+    "subject": "物理",
+    "score": 616,
+    "rank": 16212,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 614,
+    "rank": 17430,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "电子科学与技术",
+    "subject": "物理",
+    "score": 611,
+    "rank": 19361,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "光电信息科学与工程",
+    "subject": "物理",
+    "score": 615,
+    "rank": 16893,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "光电信息科学与工程",
+    "subject": "物理",
+    "score": 607,
+    "rank": 21939,
+    "desc": "创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "网络空间安全",
+    "subject": "物理",
+    "score": 614,
+    "rank": 17233,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "密码科学与技术",
+    "subject": "物理",
+    "score": 614,
+    "rank": 17622,
+    "desc": "图灵密码创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "信息与计算科学",
+    "subject": "物理",
+    "score": 613,
+    "rank": 17800,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "数学与应用数学",
+    "subject": "物理",
+    "score": 613,
+    "rank": 17976,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "信息管理与信息系统",
+    "subject": "物理",
+    "score": 598,
+    "rank": 28126,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "应用物理学",
+    "subject": "物理",
+    "score": 603,
+    "rank": 24463,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "材料科学与工程",
+    "subject": "物理",
+    "score": 602,
+    "rank": 24918,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "化学",
+    "subject": "物理",
+    "score": 600,
+    "rank": 26583,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "化学",
+    "subject": "物理",
+    "score": 603,
+    "rank": 24475,
+    "desc": "院士领航班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "应用化学",
+    "subject": "物理",
+    "score": 600,
+    "rank": 26704,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "环境科学与工程",
+    "subject": "物理",
+    "score": 599,
+    "rank": 27600,
+    "desc": "智慧环境创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物科学",
+    "subject": "物理",
+    "score": 598,
+    "rank": 28069,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物技术",
+    "subject": "物理",
+    "score": 597,
+    "rank": 29277,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生态学",
+    "subject": "物理",
+    "score": 595,
+    "rank": 30784,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物医学工程",
+    "subject": "物理",
+    "score": 601,
+    "rank": 26210,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "食品科学与工程",
+    "subject": "物理",
+    "score": 595,
+    "rank": 30700,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "临床医学",
+    "subject": "物理",
+    "score": 596,
+    "rank": 30086,
+    "desc": "深圳班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "临床医学",
+    "subject": "物理",
+    "score": 595,
+    "rank": 30366,
+    "desc": "省二医班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "临床医学",
+    "subject": "物理",
+    "score": 599,
+    "rank": 27443,
+    "desc": "校本部班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "口腔医学",
+    "subject": "物理",
+    "score": 601,
+    "rank": 25729,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "中医学",
+    "subject": "物理",
+    "score": 597,
+    "rank": 28753,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "预防医学",
+    "subject": "物理",
+    "score": 595,
+    "rank": 30480,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 599,
+    "rank": 27095,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 608,
+    "rank": 21135,
+    "desc": "笃行精药班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "中药学",
+    "subject": "物理",
+    "score": 597,
+    "rank": 28622,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物制药",
+    "subject": "物理",
+    "score": 601,
+    "rank": 25957,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "国际经济与贸易",
+    "subject": "物理",
+    "score": 594,
+    "rank": 31070,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "物理",
+    "score": 605,
+    "rank": 22714,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "经济统计学",
+    "subject": "物理",
+    "score": 595,
+    "rank": 30489,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "经济学",
+    "subject": "物理",
+    "score": 599,
+    "rank": 27208,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "税收学",
+    "subject": "物理",
+    "score": 597,
+    "rank": 28805,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "财政学",
+    "subject": "物理",
+    "score": 601,
+    "rank": 25843,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "工商管理",
+    "subject": "物理",
+    "score": 594,
+    "rank": 31107,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "物理",
+    "score": 595,
+    "rank": 30422,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "物理",
+    "score": 602,
+    "rank": 24906,
+    "desc": "数智会计创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "物理",
+    "score": 610,
+    "rank": 19785,
+    "desc": "注册会计师",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "市场营销",
+    "subject": "物理",
+    "score": 592,
+    "rank": 32957,
+    "desc": "数智营销创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "国际事务与国际关系",
+    "subject": "物理",
+    "score": 591,
+    "rank": 33667,
+    "desc": "区域国别创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "国际政治",
+    "subject": "物理",
+    "score": 591,
+    "rank": 34231,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "物理",
+    "score": 596,
+    "rank": 29773,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "商务英语",
+    "subject": "物理",
+    "score": 593,
+    "rank": 31886,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "商务英语",
+    "subject": "物理",
+    "score": 594,
+    "rank": 31328,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "新闻学",
+    "subject": "物理",
+    "score": 598,
+    "rank": 28331,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "广告学",
+    "subject": "物理",
+    "score": 597,
+    "rank": 29014,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "网络与新媒体",
+    "subject": "物理",
+    "score": 601,
+    "rank": 26190,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "广播电视学",
+    "subject": "物理",
+    "score": 596,
+    "rank": 29954,
+    "desc": "视听传播创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "物理",
+    "score": 605,
+    "rank": 22864,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "物理",
+    "score": 611,
+    "rank": 18836,
+    "desc": "涉外法治特色班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "知识产权",
+    "subject": "物理",
+    "score": 604,
+    "rank": 23797,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "行政管理",
+    "subject": "物理",
+    "score": 593,
+    "rank": 32406,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "应急管理",
+    "subject": "物理",
+    "score": 592,
+    "rank": 32983,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "物理",
+    "score": 606,
+    "rank": 22463,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "物理",
+    "score": 609,
+    "rank": 20279,
+    "desc": "振铎班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "历史学",
+    "subject": "物理",
+    "score": 593,
+    "rank": 32172,
+    "desc": "炳松班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "马克思主义理论",
+    "subject": "物理",
+    "score": 594,
+    "rank": 31539,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "翻译",
+    "subject": "物理",
+    "score": 593,
+    "rank": 32443,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语国际教育",
+    "subject": "物理",
+    "score": 594,
+    "rank": 31572,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语言",
+    "subject": "物理",
+    "score": 596,
+    "rank": 29368,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "电气工程及其自动化",
+    "subject": "物理",
+    "score": 610,
+    "rank": 19454,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "自动化",
+    "subject": "物理",
+    "score": 608,
+    "rank": 20834,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "人工智能",
+    "subject": "物理",
+    "score": 607,
+    "rank": 21521,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "物联网工程",
+    "subject": "物理",
+    "score": 605,
+    "rank": 23364,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "工业工程",
+    "subject": "物理",
+    "score": 594,
+    "rank": 31003,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "工程力学",
+    "subject": "物理",
+    "score": 603,
+    "rank": 24510,
+    "desc": "钱伟长创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "土木工程",
+    "subject": "物理",
+    "score": 604,
+    "rank": 23459,
+    "desc": "城市更新创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "土木工程",
+    "subject": "物理",
+    "score": 604,
+    "rank": 23891,
+    "desc": "智能运维创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "包装工程",
+    "subject": "物理",
+    "score": 603,
+    "rank": 24446,
+    "desc": "绿色智造卓越班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "历史",
+    "score": 619,
+    "rank": 2120,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "历史",
+    "score": 617,
+    "rank": 2274,
+    "desc": "涉外法治特色班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "知识产权",
+    "subject": "历史",
+    "score": 615,
+    "rank": 2539,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "工商管理",
+    "subject": "历史",
+    "score": 603,
+    "rank": 4512,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "历史",
+    "score": 609,
+    "rank": 3386,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "历史",
+    "score": 611,
+    "rank": 3079,
+    "desc": "数智会计创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "历史",
+    "score": 613,
+    "rank": 2879,
+    "desc": "注册会计师",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "市场营销",
+    "subject": "历史",
+    "score": 603,
+    "rank": 4525,
+    "desc": "数智营销创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "国际事务与国际关系",
+    "subject": "历史",
+    "score": 604,
+    "rank": 4261,
+    "desc": "区域国别创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "国际政治",
+    "subject": "历史",
+    "score": 604,
+    "rank": 4307,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 606,
+    "rank": 3921,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "商务英语",
+    "subject": "历史",
+    "score": 604,
+    "rank": 4408,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "商务英语",
+    "subject": "历史",
+    "score": 603,
+    "rank": 4530,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "新闻学",
+    "subject": "历史",
+    "score": 608,
+    "rank": 3595,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "广告学",
+    "subject": "历史",
+    "score": 608,
+    "rank": 3659,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "网络与新媒体",
+    "subject": "历史",
+    "score": 612,
+    "rank": 3011,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "广播电视学",
+    "subject": "历史",
+    "score": 607,
+    "rank": 3816,
+    "desc": "视听传播创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "历史",
+    "score": 611,
+    "rank": 3063,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "历史",
+    "score": 619,
+    "rank": 2091,
+    "desc": "振铎班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "历史学",
+    "subject": "历史",
+    "score": 606,
+    "rank": 3978,
+    "desc": "炳松班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "中医学",
+    "subject": "历史",
+    "score": 609,
+    "rank": 3362,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语国际教育",
+    "subject": "历史",
+    "score": 605,
+    "rank": 4126,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语言",
+    "subject": "历史",
+    "score": 605,
+    "rank": 4094,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "翻译",
+    "subject": "历史",
+    "score": 603,
+    "rank": 4574,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   }
+  ]
+ },
+ {
+  "school": "华南农业大学",
+  "region": "广州",
+  "cat": "农业",
+  "level": "双一流",
+  "majors": [
+   {
+    "name": "动物医学",
+    "subject": "物理",
+    "score": 598,
+    "rank": 27831,
+    "desc": "丁颖创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 596,
+    "rank": 29982,
+    "desc": "温氏创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "软件工程",
+    "subject": "物理",
+    "score": 594,
+    "rank": 31708,
+    "desc": "卓越软件工程师班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 591,
+    "rank": 34062,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 590,
+    "rank": 34488,
+    "desc": "数字技术创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "人工智能",
+    "subject": "物理",
+    "score": 590,
+    "rank": 34914,
+    "desc": "昇腾AI智创班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "集成电路设计与集成系统",
+    "subject": "物理",
+    "score": 590,
+    "rank": 34570,
+    "desc": "龙芯中科班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "电气工程及其自动化",
+    "subject": "物理",
+    "score": 589,
+    "rank": 35998,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "软件工程",
+    "subject": "物理",
+    "score": 589,
+    "rank": 35806,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "人工智能",
+    "subject": "物理",
+    "score": 588,
+    "rank": 36684,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "电子信息工程",
+    "subject": "物理",
+    "score": 588,
+    "rank": 36883,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "农业机械化及其自动化",
+    "subject": "物理",
+    "score": 588,
+    "rank": 36127,
+    "desc": "丁颖创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "自动化类",
+    "subject": "物理",
+    "score": 594,
+    "rank": 31170,
+    "desc": "新工科创新实验班(含机械、车辆、电气、机器人)",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "动物科学",
+    "subject": "物理",
+    "score": 593,
+    "rank": 32245,
+    "desc": "丁颖创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "动物医学",
+    "subject": "物理",
+    "score": 588,
+    "rank": 36624,
+    "desc": "温氏班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "集成电路设计与集成系统",
+    "subject": "物理",
+    "score": 587,
+    "rank": 37091,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "光电信息科学与工程",
+    "subject": "物理",
+    "score": 586,
+    "rank": 38309,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "电子信息科学与技术",
+    "subject": "物理",
+    "score": 586,
+    "rank": 37952,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "食品科学与工程",
+    "subject": "物理",
+    "score": 586,
+    "rank": 38582,
+    "desc": "丁颖创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "物理",
+    "score": 585,
+    "rank": 39059,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "农业机械化及其自动化",
+    "subject": "物理",
+    "score": 584,
+    "rank": 40138,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "数据科学与大数据技术",
+    "subject": "物理",
+    "score": 584,
+    "rank": 40439,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "机器人工程",
+    "subject": "物理",
+    "score": 584,
+    "rank": 39985,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "机械设计制造及其自动化",
+    "subject": "物理",
+    "score": 584,
+    "rank": 40087,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "工业设计",
+    "subject": "物理",
+    "score": 583,
+    "rank": 41495,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物科学",
+    "subject": "物理",
+    "score": 583,
+    "rank": 41752,
+    "desc": "生物学理科基地班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "能源与环境系统工程",
+    "subject": "物理",
+    "score": 583,
+    "rank": 41496,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "车辆工程",
+    "subject": "物理",
+    "score": 583,
+    "rank": 41432,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "农学",
+    "subject": "物理",
+    "score": 583,
+    "rank": 41259,
+    "desc": "丁颖创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "动物科学",
+    "subject": "物理",
+    "score": 583,
+    "rank": 41383,
+    "desc": "温氏班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "物理",
+    "score": 581,
+    "rank": 42918,
+    "desc": "数智财务管理创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "大数据管理与应用",
+    "subject": "物理",
+    "score": 581,
+    "rank": 43279,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "信息与计算科学",
+    "subject": "物理",
+    "score": 581,
+    "rank": 42976,
+    "desc": "卓越创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "农林经济管理",
+    "subject": "物理",
+    "score": 580,
+    "rank": 44446,
+    "desc": "丁颖创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物育种科学",
+    "subject": "物理",
+    "score": 580,
+    "rank": 43816,
+    "desc": "植物育种",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "数学与应用数学",
+    "subject": "物理",
+    "score": 580,
+    "rank": 43768,
+    "desc": "长基计划创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "信息与计算科学",
+    "subject": "物理",
+    "score": 579,
+    "rank": 45136,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "动物医学",
+    "subject": "物理",
+    "score": 579,
+    "rank": 45217,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "数学与应用数学",
+    "subject": "物理",
+    "score": 579,
+    "rank": 45623,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物质能源与材料",
+    "subject": "物理",
+    "score": 579,
+    "rank": 45450,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "植物保护",
+    "subject": "物理",
+    "score": 578,
+    "rank": 46113,
+    "desc": "智慧植保",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物科学",
+    "subject": "物理",
+    "score": 578,
+    "rank": 46800,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "信息管理与信息系统",
+    "subject": "物理",
+    "score": 577,
+    "rank": 47222,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "动物药学",
+    "subject": "物理",
+    "score": 577,
+    "rank": 47144,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "统计学",
+    "subject": "物理",
+    "score": 577,
+    "rank": 46825,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "食品科学与工程",
+    "subject": "物理",
+    "score": 577,
+    "rank": 47678,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "工商管理",
+    "subject": "物理",
+    "score": 576,
+    "rank": 48354,
+    "desc": "+AI创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "材料科学与工程",
+    "subject": "物理",
+    "score": 576,
+    "rank": 48334,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "物理",
+    "score": 576,
+    "rank": 48159,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物技术",
+    "subject": "物理",
+    "score": 576,
+    "rank": 47992,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "茶学",
+    "subject": "物理",
+    "score": 571,
+    "rank": 54264,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "园艺",
+    "subject": "物理",
+    "score": 570,
+    "rank": 54893,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "林学",
+    "subject": "物理",
+    "score": 570,
+    "rank": 54567,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "动物科学",
+    "subject": "物理",
+    "score": 572,
+    "rank": 52789,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "水产养殖学",
+    "subject": "物理",
+    "score": 571,
+    "rank": 53856,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "智慧牧业科学与工程",
+    "subject": "物理",
+    "score": 572,
+    "rank": 52954,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "园林",
+    "subject": "物理",
+    "score": 571,
+    "rank": 53837,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "蚕学",
+    "subject": "物理",
+    "score": 572,
+    "rank": 52823,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "农学",
+    "subject": "物理",
+    "score": 574,
+    "rank": 50688,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "植物保护",
+    "subject": "物理",
+    "score": 573,
+    "rank": 51833,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "森林保护",
+    "subject": "物理",
+    "score": 570,
+    "rank": 54939,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "草业科学",
+    "subject": "物理",
+    "score": 570,
+    "rank": 54979,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "中药资源与开发",
+    "subject": "物理",
+    "score": 572,
+    "rank": 52425,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "设施农业科学与工程",
+    "subject": "物理",
+    "score": 572,
+    "rank": 52419,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "食品质量与安全",
+    "subject": "物理",
+    "score": 567,
+    "rank": 50287,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物工程",
+    "subject": "物理",
+    "score": 567,
+    "rank": 50393,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "环境科学",
+    "subject": "物理",
+    "score": 537,
+    "rank": 99944,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "计算机科学与技术",
+    "subject": "物理",
+    "score": 544,
+    "rank": 89884,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "物理",
+    "score": 544,
+    "rank": 89546,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "物理",
+    "score": 548,
+    "rank": 84323,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "风景园林",
+    "subject": "物理",
+    "score": 544,
+    "rank": 89623,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "生物科学",
+    "subject": "物理",
+    "score": 550,
+    "rank": 81563,
+    "desc": "中外合作(都柏林)",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "园艺",
+    "subject": "物理",
+    "score": 543,
+    "rank": 91803,
+    "desc": "中外合作(都柏林)",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "食品质量与安全",
+    "subject": "物理",
+    "score": 549,
+    "rank": 82849,
+    "desc": "中外合作(都柏林)",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "思想政治教育",
+    "subject": "历史",
+    "score": 586,
+    "rank": 9104,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "园林",
+    "subject": "历史",
+    "score": 581,
+    "rank": 10583,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "土地资源管理",
+    "subject": "历史",
+    "score": 570,
+    "rank": 14768,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "劳动与社会保障",
+    "subject": "历史",
+    "score": 568,
+    "rank": 15360,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "社会工作",
+    "subject": "历史",
+    "score": 568,
+    "rank": 15683,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "行政管理",
+    "subject": "历史",
+    "score": 569,
+    "rank": 15001,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "公共事业管理",
+    "subject": "历史",
+    "score": 571,
+    "rank": 14514,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "广播电视编导",
+    "subject": "历史",
+    "score": 573,
+    "rank": 13625,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "日语",
+    "subject": "历史",
+    "score": 573,
+    "rank": 13703,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 579,
+    "rank": 11334,
+    "desc": "涉外法治人才",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "英语",
+    "subject": "历史",
+    "score": 573,
+    "rank": 13688,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "历史学",
+    "subject": "历史",
+    "score": 575,
+    "rank": 12911,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "汉语言文学",
+    "subject": "历史",
+    "score": 578,
+    "rank": 11812,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "历史",
+    "score": 582,
+    "rank": 10357,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "人力资源管理",
+    "subject": "历史",
+    "score": 577,
+    "rank": 12020,
+    "desc": "云端HR创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "市场营销",
+    "subject": "历史",
+    "score": 578,
+    "rank": 11867,
+    "desc": "大数据创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "工商管理",
+    "subject": "历史",
+    "score": 578,
+    "rank": 11617,
+    "desc": "AI创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "经济学",
+    "subject": "历史",
+    "score": 582,
+    "rank": 10196,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "历史",
+    "score": 583,
+    "rank": 9812,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "历史",
+    "score": 581,
+    "rank": 10847,
+    "desc": "ACCA创新实验班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "历史",
+    "score": 588,
+    "rank": 8471,
+    "desc": "数智财务管理创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "农林经济管理",
+    "subject": "历史",
+    "score": 587,
+    "rank": 8688,
+    "desc": "乡村振兴",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "农林经济管理",
+    "subject": "历史",
+    "score": 592,
+    "rank": 7265,
+    "desc": "丁颖创新班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "建筑学",
+    "subject": "历史",
+    "score": 569,
+    "rank": 14918,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "风景园林",
+    "subject": "历史",
+    "score": 568,
+    "rank": 15460,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "城乡规划",
+    "subject": "历史",
+    "score": 567,
+    "rank": 15903,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "城乡规划",
+    "subject": "历史",
+    "score": 570,
+    "rank": 14616,
+    "desc": "乡村振兴",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "地理信息科学",
+    "subject": "历史",
+    "score": 562,
+    "rank": 18085,
+    "desc": "",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "风景园林",
+    "subject": "历史",
+    "score": 529,
+    "rank": 36448,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "会计学",
+    "subject": "历史",
+    "score": 533,
+    "rank": 34257,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   },
+   {
+    "name": "金融学",
+    "subject": "历史",
+    "score": 531,
+    "rank": 35444,
+    "desc": "国际班",
+    "fee": 6850,
+    "est": true
+   }
+  ]
+ },
+ {
+  "school": "南方医科大学",
+  "region": "广州",
+  "cat": "医药",
+  "level": "医科强校",
+  "majors": [
+   {
+    "name": "临床医学",
+    "subject": "物理",
+    "score": 650,
+    "rank": 3606,
+    "desc": "八年制",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "临床医学",
+    "subject": "物理",
+    "score": 631,
+    "rank": 9267,
+    "desc": "卓越创新班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "临床医学",
+    "subject": "物理",
+    "score": 604,
+    "rank": 23705,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "口腔医学",
+    "subject": "物理",
+    "score": 610,
+    "rank": 19988,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "医学影像学",
+    "subject": "物理",
+    "score": 602,
+    "rank": 25443,
+    "desc": "智能影像创新班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "医学影像学",
+    "subject": "物理",
+    "score": 591,
+    "rank": 33919,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "麻醉学",
+    "subject": "物理",
+    "score": 596,
+    "rank": 29693,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "精神医学",
+    "subject": "物理",
+    "score": 593,
+    "rank": 32307,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "儿科学",
+    "subject": "物理",
+    "score": 591,
+    "rank": 33698,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "法医学",
+    "subject": "物理",
+    "score": 591,
+    "rank": 34091,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "法医学",
+    "subject": "物理",
+    "score": 591,
+    "rank": 34091,
+    "desc": "卓越班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "基础医学",
+    "subject": "物理",
+    "score": 598,
+    "rank": 28370,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "基础医学",
+    "subject": "物理",
+    "score": 598,
+    "rank": 28370,
+    "desc": "院士创新班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中西医临床医学",
+    "subject": "物理",
+    "score": 595,
+    "rank": 30518,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中西医临床医学",
+    "subject": "物理",
+    "score": 595,
+    "rank": 30518,
+    "desc": "创新班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "预防医学",
+    "subject": "物理",
+    "score": 575,
+    "rank": 49394,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "预防医学",
+    "subject": "物理",
+    "score": 576,
+    "rank": 48338,
+    "desc": "卓越创新班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "临床药学",
+    "subject": "物理",
+    "score": 575,
+    "rank": 49342,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "临床药学",
+    "subject": "物理",
+    "score": 579,
+    "rank": 45113,
+    "desc": "卓越药师班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 577,
+    "rank": 47402,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "药学",
+    "subject": "物理",
+    "score": 586,
+    "rank": 38517,
+    "desc": "创新班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物医学工程",
+    "subject": "物理",
+    "score": 581,
+    "rank": 43177,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物医学工程",
+    "subject": "物理",
+    "score": 596,
+    "rank": 29657,
+    "desc": "卓越创新班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物技术",
+    "subject": "物理",
+    "score": 579,
+    "rank": 45090,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物技术",
+    "subject": "物理",
+    "score": 580,
+    "rank": 44366,
+    "desc": "生物制药",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物技术",
+    "subject": "物理",
+    "score": 587,
+    "rank": 37250,
+    "desc": "创新班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物信息学",
+    "subject": "物理",
+    "score": 580,
+    "rank": 44630,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "生物统计学",
+    "subject": "物理",
+    "score": 578,
+    "rank": 46339,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "智能医学工程",
+    "subject": "物理",
+    "score": 578,
+    "rank": 46319,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "康复治疗学",
+    "subject": "物理",
+    "score": 578,
+    "rank": 46350,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "医学检验技术",
+    "subject": "物理",
+    "score": 578,
+    "rank": 46286,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中医学",
+    "subject": "物理",
+    "score": 585,
+    "rank": 39475,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中医学",
+    "subject": "物理",
+    "score": 590,
+    "rank": 34537,
+    "desc": "名老中医传承班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "针灸推拿学",
+    "subject": "物理",
+    "score": 583,
+    "rank": 41491,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "应用心理学",
+    "subject": "物理",
+    "score": 582,
+    "rank": 42249,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "物理",
+    "score": 582,
+    "rank": 42303,
+    "desc": "卫生法学",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中医学",
+    "subject": "历史",
+    "score": 597,
+    "rank": 5804,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "中医学",
+    "subject": "历史",
+    "score": 585,
+    "rank": 9161,
+    "desc": "名老中医传承班",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "针灸推拿学",
+    "subject": "历史",
+    "score": 581,
+    "rank": 10811,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "外国语言文学类",
+    "subject": "历史",
+    "score": 571,
+    "rank": 14424,
+    "desc": "含英语、翻译",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "健康服务与管理",
+    "subject": "历史",
+    "score": 571,
+    "rank": 14416,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "公共事业管理",
+    "subject": "历史",
+    "score": 571,
+    "rank": 14324,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "应用心理学",
+    "subject": "历史",
+    "score": 573,
+    "rank": 13530,
+    "desc": "",
+    "fee": 6960,
+    "est": true
+   },
+   {
+    "name": "法学",
+    "subject": "历史",
+    "score": 578,
+    "rank": 11883,
+    "desc": "卫生法学",
+    "fee": 6960,
+    "est": true
+   }
+  ]
+ }
+]

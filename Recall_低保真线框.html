@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recall · AI智能错题本 · 低保真线框原型</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f0f0f0;
+    font-family: "Comic Sans MS","Segoe Print","Bradley Hand","PingFang SC","Microsoft YaHei",cursive,sans-serif;
+    color: #333;
+    padding: 24px;
+  }
+  .doc-title {
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin: 0 0 6px;
+  }
+  .doc-sub {
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    margin: 0 0 24px;
+  }
+  .page-wrap { margin-bottom: 36px; }
+  .page-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    border-left: 4px solid #555;
+    padding-left: 8px;
+  }
+  svg { width: 100%; height: auto; display: block; background: #fff; border: 1px solid #ccc; }
+  text { fill: #333; }
+</style>
+</head>
+<body>
+
+  <h1 class="doc-title">Recall · AI 智能错题本 — 低保真线框原型</h1>
+  <p class="doc-sub">Axure RP 风格 · 黑白灰线框 · 手绘草图 · 仅展示信息架构与功能布局</p>
+
+  <!-- ============ 页面1：填写信息 ============ -->
+  <div class="page-wrap">
+    <p class="page-label">页面 1：填写信息</p>
+    <svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="sketch1">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="2"/>
+        </filter>
+      </defs>
+
+      <!-- 矩形（手绘滤镜） -->
+      <g filter="url(#sketch1)" stroke="#555" stroke-width="1.5" fill="none">
+        <!-- 顶栏 -->
+        <rect x="16" y="16" width="968" height="52" rx="4" fill="#fff"/>
+        <rect x="30" y="30" width="84" height="26" rx="4" fill="#fff"/>
+        <rect x="150" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="312" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="474" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="636" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="798" y="34" width="150" height="30" rx="4" fill="#fff"/>
+
+        <!-- 左侧信息分类导航 -->
+        <rect x="16" y="84" width="210" height="580" rx="4" fill="#fff"/>
+        <rect x="30" y="120" width="182" height="34" rx="4" fill="#fff"/>
+        <rect x="46" y="160" width="166" height="28" rx="3" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="46" y="192" width="166" height="28" rx="3" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="46" y="224" width="166" height="28" rx="3" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="30" y="264" width="182" height="34" rx="4" fill="#fff"/>
+        <rect x="46" y="304" width="166" height="28" rx="3" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="46" y="336" width="166" height="28" rx="3" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="46" y="368" width="166" height="28" rx="3" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="46" y="400" width="166" height="28" rx="3" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="30" y="600" width="182" height="44" rx="4" stroke-dasharray="5 4" fill="#fff"/>
+
+        <!-- 右侧面板 -->
+        <rect x="242" y="84" width="742" height="580" rx="4" fill="#fff"/>
+        <rect x="254" y="96" width="718" height="46" rx="4" fill="#fafafa"/>
+        <rect x="262" y="104" width="72" height="30" rx="4" fill="#fff"/>
+        <rect x="344" y="104" width="72" height="30" rx="4" fill="#fff"/>
+        <rect x="426" y="104" width="220" height="30" rx="4" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="900" y="104" width="60" height="30" rx="4" fill="#fff"/>
+
+        <!-- 列表头 -->
+        <rect x="254" y="184" width="706" height="36" rx="3" fill="#f0f0f0"/>
+        <!-- 数据行 -->
+        <rect x="254" y="224" width="706" height="64" rx="3" fill="#fff"/>
+        <rect x="254" y="296" width="706" height="64" rx="3" fill="#fff"/>
+        <rect x="254" y="368" width="706" height="64" rx="3" fill="#fff"/>
+        <rect x="254" y="440" width="706" height="64" rx="3" fill="#fff"/>
+        <rect x="254" y="512" width="706" height="64" rx="3" fill="#fff"/>
+        <rect x="254" y="600" width="706" height="44" rx="4" stroke-dasharray="5 4" fill="#fff"/>
+      </g>
+
+      <!-- 文字标注 -->
+      <g font-size="14">
+        <text x="72" y="48" text-anchor="middle" font-weight="bold">Recall</text>
+        <text x="225" y="54" text-anchor="middle">个人基本信息</text>
+        <text x="387" y="54" text-anchor="middle">成绩学科信息</text>
+        <text x="549" y="54" text-anchor="middle">性格测试</text>
+        <text x="711" y="54" text-anchor="middle">个人兴趣爱好</text>
+        <text x="873" y="54" text-anchor="middle">喜欢的城市</text>
+
+        <text x="26" y="108" font-weight="bold">信息分类导航</text>
+        <text x="121" y="142" text-anchor="middle">意愿学校</text>
+        <text x="129" y="179" text-anchor="middle">· 985 / 211</text>
+        <text x="129" y="211" text-anchor="middle">· 普通本科</text>
+        <text x="129" y="243" text-anchor="middle">· 专科 / 高职</text>
+        <text x="121" y="286" text-anchor="middle">专业分类</text>
+        <text x="129" y="323" text-anchor="middle">· 工学</text>
+        <text x="129" y="355" text-anchor="middle">· 理学</text>
+        <text x="129" y="387" text-anchor="middle">· 文学</text>
+        <text x="129" y="419" text-anchor="middle">· 医学</text>
+        <text x="121" y="628" text-anchor="middle">（更多分类…）</text>
+
+        <text x="298" y="124" text-anchor="middle">导出</text>
+        <text x="380" y="124" text-anchor="middle">录入</text>
+        <text x="436" y="124">搜索…</text>
+        <text x="930" y="124" text-anchor="middle">筛选</text>
+
+        <text x="254" y="174" font-weight="bold">学校与专业列表</text>
+        <text x="300" y="207" font-size="12">学校</text>
+        <text x="470" y="207" font-size="12">专业</text>
+        <text x="640" y="207" font-size="12">批次</text>
+        <text x="780" y="207" font-size="12">匹配度</text>
+        <text x="900" y="207" font-size="12">操作</text>
+
+        <text x="270" y="262" font-size="13">[校徽▢] 武汉大学 · 计算机科学与技术 · 本科一批 · 匹配 92% · [查看]</text>
+        <text x="270" y="334" font-size="13">[校徽▢] 华东师大 · 心理学 · 本科一批 · 匹配 88% · [查看]</text>
+        <text x="270" y="406" font-size="13">[校徽▢] 厦大 · 海洋科学 · 本科一批 · 匹配 85% · [查看]</text>
+        <text x="270" y="478" font-size="13">[校徽▢] 苏大 · 临床医学 · 本科一批 · 匹配 80% · [查看]</text>
+        <text x="270" y="550" font-size="13">[校徽▢] 深大 · 软件工程 · 本科一批 · 匹配 78% · [查看]</text>
+        <text x="270" y="628" font-size="12">共 5 条 · 分页 ▢▢▢</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ============ 页面2：AI答疑 ============ -->
+  <div class="page-wrap">
+    <p class="page-label">页面 2：AI 答疑</p>
+    <svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="sketch2">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="3" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="2"/>
+        </filter>
+      </defs>
+
+      <g filter="url(#sketch2)" stroke="#555" stroke-width="1.5" fill="none">
+        <!-- 顶栏 -->
+        <rect x="16" y="16" width="968" height="52" rx="4" fill="#fff"/>
+        <rect x="30" y="30" width="84" height="26" rx="4" fill="#fff"/>
+        <rect x="150" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="312" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="474" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="636" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="798" y="34" width="150" height="30" rx="4" fill="#fff"/>
+
+        <!-- 左侧历史对话 -->
+        <rect x="16" y="84" width="210" height="580" rx="4" fill="#fff"/>
+        <rect x="30" y="96" width="182" height="38" rx="4" fill="#fff"/>
+        <rect x="30" y="168" width="182" height="40" rx="4" fill="#fff"/>
+        <rect x="30" y="214" width="182" height="40" rx="4" fill="#fff"/>
+        <rect x="30" y="260" width="182" height="40" rx="4" fill="#fff"/>
+        <rect x="30" y="306" width="182" height="40" rx="4" fill="#fff"/>
+        <rect x="30" y="352" width="182" height="40" rx="4" fill="#fff"/>
+
+        <!-- 右侧聊天区 -->
+        <rect x="242" y="84" width="742" height="580" rx="4" fill="#fff"/>
+        <rect x="262" y="100" width="702" height="70" rx="6" stroke-dasharray="6 4" fill="#fafafa"/>
+        <rect x="262" y="190" width="420" height="56" rx="10" fill="#f5f5f5"/>
+        <rect x="584" y="256" width="380" height="44" rx="10" fill="#fff"/>
+        <rect x="262" y="312" width="460" height="56" rx="10" fill="#f5f5f5"/>
+        <rect x="584" y="378" width="360" height="40" rx="10" fill="#fff"/>
+        <rect x="262" y="430" width="440" height="52" rx="10" fill="#f5f5f5"/>
+        <rect x="262" y="560" width="560" height="80" rx="6" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="838" y="560" width="106" height="80" rx="6" fill="#eee"/>
+      </g>
+
+      <g font-size="14">
+        <text x="72" y="48" text-anchor="middle" font-weight="bold">Recall</text>
+        <text x="225" y="54" text-anchor="middle">个人基本信息</text>
+        <text x="387" y="54" text-anchor="middle">成绩学科信息</text>
+        <text x="549" y="54" text-anchor="middle">性格测试</text>
+        <text x="711" y="54" text-anchor="middle">个人兴趣爱好</text>
+        <text x="873" y="54" text-anchor="middle">喜欢的城市</text>
+
+        <text x="121" y="120" text-anchor="middle">＋ 新建对话</text>
+        <text x="26" y="158" font-weight="bold">历史对话</text>
+        <text x="40" y="193" font-size="13">志愿方案讨论</text>
+        <text x="40" y="239" font-size="13">错题解析 - 数学</text>
+        <text x="40" y="285" font-size="13">专业匹配咨询</text>
+        <text x="40" y="331" font-size="13">性格测试结果解读</text>
+        <text x="40" y="377" font-size="13">城市偏好讨论</text>
+
+        <text x="278" y="124" font-size="13">你好，我是 Recall AI 答疑助手，可以帮你分析成绩、</text>
+        <text x="278" y="146" font-size="13">专业与志愿，也能讲解错题。</text>
+
+        <text x="278" y="222" font-size="13">根据你的性格测试，推荐研究型 / 现实型专业…</text>
+        <text x="868" y="283" text-anchor="end" font-size="13">那我不想去东北怎么办？</text>
+        <text x="278" y="344" font-size="13">已记录偏好「不去东北」，重新生成方案…</text>
+        <text x="856" y="403" text-anchor="end" font-size="13">数学怕算，有文科吗？</text>
+        <text x="278" y="461" font-size="13">已加入语义记忆「怕数学」，排除强数学专业。</text>
+
+        <text x="278" y="606" font-size="13" fill="#999">输入你的问题…</text>
+        <text x="891" y="606" text-anchor="middle">发送</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ============ 页面3：数据看板 ============ -->
+  <div class="page-wrap">
+    <p class="page-label">页面 3：数据看板</p>
+    <svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="sketch3">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="11" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="2"/>
+        </filter>
+      </defs>
+      <g filter="url(#sketch3)" stroke="#555" stroke-width="1.5" fill="none">
+        <rect x="16" y="16" width="968" height="52" rx="4" fill="#fff"/>
+        <rect x="30" y="30" width="84" height="26" rx="4" fill="#fff"/>
+        <rect x="150" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="312" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="474" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="636" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="798" y="34" width="150" height="30" rx="4" fill="#fff"/>
+
+        <rect x="16" y="84" width="968" height="300" rx="4" fill="#fff"/>
+        <rect x="50" y="310" width="50" height="40" fill="#fff"/>
+        <rect x="114" y="278" width="50" height="72" fill="#fff"/>
+        <rect x="178" y="240" width="50" height="110" fill="#fff"/>
+        <rect x="242" y="200" width="50" height="150" fill="#fff"/>
+        <rect x="306" y="165" width="50" height="185" fill="#fff"/>
+        <rect x="370" y="135" width="50" height="215" fill="#fff"/>
+        <rect x="434" y="112" width="50" height="238" fill="#fff"/>
+        <rect x="498" y="120" width="50" height="230" fill="#d9d9d9"/>
+        <rect x="562" y="150" width="50" height="200" fill="#fff"/>
+        <rect x="626" y="190" width="50" height="160" fill="#fff"/>
+        <rect x="690" y="230" width="50" height="120" fill="#fff"/>
+        <rect x="754" y="262" width="50" height="88" fill="#fff"/>
+        <rect x="818" y="292" width="50" height="58" fill="#fff"/>
+        <rect x="882" y="312" width="50" height="38" fill="#fff"/>
+        <line x1="523" y1="100" x2="523" y2="350" stroke="#555" stroke-dasharray="6 4"/>
+
+        <rect x="16" y="400" width="470" height="264" rx="4" fill="#fff"/>
+        <rect x="32" y="430" width="438" height="60" rx="4" stroke-dasharray="6 4" fill="#fafafa"/>
+        <rect x="502" y="400" width="482" height="264" rx="4" fill="#fff"/>
+        <rect x="518" y="440" width="450" height="32" rx="3" fill="#f0f0f0"/>
+        <rect x="518" y="476" width="450" height="40" rx="3" fill="#fff"/>
+        <rect x="518" y="520" width="450" height="40" rx="3" fill="#fff"/>
+        <rect x="518" y="564" width="450" height="40" rx="3" fill="#fff"/>
+        <rect x="518" y="608" width="450" height="40" rx="3" fill="#fff"/>
+      </g>
+      <g font-size="14">
+        <text x="72" y="48" text-anchor="middle" font-weight="bold">Recall</text>
+        <text x="225" y="54" text-anchor="middle">个人基本信息</text>
+        <text x="387" y="54" text-anchor="middle">成绩学科信息</text>
+        <text x="549" y="54" text-anchor="middle">性格测试</text>
+        <text x="711" y="54" text-anchor="middle">个人兴趣爱好</text>
+        <text x="873" y="54" text-anchor="middle">喜欢的城市</text>
+
+        <text x="32" y="112" font-weight="bold">今年全省高考分数人数分布</text>
+        <text x="523" y="92" text-anchor="middle" font-size="12">↑ 你的分数 612（600–620 区间）</text>
+        <text x="34" y="250" font-size="12" fill="#999" transform="rotate(-90 34 250)">人数</text>
+        <text x="75" y="368" font-size="11" text-anchor="middle">400</text>
+        <text x="203" y="368" font-size="11" text-anchor="middle">450</text>
+        <text x="331" y="368" font-size="11" text-anchor="middle">500</text>
+        <text x="459" y="368" font-size="11" text-anchor="middle">550</text>
+        <text x="587" y="368" font-size="11" text-anchor="middle">600</text>
+        <text x="715" y="368" font-size="11" text-anchor="middle">650</text>
+        <text x="843" y="368" font-size="11" text-anchor="middle">700</text>
+
+        <text x="32" y="424" font-weight="bold">自身分数定位</text>
+        <text x="44" y="466" font-size="13">高考分数：612 分</text>
+        <text x="44" y="490" font-size="13">全省位次：约 15,200 名</text>
+        <text x="44" y="556" font-size="13">分数区间：600–620（高分段）</text>
+        <text x="58" y="590" font-size="13">超过 82% 考生 ▢</text>
+
+        <text x="518" y="424" font-weight="bold">意向院校和专业往年录取情况</text>
+        <text x="530" y="462" font-size="12">院校</text>
+        <text x="650" y="462" font-size="12">专业</text>
+        <text x="770" y="462" font-size="12">历年线</text>
+        <text x="890" y="462" font-size="12">差距</text>
+        <text x="530" y="502" font-size="12">武汉大学</text>
+        <text x="650" y="502" font-size="12">计算机</text>
+        <text x="770" y="502" font-size="12">623</text>
+        <text x="890" y="502" font-size="12">+11</text>
+        <text x="530" y="546" font-size="12">华东师大</text>
+        <text x="650" y="546" font-size="12">心理学</text>
+        <text x="770" y="546" font-size="12">605</text>
+        <text x="890" y="546" font-size="12">-7</text>
+        <text x="530" y="590" font-size="12">厦大</text>
+        <text x="650" y="590" font-size="12">海洋科学</text>
+        <text x="770" y="590" font-size="12">598</text>
+        <text x="890" y="590" font-size="12">-14</text>
+        <text x="530" y="634" font-size="12">苏大</text>
+        <text x="650" y="634" font-size="12">临床医学</text>
+        <text x="770" y="634" font-size="12">590</text>
+        <text x="890" y="634" font-size="12">-22</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ============ 页面4：API 模型设置 ============ -->
+  <div class="page-wrap">
+    <p class="page-label">页面 4：API 模型设置</p>
+    <svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="sketch4">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="5" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="2"/>
+        </filter>
+      </defs>
+      <g filter="url(#sketch4)" stroke="#555" stroke-width="1.5" fill="none">
+        <rect x="16" y="16" width="968" height="52" rx="4" fill="#fff"/>
+        <rect x="30" y="30" width="84" height="26" rx="4" fill="#fff"/>
+        <rect x="150" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="312" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="474" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="636" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="798" y="34" width="150" height="30" rx="4" fill="#fff"/>
+
+        <rect x="200" y="140" width="600" height="440" rx="6" fill="#fff"/>
+        <rect x="240" y="230" width="520" height="40" rx="4" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="240" y="310" width="520" height="40" rx="4" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="240" y="390" width="520" height="40" rx="4" stroke-dasharray="5 4" fill="#fff"/>
+        <rect x="240" y="470" width="130" height="42" rx="4" fill="#fff"/>
+        <rect x="390" y="470" width="150" height="42" rx="4" fill="#fff"/>
+        <rect x="560" y="470" width="130" height="42" rx="4" fill="#fff"/>
+        <rect x="240" y="540" width="520" height="60" rx="4" stroke-dasharray="6 4" fill="#fafafa"/>
+      </g>
+      <g font-size="14">
+        <text x="72" y="48" text-anchor="middle" font-weight="bold">Recall</text>
+        <text x="225" y="54" text-anchor="middle">个人基本信息</text>
+        <text x="387" y="54" text-anchor="middle">成绩学科信息</text>
+        <text x="549" y="54" text-anchor="middle">性格测试</text>
+        <text x="711" y="54" text-anchor="middle">个人兴趣爱好</text>
+        <text x="873" y="54" text-anchor="middle">喜欢的城市</text>
+
+        <text x="220" y="178" font-weight="bold">API 模型设置</text>
+        <text x="240" y="218" font-size="13">模型名称</text>
+        <text x="246" y="255" font-size="12" fill="#999">如 deepseek-chat / qwen-max / glm-4</text>
+        <text x="240" y="298" font-size="13">API Key</text>
+        <text x="246" y="335" font-size="12" fill="#999">sk-••••••••••••••••</text>
+        <text x="240" y="378" font-size="13">Base URL</text>
+        <text x="246" y="415" font-size="12" fill="#999">https://api.example.com/v1</text>
+        <text x="305" y="496" text-anchor="middle">保存</text>
+        <text x="465" y="496" text-anchor="middle">测试连接</text>
+        <text x="625" y="496" text-anchor="middle">重置</text>
+        <text x="256" y="574" font-size="12">支持 DeepSeek / 通义千问 / 硅基流动…（OpenAI 兼容协议，可热切换）</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ============ 页面5：帮助文档 ============ -->
+  <div class="page-wrap">
+    <p class="page-label">页面 5：帮助文档</p>
+    <svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="sketch5">
+          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="9" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="2"/>
+        </filter>
+      </defs>
+      <g filter="url(#sketch5)" stroke="#555" stroke-width="1.5" fill="none">
+        <rect x="16" y="16" width="968" height="52" rx="4" fill="#fff"/>
+        <rect x="30" y="30" width="84" height="26" rx="4" fill="#fff"/>
+        <rect x="150" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="312" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="474" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="636" y="34" width="150" height="30" rx="4" fill="#fff"/>
+        <rect x="798" y="34" width="150" height="30" rx="4" fill="#fff"/>
+
+        <rect x="16" y="84" width="240" height="580" rx="4" fill="#fff"/>
+        <rect x="30" y="120" width="212" height="44" rx="4" fill="#f0f0f0"/>
+        <rect x="30" y="176" width="212" height="44" rx="4" fill="#fff"/>
+        <rect x="30" y="232" width="212" height="44" rx="4" fill="#fff"/>
+        <rect x="30" y="288" width="212" height="44" rx="4" fill="#fff"/>
+        <rect x="30" y="344" width="212" height="44" rx="4" fill="#fff"/>
+        <rect x="30" y="400" width="212" height="44" rx="4" fill="#fff"/>
+        <rect x="30" y="456" width="212" height="44" rx="4" fill="#fff"/>
+        <rect x="30" y="512" width="212" height="44" rx="4" fill="#fff"/>
+
+        <rect x="272" y="84" width="712" height="580" rx="4" fill="#fff"/>
+        <line x1="292" y1="160" x2="820" y2="160" stroke="#bbb" stroke-dasharray="8 5"/>
+        <line x1="292" y1="184" x2="860" y2="184" stroke="#bbb" stroke-dasharray="8 5"/>
+        <line x1="292" y1="208" x2="780" y2="208" stroke="#bbb" stroke-dasharray="8 5"/>
+        <rect x="292" y="240" width="28" height="28" rx="14" fill="#f0f0f0"/>
+        <line x1="332" y1="262" x2="760" y2="262" stroke="#bbb" stroke-dasharray="8 5"/>
+        <rect x="292" y="290" width="28" height="28" rx="14" fill="#f0f0f0"/>
+        <line x1="332" y1="312" x2="820" y2="312" stroke="#bbb" stroke-dasharray="8 5"/>
+        <rect x="292" y="340" width="28" height="28" rx="14" fill="#f0f0f0"/>
+        <line x1="332" y1="362" x2="700" y2="362" stroke="#bbb" stroke-dasharray="8 5"/>
+        <line x1="292" y1="420" x2="840" y2="420" stroke="#bbb" stroke-dasharray="8 5"/>
+        <line x1="292" y1="444" x2="800" y2="444" stroke="#bbb" stroke-dasharray="8 5"/>
+        <line x1="292" y1="468" x2="760" y2="468" stroke="#bbb" stroke-dasharray="8 5"/>
+      </g>
+      <g font-size="14">
+        <text x="72" y="48" text-anchor="middle" font-weight="bold">Recall</text>
+        <text x="225" y="54" text-anchor="middle">个人基本信息</text>
+        <text x="387" y="54" text-anchor="middle">成绩学科信息</text>
+        <text x="549" y="54" text-anchor="middle">性格测试</text>
+        <text x="711" y="54" text-anchor="middle">个人兴趣爱好</text>
+        <text x="873" y="54" text-anchor="middle">喜欢的城市</text>
+
+        <text x="26" y="112" font-weight="bold">帮助目录</text>
+        <text x="44" y="148" font-size="13">快速开始</text>
+        <text x="44" y="204" font-size="13">填写信息</text>
+        <text x="44" y="260" font-size="13">性格测试</text>
+        <text x="44" y="316" font-size="13">双轨记忆</text>
+        <text x="44" y="372" font-size="13">AI 答疑</text>
+        <text x="44" y="428" font-size="13">数据看板</text>
+        <text x="44" y="484" font-size="13">API 设置</text>
+        <text x="44" y="540" font-size="13">常见问题 FAQ</text>
+
+        <text x="292" y="120" font-weight="bold">帮助手册 · 快速开始</text>
+        <text x="306" y="258" font-size="13">① 注册并填写个人基本信息</text>
+        <text x="306" y="308" font-size="13">② 完成性格测试生成画像</text>
+        <text x="306" y="358" font-size="13">③ 查看 AI 推荐与归因解释</text>
+        <text x="292" y="600" font-size="12" fill="#999">（正文以虚线占位，正式文档替换为说明文字）</text>
+      </g>
+    </svg>
+  </div>
+
+</body>
+</html>

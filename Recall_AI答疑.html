@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 答疑 · Recall</title>
+<link rel="stylesheet" href="recall-ui.css">
+<style>
+/* ====== 页面专属：AI 答疑聊天布局 ====== */
+.chat-wrap{display:flex;gap:20px;height:calc(100vh - 72px);margin-top:18px}
+
+/* 左侧：对话列表面板 */
+.chat-sidebar{width:260px;flex-shrink:0;display:flex;flex-direction:column;gap:12px}
+.chat-sidebar .new-chat-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px;border-radius:13px;font-size:13.5px;font-weight:600;
+  background:linear-gradient(135deg,var(--main),#7FA8F5);color:#fff;
+  box-shadow:0 6px 18px rgba(91,141,239,.28);
+  transition:.18s;cursor:pointer
+}
+.chat-sidebar .new-chat-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(91,141,239,.38)}
+.chat-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding-right:4px}
+.chat-item{
+  padding:12px 14px;border-radius:13px;background:var(--card);
+  border:1.5px solid var(--line);cursor:pointer;transition:.15s;
+  display:flex;align-items:center;justify-content:space-between;gap:8px
+}
+.chat-item:hover{border-color:var(--sec);box-shadow:0 4px 12px rgba(91,141,239,.08)}
+.chat-item.active{border-color:var(--main);background:#F6FAFD;
+  box-shadow:0 4px 14px rgba(91,141,239,.12)}
+.chat-item .ci-title{font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-item .ci-time{font-size:11px;color:var(--sub);white-space:nowrap;flex-shrink:0}
+.chat-item .ci-dot{width:7px;height:7px;border-radius:50%;background:var(--main);flex-shrink:0}
+.chat-item .ci-del{
+  width:22px;height:22px;border-radius:7px;flex-shrink:0;display:grid;place-items:center;
+  background:#F1F5F9;color:#94A3B8;font-size:12px;cursor:pointer;transition:.15s;border:none
+}
+.chat-item .ci-del:hover{background:#FFF1F1;color:#E25555}
+.chat-item.active .ci-del{background:#EAF1FB}
+
+/* 右侧：聊天主区域 */
+.chat-main{flex:1;display:flex;flex-direction:column;min-width:0;
+  background:var(--card);border:1px solid var(--line);border-radius:22px;
+  overflow:hidden;box-shadow:0 8px 28px rgba(30,41,59,.05)}
+
+/* 欢迎语 */
+.chat-welcome{
+  flex:1;overflow-y:auto;padding:36px 32px 16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center
+}
+.chat-welcome .cw-icon{font-size:52px;margin-bottom:16px}
+.chat-welcome h2{font-size:20px;color:var(--ink);margin-bottom:8px}
+.chat-welcome p{font-size:14px;color:var(--sub);max-width:420px;line-height:1.7;margin-bottom:24px}
+.chat-welcome .quick-q{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:500px}
+.chat-welcome .qq-btn{
+  padding:10px 18px;border-radius:999px;font-size:13px;
+  background:#F6FAFD;color:var(--main);border:1.5px solid var(--line);
+  cursor:pointer;transition:.15s;font-weight:500
+}
+.chat-welcome .qq-btn:hover{background:#EDF5FC;border-color:var(--sec)}
+
+/* 聊天消息区 */
+.chat-msgs{flex:1;overflow-y:auto;padding:24px 28px 12px;display:flex;flex-direction:column;gap:18px;display:none}
+.msg{display:flex;gap:10px;max-width:80%;animation:fadein .3s}
+.msg.ai{align-self:flex-start}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;
+  font-size:16px;font-weight:700;color:#fff
+}
+.msg.ai .msg-avatar{background:linear-gradient(135deg,var(--main),var(--sec))}
+.msg.user .msg-avatar{background:linear-gradient(135deg,var(--accent),#FFD080)}
+.msg-bubble{
+  padding:12px 16px;border-radius:16px;font-size:13.5px;line-height:1.75;
+  box-shadow:0 2px 8px rgba(30,41,59,.04)
+}
+.msg.ai .msg-bubble{background:#F6FAFD;color:var(--ink);border-top-left-radius:5px;
+  border:1px solid #EDF2F7}
+.msg.user .msg-bubble{background:linear-gradient(135deg,var(--main),#7FA8F5);
+  color:#fff;border-top-right-radius:5px}
+
+/* AI 回复中的结构化信息 */
+.msg-tag{display:inline-block;padding:2px 9px;border-radius:999px;
+  font-size:11.5px;font-weight:600;margin:2px 2px 2px 0}
+.msg-tag.blue{background:#EDF5FC;color:var(--main)}
+.msg-tag.orange{background:#FFF3E2;color:#E08A1E}
+.msg-tag.green{background:#EEFAF0;color:#2DA44E}
+.msg-card-mini{
+  margin-top:8px;padding:10px 12px;border-radius:11px;
+  background:#fff;border:1px solid var(--line);font-size:12.5px
+}
+.msg-card-mini mcb-row{display:flex;justify-content:space-between;margin-bottom:4px}
+.msg-card-mini mcb-row:last-child{margin-bottom:0}
+.msg-card-mini .mcb-l{color:var(--sub)}
+.msg-card-mini .mcb-r{color:var(--ink);font-weight:600}
+
+/* 记忆写入提示 */
+.mem-hint{
+  margin-top:8px;padding:8px 12px;border-radius:10px;
+  background:rgba(255,179,71,.1);border:1px dashed rgba(255,179,71,.35);
+  font-size:12px;color:#B27A1F;display:flex;align-items:center;gap:6px
+}
+.mem-hint .mh-icon{font-size:14px}
+
+/* 输入区 */
+.chat-input-area{
+  padding:16px 24px 20px;border-top:1px solid var(--line);
+  background:rgba(248,250,252,.6)
+}
+.input-row{display:flex;gap:10px;align-items:flex-end}
+.chat-input{
+  flex:1;padding:12px 16px;border:1.5px solid var(--line);border-radius:16px;
+  background:#fff;font-size:14px;color:var(--ink);outline:none;resize:none;
+  font-family:inherit;line-height:1.5;max-height:120px;transition:.15s
+}
+.chat-input:focus{border-color:var(--main);box-shadow:0 0 0 3px rgba(91,141,239,.12)}
+.chat-send{
+  width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--main),#7FA8F5);
+  color:#fff;font-size:18px;display:grid;place-items:center;flex-shrink:0;
+  box-shadow:0 6px 18px rgba(91,141,239,.28);transition:.18s;cursor:pointer
+}
+.chat-send:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(91,141,239,.38)}
+.chat-send:active{transform:scale(.96)}
+.input-hint{font-size:11.5px;color:var(--sub);text-align:center;margin-top:8px}
+
+/* typing 动画 */
+.typing{display:flex;gap:4px;padding:14px 18px}
+.typing dot{width:8px;height:8px;border-radius:50%;background:var(--sec);animation:bounce 1.2s infinite}
+.typing dot:nth-child(2){animation-delay:.2s}
+.typing dot:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+/* 响应式 */
+@media (max-width:860px){
+  .chat-wrap{flex-direction:column;height:auto}
+  .chat-sidebar{width:100%;flex-direction:row;overflow-x:auto;padding-bottom:4px}
+  .chat-list{flex-direction:row;flex-shrink:0}
+  .chat-item{min-width:180px;flex-shrink:0}
+  .chat-main{min-height:520px}
+  .msg{max-width:88%}
+}
+</style>
+</head>
+<body>
+
+<!-- file:// 错误打开方式警告：仅当用户错误地用 file:// 双击打开时显示 -->
+<div id="fileWarn" style="display:none;background:#FFF1F1;border-bottom:1px solid #FFD2D2;color:#C0392B;font-size:12.5px;padding:11px 20px;text-align:center;line-height:1.7">
+  ⚠️ 检测到你用 <b>file://</b> 方式打开了本页面，浏览器会拦截对后端的请求（Failed to fetch）。<br>
+  请改用 <b>http://localhost:8011/pages/Recall_AI答疑.html</b> 访问 —— 双击 <code>backend\start.bat</code> 启动后会自动打开。
+</div>
+
+<!-- ====== 顶栏（共享） ====== -->
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="Recall_主页.html" class="logo">
+      <div class="logo-badge">R</div> Recall
+    </a>
+    <nav class="nav">
+      <a href="Recall_主页.html">主页</a>
+      <a href="Recall_测评.html">性格测评</a>
+      <a href="Recall_推荐详情.html">推荐详情</a>
+      <a href="Recall_方案管理.html">方案管理</a>
+      <a href="Recall_AI答疑.html" class="on">AI 答疑</a>
+      <a href="Recall_API设置.html">API 设置</a>
+    </nav>
+    <span class="plan-ind">当前方案：<b>A · 610分</b></span>
+  </div>
+</header>
+
+<!-- ====== 主区域：双栏聊天 ====== -->
+<div class="page chat-wrap">
+
+  <!-- 左侧：历史对话 -->
+  <aside class="chat-sidebar card" style="padding:16px;border-radius:20px">
+    <button class="new-chat-btn" onclick="newChat()">＋ 新建对话</button>
+    <div style="font-size:12px;color:var(--sub);padding:4px 4px 8px;font-weight:600;display:flex;justify-content:space-between;align-items:center">
+      <span>历史对话</span>
+      <span id="chatCount" style="font-size:11px;color:var(--main)"></span>
+    </div>
+    <div class="chat-list" id="chatList"><!-- JS 动态渲染 --></div>
+  </aside>
+
+  <!-- 右侧：聊天区 -->
+  <main class="chat-main">
+
+    <!-- 欢迎态（默认显示） -->
+    <div class="chat-welcome" id="welcomeView">
+      <div class="cw-icon">🤖</div>
+      <h2>你好，我是 Recall AI 答疑助手</h2>
+      <p>我可以帮你分析成绩、匹配专业与志愿，也能解答错题。你的每一次偏好表达我都会记住，让推荐越来越准。</p>
+      <div class="quick-q">
+        <button class="qq-btn" onclick="sendQuick('根据我的性格测评，推荐适合的专业方向')">🎯 根据性格推荐专业</button>
+        <button class="qq-btn" onclick="sendQuick('我的分数能上哪些学校？')">🏫 分数匹配院校</button>
+        <button class="qq-btn" onclick="sendQuick('帮我分析一下我的优势学科')">📊 分析优势学科</button>
+        <button class="qq-btn" onclick="sendQuick('我想了解计算机专业的就业前景')">💻 专业就业前景</button>
+      </div>
+    </div>
+
+    <!-- 聊天消息（点击快捷问题后显示，初始为空） -->
+    <div class="chat-msgs" id="chatMsgs" style="display:none">
+
+      <!-- typing 占位 -->
+      <div class="msg ai" id="typingDemo" style="display:none">
+        <div class="msg-avatar">R</div>
+        <div class="msg-bubble">
+          <div class="typing"><dot></dot><dot></dot><dot></dot></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 输入栏 -->
+    <div class="chat-input-area">
+      <div class="input-row">
+        <textarea class="chat-input" id="chatInput" rows="1"
+          placeholder="输入你的问题…（如：我想去沿海城市、不喜欢太冷的地方）"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+        <button class="chat-send" onclick="sendMsg()" title="发送">➤</button>
+      </div>
+      <div class="input-hint">Recall 会记住你说过的每一个偏好 · 数据仅存本地</div>
+    </div>
+  </main>
+</div>
+
+<!-- 悬浮帮助 -->
+<div class="help-float" title="使用帮助" onclick="showHelpTip(this)">?</div>
+
+<div id="helpTip" style="display:none;position:fixed;right:78px;bottom:28px;width:280px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 16px 40px rgba(30,41,59,.15);z-index:65;font-size:12.5px;line-height:1.8;color:var(--sub)">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <b style="font-size:13.5px;color:var(--ink)">📖 AI 答疑帮助</b>
+    <button onclick="document.getElementById('helpTip').style.display='none'" style="font-size:16px;color:var(--sub);background:none;border:none;cursor:pointer;padding:2px 6px">✕</button>
+  </div>
+  <p style="margin-bottom:6px">• 输入问题后按 Enter 或点击发送</p>
+  <p style="margin-bottom:6px">· AI 会读取你的画像（分数/性格/偏好）给出个性化建议</p>
+  <p style="margin-bottom:6px">· 对话历史已保存在本地，可随时切换 / 新建 / 删除</p>
+  <p>· 需要先在「API 设置」配置好模型才能使用</p>
+</div>
+
+<script>
+/* ========== 持久化：本地对话存储 ========== */
+const STORE_KEY = 'recall_chats';
+let chats = [];        // [{id,title,time,messages:[{role,content}]}]
+let currentId = null;
+
+function loadChats(){
+  try{ chats = JSON.parse(localStorage.getItem(STORE_KEY)||'[]'); }catch(e){ chats = []; }
+  if(!Array.isArray(chats)) chats = [];
+}
+function saveChats(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(chats)); }catch(e){}
+}
+function getChat(id){ return chats.find(c=>c.id===id); }
+function genId(){ return 'c'+Date.now()+Math.floor(Math.random()*1000); }
+
+function relTime(t){
+  const d = Math.floor((Date.now()-t)/1000);
+  if(d<60) return '刚刚';
+  if(d<3600) return Math.floor(d/60)+'分钟前';
+  if(d<86400) return Math.floor(d/3600)+'小时前';
+  if(d<86400*7) return Math.floor(d/86400)+'天前';
+  const dt=new Date(t); return (dt.getMonth()+1)+'/'+dt.getDate();
+}
+
+/* ========== 渲染左侧列表 ========== */
+function renderChatList(){
+  const list = document.getElementById('chatList');
+  document.getElementById('chatCount').textContent = chats.length? chats.length+' 条' : '';
+  if(!chats.length){
+    list.innerHTML = '<div style="font-size:12px;color:var(--sub);padding:14px 4px;line-height:1.7">还没有对话。<br>点上方「＋ 新建对话」开始，或试试右侧快捷问题。</div>';
+    return;
+  }
+  list.innerHTML = chats.map(c=>`
+    <div class="chat-item ${c.id===currentId?'active':''}" data-id="${c.id}">
+      <div onclick="switchChat('${c.id}')" style="flex:1;min-width:0;cursor:pointer">
+        <div class="ci-title">${escHtml(c.title||'新对话')}</div>
+        <div class="ci-time">${relTime(c.time)} · ${c.messages.length}条</div>
+      </div>
+      <button class="ci-del" title="删除对话" onclick="event.stopPropagation();deleteChat('${c.id}')">🗑</button>
+    </div>`).join('');
+}
+
+/* ========== 渲染右侧消息 ========== */
+function renderMessages(){
+  const c = document.getElementById('chatMsgs');
+  const chat = getChat(currentId);
+  const msgs = chat ? chat.messages : [];
+  if(!msgs.length){
+    document.getElementById('welcomeView').style.display='flex';
+    c.style.display='none';
+    c.innerHTML = '<div class="msg ai" id="typingDemo" style="display:none"><div class="msg-avatar">R</div><div class="msg-bubble"><div class="typing"><dot></dot><dot></dot><dot></dot></div></div></div>';
+    return;
+  }
+  document.getElementById('welcomeView').style.display='none';
+  c.style.display='flex';
+  c.innerHTML = msgs.map(m=>{
+    if(m.role==='user') return `<div class="msg user"><div class="msg-avatar">我</div><div class="msg-bubble">${escHtml(m.content)}</div></div>`;
+    return `<div class="msg ai"><div class="msg-avatar">R</div><div class="msg-bubble">${formatAI(m.content)}</div></div>`;
+  }).join('') + '<div class="msg ai" id="typingDemo" style="display:none"><div class="msg-avatar">R</div><div class="msg-bubble"><div class="typing"><dot></dot><dot></dot><dot></dot></div></div></div>';
+  c.scrollTop = c.scrollHeight;
+}
+
+/* ========== 进入聊天视图 ========== */
+function enterChatView(){
+  document.getElementById('welcomeView').style.display='none';
+  document.getElementById('chatMsgs').style.display='flex';
+}
+
+/* ========== 系统提示词（代入用户画像，白盒归因） ========== */
+function buildSystemPrompt(){
+  let profile = {};
+  try{ profile = JSON.parse(localStorage.getItem('recall_profile')||'{}'); }catch(e){}
+  let persona = '';
+  try{ persona = localStorage.getItem('recall_persona')||''; }catch(e){}
+  let p = '你是"Recall"高考志愿填报 AI 答疑助手。';
+  if(profile.province) p += '用户是'+profile.province+'的考生；';
+  if(profile.subjectType) p += profile.subjectType+'；';
+  if(profile.score) p += '预估'+profile.score+'分；';
+  if(persona) p += '性格测评：'+persona+'；';
+  if(profile.preferences) p += '已知偏好：'+profile.preferences+'；';
+  p += '请用"因为…所以…"的白盒归因方式给出推荐，简洁、专业、有温度。可结合院校 / 专业 / 就业 / 地域建议。';
+  return p;
+}
+
+/* ========== 调用真实后端 /api/chat ========== */
+async function askAI(){
+  const chat = getChat(currentId);
+  if(!chat) return;
+  const sys = buildSystemPrompt();
+  const payload = {
+    model:'deepseek-chat',
+    messages:[{role:'system',content:sys}, ...chat.messages.map(m=>({role:m.role,content:m.content}))],
+    temperature:0.7, max_tokens:1500, stream:false
+  };
+  showTyping();
+  try{
+    const res = await fetch('/api/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    if(!res.ok){
+      let detail='';
+      try{ const e=await res.json(); detail=e.detail||JSON.stringify(e); }catch(_){}
+      hideTyping();
+      appendAIBubble('⚠️ 请求失败（'+res.status+'）：'+(detail||'未知错误')+'<br>请确认 <code>backend\\start.bat</code> 已启动、API Key 已填写。');
+      return;
+    }
+    const data = await res.json();
+    const content = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) || '（暂时没有回复）';
+    chat.messages.push({role:'assistant',content});
+    saveChats();
+    hideTyping();
+    appendAIBubble(formatAI(content));
+  }catch(e){
+    hideTyping();
+    appendAIBubble('⚠️ 连不上后端：'+escHtml(e.message)+'<br>请确认用 <code>http://localhost:8011/pages/Recall_AI答疑.html</code> 打开，且 start.bat 正在运行。');
+  }
+}
+
+/* ========== 发送（支持快捷问题 / 输入框） ========== */
+function pushUser(text){
+  let chat = getChat(currentId);
+  if(!chat){ chat = newChatObj(); }
+  enterChatView();
+  chat.messages.push({role:'user',content:text});
+  if(chat.title==='新对话' || !chat.title){
+    chat.title = text.length>16 ? text.slice(0,16)+'…' : text;
+  }
+  saveChats();
+  renderChatList();
+  renderMessages();
+  askAI();
+}
+
+function sendQuick(text){ pushUser(text); }
+
+function sendMsg(){
+  const el=document.getElementById('chatInput');
+  const v=el.value.trim();
+  if(!v)return;
+  el.value=''; el.style.height='auto';
+  pushUser(v);
+}
+
+/* ========== 新建 / 切换 / 删除 ========== */
+function newChatObj(){
+  const c = {id:genId(), title:'新对话', time:Date.now(), messages:[]};
+  chats.unshift(c);
+  currentId = c.id;
+  saveChats();
+  return c;
+}
+function newChat(){
+  newChatObj();
+  renderChatList();
+  renderMessages();
+  document.getElementById('chatInput').focus();
+}
+function switchChat(id){
+  currentId = id;
+  renderChatList();
+  renderMessages();
+}
+function deleteChat(id){
+  if(chats.length<=1){
+    // 至少保留一个：清空当前而非删除最后一个
+    const c = getChat(id);
+    if(c){ c.messages=[]; c.title='新对话'; c.time=Date.now(); }
+    saveChats(); renderChatList(); renderMessages();
+    showToast('已清空该对话（至少保留一条）');
+    return;
+  }
+  chats = chats.filter(c=>c.id!==id);
+  if(currentId===id) currentId = chats[0].id;
+  saveChats(); renderChatList(); renderMessages();
+  showToast('🗑 已删除对话');
+}
+
+/* ========== 气泡工具 ========== */
+function appendUserBubble(text){
+  const c=document.getElementById('chatMsgs');
+  const d=document.createElement('div');
+  d.className='msg user';
+  d.innerHTML=`<div class="msg-avatar">我</div><div class="msg-bubble">${escHtml(text)}</div>`;
+  c.insertBefore(d,c.querySelector('#typingDemo'));
+  c.scrollTop=c.scrollHeight;
+}
+function appendAIBubble(text){
+  const c=document.getElementById('chatMsgs');
+  const d=document.createElement('div');
+  d.className='msg ai';
+  d.innerHTML=`<div class="msg-avatar">R</div><div class="msg-bubble">${text}</div>`;
+  c.insertBefore(d,c.querySelector('#typingDemo'));
+  c.scrollTop=c.scrollHeight;
+}
+function formatAI(s){
+  return escHtml(s).replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+}
+function showTyping(){
+  const t=document.getElementById('typingDemo');
+  if(t) t.style.display='flex';
+  const c=document.getElementById('chatMsgs'); c.scrollTop=c.scrollHeight;
+}
+function hideTyping(){ const t=document.getElementById('typingDemo'); if(t) t.style.display='none'; }
+function escHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+/* ========== 轻提示 ========== */
+let _tt;
+function showToast(msg){
+  let t = document.getElementById('toast');
+  if(!t){
+    t=document.createElement('div'); t.id='toast';
+    t.style.cssText='position:fixed;top:80px;left:50%;transform:translateX(-50%)translateY(-100px);background:linear-gradient(135deg,var(--main),#7FA8F5);color:#fff;padding:12px 24px;border-radius:99px;font-size:13px;font-weight:600;box-shadow:0 10px 30px rgba(91,141,239,.4);z-index:200;transition:.3s;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg; t.style.transform='translateX(-50%)translateY(0)';
+  clearTimeout(_tt); _tt=setTimeout(()=>t.style.transform='translateX(-50%)translateY(-100px)',2200);
+}
+
+// textarea 自增高
+document.getElementById('chatInput').addEventListener('input',function(){
+  this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';
+});
+
+// file:// 警告
+if(location.protocol==='file:'){
+  const w=document.getElementById('fileWarn');
+  if(w) w.style.display='block';
+}
+
+// 帮助浮层
+function showHelpTip(el){
+  const tip=document.getElementById('helpTip');
+  if(!tip) return;
+  tip.style.display=tip.style.display!=='none'?'none':'block';
+  if(tip.style.display==='block'){ setTimeout(()=>{ document.addEventListener('click',function h(e){ if(e.target.closest('#helpTip')||e.target.classList.contains('help-float')) return; tip.style.display='none'; document.removeEventListener('click',h); }); },10); }
+}
+
+/* ========== 初始化（含专业详情页 prefill） ========== */
+loadChats();
+if(chats.length){
+  currentId = chats[0].id;
+}else{
+  newChatObj(); // 首次进入给一个空对话
+}
+renderChatList();
+renderMessages();
+
+// 来自专业详情页的预填问题
+try{
+  const prefill = localStorage.getItem('recall_prefill');
+  if(prefill){
+    localStorage.removeItem('recall_prefill');
+    pushUser(prefill);
+  }
+}catch(e){}
+</script>
+
+</body>
+</html>

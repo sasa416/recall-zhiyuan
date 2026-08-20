@@ -29181,23 +29181,32 @@ function getSubjectAnalysis(){
 }
 
 // 解析用户对数学的态度（偏好 + 成绩综合）
+// 关键：用户明确说"喜欢/怕"时优先尊重主观偏好，成绩仅在偏好不明确时作为信号
 function getMathAttitude(){
   const prefs = userProfile.prefs.join('，');
   const subj = userProfile.subjects || {};
   const mathScore = subj['数学'] || 0;
   const mathRatio = mathScore / 150;
 
-  let attitude = 'neutral';
-  if(/喜欢数学|擅长数学|数学好|爱数学|数学不错|数学强|数学优异/.test(prefs)) attitude = 'love';
-  else if(/怕数学|讨厌数学|数学差|数学不好|不想碰数学|数学弱/.test(prefs)) attitude = 'hate';
+  // 第一步：解析用户明确表达的主观偏好
+  const loveMatch = /喜欢数学|擅长数学|数学好|爱数学|数学不错|数学强|数学优异|想学数学|对数学/.test(prefs);
+  const hateMatch = /怕数学|讨厌数学|数学差|数学不好|不想碰数学|数学弱|不擅长数学/.test(prefs);
 
-  // 成绩信号优先（分数不会骗人）
-  if(mathScore > 0){
-    if(mathRatio >= 0.82) attitude = 'love';         // 数学成绩高 → 数学优势
-    else if(mathRatio <= 0.65) attitude = 'hate';     // 60% (90/150) 视为数学弱项（阈值 0.55→0.65）
-    else if(mathRatio < 0.75) attitude = 'weak';      // 中等偏下算偏弱（应用部分降权）
+  let attitude;
+  if(loveMatch) attitude = 'love';
+  else if(hateMatch) attitude = 'hate';
+  else {
+    // 偏好不明确时，按成绩信号判定
+    if(mathScore > 0){
+      if(mathRatio >= 0.82) attitude = 'love';
+      else if(mathRatio <= 0.65) attitude = 'hate';
+      else if(mathRatio < 0.75) attitude = 'weak';
+      else attitude = 'neutral';
+    } else {
+      attitude = 'neutral';
+    }
   }
-  return {attitude, mathScore, mathRatio};
+  return {attitude, mathScore, mathRatio, loveMatch, hateMatch};
 }
 
 /* ================================================================
@@ -29205,18 +29214,19 @@ function getMathAttitude(){
    ================================================================ */
 // 偏好/性格 → 专业类别关键词映射
 const PREF_CATEGORY = {
+  math:   {kw:/喜欢数学|想学数学|擅长数学|对数学|爱数学/,           cat:/数学|应用数学|统计学|数据科学|数据计算|精算|金融工程|信息与计算科学|计算数学|数理|金融数学/},
+  sci:    {kw:/科研|研究|实验|理论|数理化|想搞科研|学术/,           cat:/数学|物理|化学|生物|医学|药学|临床|口腔|护理|医学影像|应用化学|应用物理|应用数学|统计学|材料/},
+  eng:    {kw:/工科|技术|工程|编程|代码|程序|机械|电子|制造|建造|理工/, cat:/工程|机械|电子|自动化|电气|计算机|软件|材料|土木|建筑|化学工程|光电|通信|网络|人工智能|智能|机器人|物联网|数据/},
+  biz:    {kw:/经济|管理|商|金融|会计|营销|贸易|创业|商业/,         cat:/经济|管理|金融|会计|市场营销|国际经济|贸易|电子商务|工商|财务管理/},
   human:  {kw:/哲学|文学|历史|中文|教育|心理|社会|思想|文化|阅读|写作/, cat:/哲学|汉语言|历史|文学|教育|心理学|社会学|思想政治|英语|新闻/},
   art:    {kw:/艺术|设计|音乐|美术|绘画|影视|摄影|动画|创作/,         cat:/艺术|设计|动画|绘画|音乐|美术|广播电视|播音|表演/},
-  biz:    {kw:/经济|管理|商|金融|会计|营销|贸易|创业|管理|商业/,     cat:/经济|管理|金融|会计|市场营销|国际经济|贸易|电子商务|工商|财务管理/},
-  eng:    {kw:/工科|技术|工程|编程|代码|程序|机械|电子|制造|建造/,   cat:/工程|机械|电子|自动化|电气|计算机|软件|材料|土木|建筑|化学工程/},
-  sci:    {kw:/科研|研究|实验|理论|数理化|生物|医学|药|医|化学/,     cat:/数学|物理|化学|生物|医学|药学|临床|口腔|护理|医学影像/},
   lang:   {kw:/语言|外语|英语|日语|法语|翻译|对外/,                   cat:/英语|日语|法语|翻译|商务英语|汉语国际教育/},
   teach:  {kw:/老师|教师|师范|当老师|教书|育人/,                     cat:/师范|教育|学前教育|小学教育/},
   law:    {kw:/法律|法学|律师|司法|政法/,                            cat:/法学|法律|知识产权|政治学/},
 };
 const PERSONA_CATEGORY = {
   R:/机械|工程|土木|材料|自动化|电气|农学|林学|采矿/,
-  I:/数学|物理|化学|生物|医学|药学|心理学|研究/,
+  I:/数学|物理|化学|生物|医学|药学|心理学|研究|统计/,
   A:/艺术|设计|动画|绘画|音乐|美术|广播电视|播音|表演|文学/,
   S:/教育|社会|心理|护理|医学|公共|政治/,
   E:/工商|管理|市场营销|金融|电子商务|国际经济|贸易/,
@@ -29224,6 +29234,18 @@ const PERSONA_CATEGORY = {
 };
 // 主流地域排除
 const EXCLUDE_REGIONS = { '东北':/辽宁|吉林|黑龙江|东北/ };
+
+// 城市偏好 → 城市集合
+const CITY_RANK = {
+  'bigcity':  ['北京','上海','广州','深圳','成都','杭州','武汉','南京','西安','重庆','天津','苏州'],
+  'coastal':  ['广东','江苏','浙江','福建','山东','上海','北京','天津','海南','广西'],
+  'tier2':    ['成都','杭州','重庆','武汉','西安','南京','天津','郑州','长沙','东莞','宁波','佛山','合肥','青岛','沈阳','济南'],
+};
+const CITY_PREF = [
+  {kw:/大城市|一线|北上广|北上广深|新一线|繁华|都市/, rank:'bigcity'},
+  {kw:/沿海|海边|东部|临海/,                          rank:'coastal'},
+  {kw:/省会|二线|强二线|新一线/,                       rank:'tier2'},
+];
 
 // 从 userProfile.subject 推断用户选科类型（'物理' / '历史' / '不限'）
 // 兼容全称('物理化学生物'/'历史地理政治') 与 旧格式单字简称('物化生')
@@ -29243,9 +29265,16 @@ function getUserSignal(){
   // 性格前 2 维 → 类别正则
   const personaCats = new Set();
   persona.slice(0,2).forEach(t=>{ const re=PERSONA_CATEGORY[t]; if(re) personaCats.add(re.source); });
+  // 偏好 → 城市集合
+  const wantCities = new Set();
+  CITY_PREF.forEach(p => { if(p.kw.test(prefs)) CITY_RANK[p.rank].forEach(c => wantCities.add(c)); });
+  // 省内偏好
+  if(/省内|家乡|本地|留在本省|不出省/.test(prefs) && userProfile.province){
+    wantCities.add(userProfile.province);
+  }
   // 地域排除
   const excludeRe = userProfile.exclude && EXCLUDE_REGIONS[userProfile.exclude];
-  return {prefCats, personaCats, excludeRe};
+  return {prefCats, personaCats, wantCities, excludeRe};
 }
 
 function getRecommendations(){
@@ -29271,6 +29300,15 @@ function getRecommendations(){
 
     const mid = (school.scoreRange[0] + school.scoreRange[1]) / 2;
     let fit = Math.max(60, Math.min(98, Math.round(100 - Math.abs(s - mid) / 2)));
+    // 城市偏好命中加分（用户明确想去大城市/沿海/省会）
+    let cityHit = false;
+    if(sig.wantCities.size){
+      const regionStr = (school.region||'') + (school.school||'');
+      for(const c of sig.wantCities){
+        if(regionStr.includes(c)){ cityHit = true; break; }
+      }
+      if(cityHit) fit = Math.min(98, fit + 10);
+    }
 
     let tier;
     if(s >= school.scoreRange[1] - 5) tier = '保';
@@ -29304,6 +29342,7 @@ function getRecommendations(){
     const whyParts = [];
     if(school.level?.includes('985')||school.level?.includes('双一流')||school.level?.includes('211')) whyParts.push('<mark>院校层次突出</mark>');
     if(school.cat) whyParts.push(school.cat);
+    if(cityHit) whyParts.push('位于<mark>你偏好</mark>的城市');
     if(wantCats.size){
       const hitMajor = majors.find(m=>{
         let hit = false;

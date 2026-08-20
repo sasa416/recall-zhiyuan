@@ -220,13 +220,8 @@
           </select>
         </div>
         <div>
-          <label style="font-size:12.5px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">再选科目（选 2 门）</label>
-          <select class="inp" id="editSecondSubj" style="width:100%;font-size:12.5px" multiple size="4" onclick="updateSubjPreview();renderSubjScores()" onchange="updateSubjPreview();renderSubjScores()">
-            <option value="化学">化学</option>
-            <option value="生物">生物</option>
-            <option value="地理">地理</option>
-            <option value="政治">政治</option>
-          </select>
+          <label style="font-size:12.5px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">再选科目（<span id="secondSubjLabel">任意搭配选 2 门</span>）</label>
+          <div id="secondSubjWrap" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px"></div>
           <p style="font-size:11px;color:var(--sub);margin-top:4px">已选择：<span id="subjPreview" style="color:var(--main);font-weight:600">（未选择）</span></p>
         </div>
       </div>
@@ -29528,40 +29523,84 @@ const PROVINCE_MODES = {
 const MODE_33_PROVS = new Set(['浙江','山东','北京','上海','天津','海南']);
 function getMode(province){ return MODE_33_PROVS.has(province) ? '3+3' : '3+1+2'; }
 
+// 读取当前所有再选下拉的选中值（过滤空）
+function getSecondSubjects(){
+  return Array.from(document.querySelectorAll('#secondSubjWrap select')).map(s=>s.value).filter(Boolean);
+}
+
+// 从 subject 字符串解析再选科目（兼容：'物化生' / '物理化学生物' / '物理+化学+生物' / '历史+地理+政治'）
+function parseSecondSubjects(subject, mode){
+  const cur = String(subject||'').replace(/[+＋，,\s]/g,'');
+  const curSecond = [];
+  // 优先按全称匹配
+  ['物理','化学','生物','历史','地理','政治'].forEach(s=>{ if(cur.includes(s)) curSecond.push(s); });
+  // 全称一个都没匹配上时，按单字简称匹配（如'物化生'）
+  if(!curSecond.length){
+    [...cur].forEach(c=>curSecond.push(c==='物'?'物理':c==='史'?'历史':c==='化'?'化学':c==='生'?'生物':c==='地'?'地理':c==='政'?'政治':c));
+  }
+  // 3+1+2 模式移除首选科目（物理/历史）后即为再选 2 门
+  return mode === '3+1+2' ? curSecond.filter(s=>s!=='物理'&&s!=='历史') : curSecond;
+}
+
+// 渲染 N 个再选下拉（3+1+2 选 2 个，3+3 选 3 个）；pre 为已选值数组
+function renderSecondSelects(pre){
+  const prov = document.getElementById('editProvince').value;
+  const mode = getMode(prov);
+  const cfg = PROVINCE_MODES[mode];
+  const need = mode === '3+3' ? 3 : 2;
+  document.getElementById('secondSubjLabel').textContent =
+    mode === '3+3' ? '6 门中任意搭配选 3 门' : '4 门中任意搭配选 2 门';
+  const wrap = document.getElementById('secondSubjWrap');
+  const cur = Array.from(wrap.querySelectorAll('select')).map(s=>s.value); // 保留当前编辑值
+  const vals = [];
+  for(let i=0;i<need;i++) vals.push(pre&&pre[i] ? pre[i] : (cur[i] || ''));
+  wrap.innerHTML = vals.map((v, i) => {
+    // 排除前面已选的科目（避免重复）
+    const taken = vals.slice(0, i);
+    const options = ['<option value="">请选择</option>'].concat(
+      cfg.second.filter(x => !taken.includes(x)).map(x =>
+        `<option value="${x}" ${x===v?'selected':''}>${x}</option>`)
+    ).join('');
+    return `<div>
+      <div style="font-size:11px;color:var(--sub);margin-bottom:4px">选课 ${i+1}</div>
+      <select class="inp" data-slot="${i}" style="width:100%" onchange="onSecondSubjChange(${i})">${options}</select>
+    </div>`;
+  }).join('');
+}
+
+function onSecondSubjChange(changedIdx){
+  // 排除重复：若当前选中的科目与前面的下拉重复，清空该下拉
+  const sels = Array.from(document.querySelectorAll('#secondSubjWrap select'));
+  const vals = sels.map(s=>s.value);
+  sels.forEach((s, i) => {
+    if(vals[i] && vals.slice(0, i).includes(vals[i])){
+      s.value = '';
+    }
+  });
+  renderSecondSelects();
+  updateSubjPreview();
+  renderSubjScores();
+}
+
 function onProvinceChange(){
   const prov = document.getElementById('editProvince').value;
   const mode = getMode(prov);
   const cfg = PROVINCE_MODES[mode];
   document.getElementById('provinceModeHint').textContent = cfg.hint;
   const firstSel = document.getElementById('editFirstSubj');
-  const secSel = document.getElementById('editSecondSubj');
 
-  // 从 userProfile.subject 解析当前已选学科（如"物化生"或"物+化+生"），避免被默认值覆盖
-  const cur = String(userProfile.subject||'');
-  const curFirst = (mode==='3+1+2') ? (cur.startsWith('历')?'历史':'物理') : '';
-  const curSecond = new Set();
-  if(mode==='3+1+2'){
-    // 形如"物化生" / "历史+地理+政治"
-    const cleaned = cur.replace(/^物理|^历史/, '').replace(/[+＋，,\s]/g, '');
-    [...cleaned].forEach(c=>curSecond.add(c==='物'?'物理':c==='史'?'历史':c==='化'?'化学':c==='生'?'生物':c==='地'?'地理':c==='政'?'政治':c));
-  } else {
-    // 3+3 形如"物+化+生"或"物理化学生物"
-    ['物理','化学','生物','历史','地理','政治'].forEach(s=>{ if(cur.includes(s)) curSecond.add(s); });
-  }
+  // 从 userProfile.subject 解析当前已选学科，避免被默认值覆盖
+  const curFirst = (mode==='3+1+2') ? (String(userProfile.subject||'').startsWith('历')?'历史':'物理') : '';
+  const curSecond = parseSecondSubjects(userProfile.subject, mode);
 
   if(mode === '3+3'){
     firstSel.parentElement.style.display = 'none';
-    secSel.innerHTML = cfg.second.map(s =>
-      `<option value="${s}" ${curSecond.has(s)?'selected':cfg.defaultSecond.includes(s)?'selected':''}>${s}</option>`).join('');
-    secSel.setAttribute('size','6');
   } else {
     firstSel.parentElement.style.display = '';
     firstSel.innerHTML = cfg.first.map(s =>
       `<option value="${s}" ${s===curFirst?'selected':s===cfg.defaultFirst?'selected':''}>${s}</option>`).join('');
-    secSel.innerHTML = cfg.second.map(s =>
-      `<option value="${s}" ${curSecond.has(s)?'selected':cfg.defaultSecond.includes(s)?'selected':''}>${s}</option>`).join('');
-    secSel.setAttribute('size','4');
   }
+  renderSecondSelects(curSecond);
   updateSubjPreview();
   renderSubjScores();
 }
@@ -29571,7 +29610,7 @@ function onFirstSubjChange(){ updateSubjPreview(); renderSubjScores(); }
 function getSubjectList(){
   const prov = document.getElementById('editProvince').value;
   const mode = getMode(prov);
-  const selSec = Array.from(document.getElementById('editSecondSubj').selectedOptions).map(o=>o.value);
+  const selSec = getSecondSubjects();
   if(mode === '3+3') return ['语文','数学','外语', ...selSec];
   const first = document.getElementById('editFirstSubj').value;
   const base = ['语文','数学','外语'];
@@ -29594,7 +29633,7 @@ function renderSubjScores(){
 function updateSubjPreview(){
   const prov = document.getElementById('editProvince').value;
   const mode = getMode(prov);
-  const selSec = Array.from(document.getElementById('editSecondSubj').selectedOptions).map(o=>o.value);
+  const selSec = getSecondSubjects();
   let parts = mode === '3+3' ? selSec.join(' + ') :
     [document.getElementById('editFirstSubj').value, ...selSec].join(' + ');
   document.getElementById('subjPreview').textContent = parts || '（未选择）';
@@ -29633,11 +29672,22 @@ function saveProfile(){
   const prefs = document.getElementById('editPrefs').value;
 
   let subjLabel;
+  const secList = getSecondSubjects();
+  // 校验再选科目：3+1+2 需选 2 门，3+3 需选 3 门
+  const needCount = mode === '3+3' ? 3 : 2;
+  if(secList.length < needCount){
+    showToast(`⚠️ 请选择${needCount}门再选科目（当前 ${secList.length} 门）`);
+    return;
+  }
+  if(new Set(secList).size !== secList.length){
+    showToast('⚠️ 再选科目不能重复');
+    return;
+  }
   if(mode === '3+3'){
-    subjLabel = Array.from(document.getElementById('editSecondSubj').selectedOptions).map(o=>o.value).join('+') || '未选择';
+    subjLabel = secList.join('+') || '未选择';
   } else {
     const first = document.getElementById('editFirstSubj').value;
-    subjLabel = first + Array.from(document.getElementById('editSecondSubj').selectedOptions).map(o=>o.value).join('') || '未选择';
+    subjLabel = first + secList.join('') || '未选择';
   }
 
   // 收集各科成绩

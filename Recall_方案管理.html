@@ -258,10 +258,20 @@ function calcRecs(score){
 /* ================================================================
    方案数据
    ================================================================ */
-let plans = [
-  {name:"我的方案A-610分留省内", date:"2026-08-15", score:610, region:"留省内", current:true},
-  {name:"我的方案B-620分冲沿海", date:"2026-08-17", score:620, region:"仅沿海", current:false}
-];
+let plans = (function(){
+  // 优先从 localStorage 读取，没有则用默认
+  try{
+    const raw = localStorage.getItem('recall_plans');
+    if(raw){
+      const arr = JSON.parse(raw);
+      if(Array.isArray(arr) && arr.length) return arr;
+    }
+  }catch(e){}
+  return [
+    {name:"我的方案A-610分留省内", date:"2026-08-15", score:610, region:"留省内", current:true},
+    {name:"我的方案B-620分冲沿海", date:"2026-08-17", score:620, region:"仅沿海", current:false}
+  ];
+})();
 let sel = 0, checked = new Set();
 let renameTargetIdx = -1;
 
@@ -269,6 +279,13 @@ let renameTargetIdx = -1;
    与主页跨页同步（localStorage）
    ================================================================ */
 const PLAN_KEY = 'recall_current_plan';
+const PLANS_KEY = 'recall_plans';
+
+// 每次修改 plans 后必须调这个
+function savePlans(){
+  try{ localStorage.setItem(PLANS_KEY, JSON.stringify(plans)); }catch(e){}
+}
+
 function syncCurrentPlan(){
   const cur = plans.find(p=>p.current);
   if(!cur) return;
@@ -280,18 +297,30 @@ function syncCurrentPlan(){
     }));
   }catch(e){}
 }
-function loadPlanFromStorage(){
+
+// 兼容旧数据：如果 localStorage 里只有 recall_current_plan 没 recall_plans，
+// 用 curPlan 反向构造一个最小 plans 列表
+(function bootstrapPlans(){
+  if(plans.length && localStorage.getItem(PLANS_KEY)) return;
   try{
     const raw = localStorage.getItem(PLAN_KEY);
-    if(!raw) return;
-    const plan = JSON.parse(raw);
-    // 用本地存储的分数更新当前方案的分数（若分数匹配不上就保持默认）
-    const cur = plans.find(p=>p.current);
-    if(cur && plan.score && plan.score >= 450 && plan.score <= 750){
-      cur.score = plan.score;
-      if(plan.name) cur.name = '我的方案'+plan.name;
+    if(raw){
+      const p = JSON.parse(raw);
+      // 把当前激活的方案作为唯一方案，避免用户回到主页看到凭空消失的方案
+      plans = [{name:'我的方案'+p.name, date:new Date().toISOString().slice(0,10), score:p.score, region:p.region, current:true}];
+      savePlans();
     }
   }catch(e){}
+})();
+
+function loadPlanFromStorage(){
+  // 不再从 PLAN_KEY 覆盖 plans（避免新方案被"还原"）。当前方案的实时分数由 syncCurrentPlan 维护
+  // 仅作为兜底：如果 plans 全部 current=false，激活第一个
+  if(plans.length && !plans.some(p=>p.current)){
+    plans[0].current = true;
+    savePlans();
+    syncCurrentPlan();
+  }
 }
 loadPlanFromStorage();
 // 顶栏同步当前方案名
@@ -352,7 +381,7 @@ function selectPlan(i){ sel=i; backToDetail(); }
 function setCurrent(i){
   plans.forEach(p=>p.current=false); plans[i].current=true;
   document.getElementById('curInd').textContent = plans[i].name.replace('我的方案','');
-  syncCurrentPlan();
+  syncCurrentPlan(); savePlans();
   renderList(); showToast('已切换为当前方案：'+plans[i].name);
 }
 function toggleCheck(i){ checked.has(i)?checked.delete(i):checked.add(i); renderList(); }
@@ -372,8 +401,10 @@ function doRename(){
   const n = document.getElementById('rnName').value.trim();
   if(!n){ showToast('方案名不能为空'); return; }
   plans[renameTargetIdx].name = n;
+  savePlans();
   if(plans[renameTargetIdx].current){
     document.getElementById('curInd').textContent = n.replace('我的方案','');
+    syncCurrentPlan();
   }
   closeRenameModal();
   renderList(); renderDetail();
@@ -400,6 +431,7 @@ function doEditParam(){
   const rg = document.getElementById('epRegion').value;
   if(isNaN(sc) || sc<450 || sc>750){ document.getElementById('epErrScore').style.display='block'; return; }
   plans[sel].score = sc; plans[sel].region = rg;
+  savePlans();
   if(plans[sel].current){
     document.getElementById('curInd').textContent = plans[sel].name.replace('我的方案','');
     syncCurrentPlan();
@@ -417,8 +449,9 @@ function copyPlan(){
   const p = plans[sel];
   if(!p){ showToast('请先选择方案'); return; }
   const newName = p.name+'（副本）';
-  plans.push({name:newName, date:'2026-08-19', score:p.score, region:p.region, current:false});
+  plans.push({name:newName, date:new Date().toISOString().slice(0,10), score:p.score, region:p.region, current:false});
   sel = plans.length-1;
+  savePlans();
   renderList(); renderDetail();
   showToast('✅ 已复制为：'+newName);
 }
@@ -435,6 +468,12 @@ function doDelete(){
   plans.splice(sel,1);
   checked.clear();
   sel = Math.min(sel, plans.length-1);
+  // 删除后确保至少有一个 current
+  if(plans.length && !plans.some(p=>p.current)){
+    plans[0].current = true;
+    syncCurrentPlan();
+  }
+  savePlans();
   closeDeleteModal();
   renderList(); renderDetail();
   showToast('🗑 已删除：'+name);
@@ -467,12 +506,17 @@ function doCreate(){
     return;
   }
   if(!name) name = '方案'+String.fromCharCode(65+plans.length)+'-'+score+'分'+region;
-  const newPlan = {name, date:'2026-08-19', score, region, current:false};
+  // 关键：新方案自动设为当前（用户期望"创建后立即生效"）
+  plans.forEach(p=>p.current=false);
+  const newPlan = {name, date:new Date().toISOString().slice(0,10), score, region, current:true};
   plans.push(newPlan);
   sel = plans.length - 1;
+  savePlans();
+  syncCurrentPlan();
+  document.getElementById('curInd').textContent = newPlan.name.replace('我的方案','');
   closeCreateModal();
   renderList(); renderDetail();
-  showToast('✅ 新方案已创建：'+name);
+  showToast('✅ 新方案已创建并设为当前：'+name);
 }
 document.getElementById('createModal').addEventListener('click', e=>{ if(e.target.id==='createModal') closeCreateModal(); });
 

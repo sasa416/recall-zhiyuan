@@ -163,7 +163,7 @@
       <a href="Recall_AI答疑.html" class="on">AI 答疑</a>
       <a href="Recall_API设置.html">API 设置</a>
     </nav>
-    <span class="plan-ind">当前方案：<b>A · 610分</b></span>
+    <span class="plan-ind">当前方案：<b id="planInd">加载中…</b></span>
   </div>
 </header>
 
@@ -304,18 +304,40 @@ function enterChatView(){
   document.getElementById('chatMsgs').style.display='flex';
 }
 
-/* ========== 系统提示词（代入用户画像，白盒归因） ========== */
+/* ========== 当前方案（统一从 localStorage 读取，与主页/方案管理一致）========== */
+function loadCurrentPlan(){
+  try{
+    const raw = localStorage.getItem('recall_current_plan');
+    if(raw){
+      const p = JSON.parse(raw);
+      return p && p.name ? p : {name:'A-610分留省内', score:610, region:'留省内'};
+    }
+  }catch(e){}
+  return {name:'A-610分留省内', score:610, region:'留省内'};
+}
+let currentPlan = loadCurrentPlan();
+// 顶栏立刻渲染当前方案（解决硬编码 610 问题）
+(function(){
+  const el = document.getElementById('planInd');
+  if(el){
+    // "A-610分留省内" → "A·610分留省内"
+    el.textContent = currentPlan.name.replace(/^([A-Z])-/, '$1·');
+  }
+})();
+
+/* ========== 系统提示词（代入当前方案 + 全局画像）========== */
 function buildSystemPrompt(){
   let profile = {};
   try{ profile = JSON.parse(localStorage.getItem('recall_profile')||'{}'); }catch(e){}
   let persona = '';
   try{ persona = localStorage.getItem('recall_persona')||''; }catch(e){}
   let p = '你是"Recall"高考志愿填报 AI 答疑助手。';
+  p += `当前方案：${currentPlan.name}（${currentPlan.score||'?'}分 / ${currentPlan.region||'未指定'}）；`;
   if(profile.province) p += '用户是'+profile.province+'的考生；';
-  if(profile.subjectType) p += profile.subjectType+'；';
-  if(profile.score) p += '预估'+profile.score+'分；';
+  if(profile.subject) p += '选科'+profile.subject+'；';
   if(persona) p += '性格测评：'+persona+'；';
-  if(profile.preferences) p += '已知偏好：'+profile.preferences+'；';
+  const prefs = (profile.prefs||[]).filter(Boolean).join('，');
+  if(prefs) p += '已知偏好：'+prefs+'；';
   p += '请用"因为…所以…"的白盒归因方式给出推荐，简洁、专业、有温度。可结合院校 / 专业 / 就业 / 地域建议。';
   return p;
 }

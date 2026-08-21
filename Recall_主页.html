@@ -29278,7 +29278,7 @@ function getUserSignal(){
 }
 
 function getRecommendations(){
-  const s = userProfile.score;
+  const s = getCurrentScore();
   const math = getMathAttitude();
   const sig = getUserSignal();
   // 合并偏好 + 性格类别
@@ -29380,7 +29380,7 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;',
 
 // 关键词搜索：全库匹配，不受分数段截断（让低分学校也能被搜到）
 function searchAllDB(kw){
-  const s = userProfile.score;
+  const s = getCurrentScore();
   const math = getMathAttitude();
   const userSubj = parseUserSubjectType(userProfile.subject);
   return SCHOOL_DB.filter(school =>
@@ -29429,8 +29429,8 @@ function render(){
           未找到与「<b>${esc(kw)}</b>」匹配的学校或专业<br>
           <small>试试更短的关键词，或确认学校名称是否正确（如「嘉应学院」「韩山师范学院」）</small></div>`
       : `<div class="card empty"><div class="emoji">🌱</div>
-          在 <b>${userProfile.score}</b> 分条件下没有符合条件的推荐<br>
-          <small>试试放宽筛选条件，或点击「刷新推荐」基于最新画像重新匹配</small></div>`;
+          在当前方案 <b>${curPlan.name}</b>（<b>${getCurrentScore()}</b> 分）条件下没有符合条件的推荐<br>
+          <small>试试放宽筛选条件，或在「方案管理」切换方案 / 修改参数</small></div>`;
     return;
   }
 
@@ -29769,23 +29769,23 @@ function saveProfile(){
     exclude: document.getElementById('editExclude').value,
     subjects: subjScores};
 
-  // 同步到 localStorage（方案管理页 + 刷新页面后都保持一致）
-  savePlan({name:'A-'+score+'分', score, region:'留省内'});
+  // 关键：当前方案的分数同步更新（保证 4 个页面 "当前方案" 一致）
+  curPlan = {...curPlan, score, name: 'A-'+score+'分'+(curPlan.region||'留省内')};
+  savePlan(curPlan);
   saveProfileToStorage();
 
   // 更新左侧画像卡（统一走渲染函数）
   renderProfileChips();
 
-  // 更新顶栏 + 分数提示
-  document.getElementById('planIndLabel').textContent = `A-${score}分留省内`;
+  // 顶栏 + 分数提示
+  document.getElementById('planIndLabel').textContent = curPlan.name;
   updateScoreBanner();
 
   closeEditModal();
 
   // 立刻重新渲染推荐（不延迟），同时给按钮一个反馈
-  updateScoreBanner();
   render();
-  showToast('✅ 已保存！新推荐已生成（共 '+getRecommendations().length+' 所）');
+  showToast('✅ 已保存！当前方案 '+curPlan.name+' 共 '+getRecommendations().length+' 所推荐');
 }
 
 // 成功提示
@@ -29799,14 +29799,20 @@ function showToast(msg){
   _toastT = setTimeout(()=>t.classList.remove('show'), 2500);
 }
 
+// 关键：当前方案的分数才是推荐依据（不是 userProfile.score，这样方案管理改参数能即时生效）
+function getCurrentScore(){ return curPlan && curPlan.score ? curPlan.score : (userProfile.score || 610); }
+
 function updateScoreBanner(){
-  const st = getScoreTier(userProfile.score);
+  const score = getCurrentScore();
+  const st = getScoreTier(score);
   document.getElementById('scoreBannerText').innerHTML =
-    `当前预估分 <b>${userProfile.score}</b> 分，定位 <b>${st.tier}</b>（约${st.pct}），<b>${st.hint}</b>`;
+    `当前方案 <b>${curPlan.name}</b> · 预估分 <b>${score}</b> 分，定位 <b>${st.tier}</b>（约${st.pct}），<b>${st.hint}</b>`;
 }
 
-// 初始化
 document.getElementById('planIndLabel').textContent = curPlan.name;
+renderProfileChips();
+updateScoreBanner();
+render();
 renderProfileChips();
 updateScoreBanner();
 render();

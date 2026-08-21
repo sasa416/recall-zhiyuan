@@ -199,6 +199,15 @@
 
     <div style="display:flex;flex-direction:column;gap:14px">
       <div>
+        <label style="font-size:12.5px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">考生类型</label>
+        <select class="inp" id="editStudentType" style="width:100%" onchange="onStudentTypeChange()">
+          <option value="普通类">📚 普通类（文/理/物理/历史裸分录取）</option>
+          <option value="艺术类">🎨 艺术类（音乐/美术/舞蹈/播音/表演）</option>
+          <option value="体育类">🏃 体育类（体考+文化分综合）</option>
+        </select>
+        <p id="studentTypeHint" style="font-size:11px;color:var(--main);margin-top:4px;font-weight:500">📌 普通类：参加 6 月统一高考，按裸分录取，主流类型</p>
+      </div>
+      <div>
         <label style="font-size:12.5px;font-weight:600;color:var(--ink);display:block;margin-bottom:6px">省份</label>
         <select class="inp" id="editProvince" style="width:100%" onchange="onProvinceChange()">
           <option value="广东">广东（3+1+2）</option><option value="江苏">江苏（3+1+2）</option><option value="浙江">浙江（3+3）</option>
@@ -315,6 +324,7 @@ let userProfile = loadProfile() || {
   score: curPlan.score,
   prefs: ['怕数学','想去沿海'],
   exclude: '东北',
+  studentType: '普通类',
   persona: '研究型 I ＋ 艺术型 A',
   subjects: {语文:118, 数学:106, 外语:125, 物理:82, 化学:88, 生物:91}
 };
@@ -338,11 +348,14 @@ function renderProfileChips(){
   const s = userProfile.subjects || {};
   const subjOverview = ['语文','数学','外语']
     .map(k => s[k] ? k + s[k] : '').filter(Boolean).join(' · ');
+  const stype = userProfile.studentType || '普通类';
+  const stypeEmoji = stype==='艺术类'?'🎨':stype==='体育类'?'🏃':'📚';
   document.getElementById('profileChips').innerHTML =
+    `<span class="chip"><span class="k">${stypeEmoji}类型</span>${stype}</span>` +
     `<span class="chip"><span class="k">省份</span>${userProfile.province}</span>` +
-    `<span class="chip"><span class="k">选科</span>${userProfile.subject}</span>` +
+    (stype==='普通类' ? `<span class="chip"><span class="k">选科</span>${userProfile.subject||'未选'}</span>` : '') +
     `<span class="chip score"><span class="k">预估分</span>${userProfile.score}</span>` +
-    (subjOverview ? `<span class="chip"><span class="k">主科</span>${subjOverview}</span>` : '') +
+    (stype==='普通类' && subjOverview ? `<span class="chip"><span class="k">主科</span>${subjOverview}</span>` : '') +
     `<span class="chip persona">${userProfile.persona}</span>` +
     userProfile.prefs.map(p => `<span class="chip pref">${p}</span>`).join('');
 }
@@ -29285,9 +29298,20 @@ function getRecommendations(){
   const wantCats = new Set([...sig.prefCats, ...sig.personaCats]);
   // 推断用户选科类型，用于过滤同名专业的物理/历史重复
   const userSubj = parseUserSubjectType(userProfile.subject);
+  // 考生类型（普通类/艺术类/体育类）：不过滤学校，仅对匹配类型 boost
+  const stype = getStudentType();
+  const stypeCfg = getStudentCfg();
+  const isArtUser = stype==='艺术类';
+  const isSportUser = stype==='体育类';
+  const ART_RE = stypeCfg.filter || /艺术|音乐|美术|舞蹈|表演|播音|广播电视|导演|摄影|动画|戏剧|电影/;
+  const SPORT_RE = /体育|运动训练|武术/;
 
   return SCHOOL_DB.filter(school => {
     if(sig.excludeRe && sig.excludeRe.test(school.region)) return false;
+    // 艺术/体育类文化课分数线低，分数阈值放宽
+    if(stype!=='普通类'){
+      return s >= school.scoreRange[0] - 30 && s <= school.scoreRange[1] + 50;
+    }
     return s >= school.scoreRange[0] - 15 && s <= school.scoreRange[1] + 30;
   }).map(school => {
     // 先按选科过滤掉不匹配的专业（防止同校同名"物理+历史"两条都显示）
@@ -29309,6 +29333,11 @@ function getRecommendations(){
       }
       if(cityHit) fit = Math.min(98, fit + 10);
     }
+    // 考生类型命中加分（艺术/体育类用户看到艺术/体育院校时大幅加分）
+    const isArtSchool = ART_RE.test(school.cat||'') || (school.school||'').includes('美术') || (school.school||'').includes('音乐');
+    const isSportSchool = SPORT_RE.test(school.cat||'') || (school.school||'').includes('体育');
+    if(isArtUser && isArtSchool) fit = Math.min(98, fit + 25);
+    if(isSportUser && isSportSchool) fit = Math.min(98, fit + 25);
 
     let tier;
     if(s >= school.scoreRange[1] - 5) tier = '保';
@@ -29342,6 +29371,8 @@ function getRecommendations(){
     const whyParts = [];
     if(school.level?.includes('985')||school.level?.includes('双一流')||school.level?.includes('211')) whyParts.push('<mark>院校层次突出</mark>');
     if(school.cat) whyParts.push(school.cat);
+    if((isArtUser && isArtSchool) || (isSportUser && isSportSchool)) whyParts.push(`<mark>${stype}专属院校</mark>`);
+    else if(stype!=='普通类') whyParts.push(`${stype}也可参考`);
     if(cityHit) whyParts.push('位于<mark>你偏好</mark>的城市');
     if(wantCats.size){
       const hitMajor = majors.find(m=>{
@@ -29368,6 +29399,13 @@ function getRecommendations(){
 }
 
 function getScoreTier(score){
+  const stype = getStudentType();
+  if(stype==='艺术类' || stype==='体育类'){
+    if(score >= 450) return {tier:`${stype}（文化高分段）`, pct:'前 20%', hint:'可冲 985/211 艺术/体育院校与省内重点'};
+    if(score >= 380) return {tier:`${stype}（文化中分段）`, pct:'前 50%', hint:'重点考虑省内一本艺术/体育院校'};
+    if(score >= 320) return {tier:`${stype}（文化达线段）`, pct:'前 80%', hint:'稳妥保底，关注综合分录取规则'};
+    return {tier:`${stype}（文化低分段）`, pct:'前 90%', hint:'需要专业课高分拉高综合分'};
+  }
   if(score >= 620) return {tier:'本科一批（高分段）', pct:'前 12%', hint:'可以冲击 985/强势 211，建议冲稳保搭配'};
   if(score >= 580) return {tier:'本科一批（中分段）', pct:'前 25%', hint:'重点考虑 211 和省属一本，稳为主'};
   if(score >= 540) return {tier:'本科一批/二本头部', pct:'前 40%', hint:'一本保底 + 二本优选，关注省内高校'};
@@ -29647,6 +29685,66 @@ function onSecondSubjChange(changedIdx){
   renderSubjScores();
 }
 
+/* ================================================================
+   考生类型（普通类 / 艺术类 / 体育类）
+   ================================================================ */
+const STUDENT_TYPE = {
+  '普通类': {
+    hint: '📌 普通类：参加 6 月统一高考，按裸分录取，主流类型',
+    scoreMin: 450, scoreMax: 750, hasSubj: true,
+    filter: null,  // 不过滤
+    boost: 0
+  },
+  '艺术类': {
+    hint: '🎨 艺术类：按"专业课+文化课"综合分录取，文化课分数线通常 300-450 分。专业课成绩由省统考/校考决定。',
+    scoreMin: 300, scoreMax: 750, hasSubj: false,
+    filter: /艺术|音乐|美术|舞蹈|表演|播音|广播电视|导演|摄影|动画|戏剧|电影/,
+    boost: 30
+  },
+  '体育类': {
+    hint: '🏃 体育类：按"体考分+文化分"综合录取，文化课分数线通常 300-450 分。需参加体育统考/单招。',
+    scoreMin: 300, scoreMax: 750, hasSubj: false,
+    filter: /体育|运动训练|武术/,
+    boost: 30
+  },
+};
+
+function getStudentType(){ return userProfile.studentType || '普通类'; }
+function getStudentCfg(){ return STUDENT_TYPE[getStudentType()] || STUDENT_TYPE['普通类']; }
+
+function onStudentTypeChange(){
+  const t = document.getElementById('editStudentType').value;
+  const cfg = STUDENT_TYPE[t] || STUDENT_TYPE['普通类'];
+  document.getElementById('studentTypeHint').textContent = cfg.hint;
+  // 选科区域：仅普通类需要
+  const subjAreas = document.querySelectorAll('#subjScoresWrap');
+  // 找包含"首选科目"+"再选科目"那个 grid 的容器（紧随省份之后）
+  const firstGrid = document.querySelector('#editFirstSubj')?.closest('div[style*="grid-template-columns:1fr 1fr"]')?.parentElement;
+  // 简化处理：直接切换选科 grid 和各科成绩区的显示
+  document.querySelectorAll('#editFirstSubj, #editSecondSubj1, #editSecondSubj2, #subjScoresWrap, #secondSubjWrap, [id="subjPreview"]').forEach(el=>{
+    if(!el) return;
+    // 只隐藏 grid 中的字段，不破坏 modal 结构
+  });
+  // 更可靠方式：用 closest 找容器
+  const firstSel = document.getElementById('editFirstSubj');
+  const secWrap = document.getElementById('secondSubjWrap');
+  const subjWrap = document.getElementById('subjScoresWrap');
+  if(firstSel){
+    const subjBlock = firstSel.closest('div[style*="display:grid;grid-template-columns:1fr 1fr"]');
+    if(subjBlock) subjBlock.style.display = cfg.hasSubj ? '' : 'none';
+  }
+  if(subjWrap) subjWrap.style.display = cfg.hasSubj ? '' : 'none';
+  // 分数范围联动
+  const scoreInp = document.getElementById('editScore');
+  if(scoreInp){
+    scoreInp.min = cfg.scoreMin;
+    scoreInp.max = cfg.scoreMax;
+    scoreInp.placeholder = t==='普通类'?'如 610':'如 380';
+  }
+  // 评分校准
+  if(typeof getScoreTier==='function'){ /* noop for now */ }
+}
+
 function onProvinceChange(){
   const prov = document.getElementById('editProvince').value;
   const mode = getMode(prov);
@@ -29718,6 +29816,8 @@ function doSaveProfile(btn){
   }, 350);
 }
 function openEditModal(){
+  document.getElementById('editStudentType').value = userProfile.studentType || '普通类';
+  onStudentTypeChange();
   document.getElementById('editProvince').value = userProfile.province;
   onProvinceChange();
   document.getElementById('editScore').value = userProfile.score;
@@ -29730,29 +29830,37 @@ function closeEditModal(){ document.getElementById('editModal').classList.remove
 document.getElementById('editModal').addEventListener('click', e=>{ if(e.target.id==='editModal') closeEditModal(); });
 
 function saveProfile(){
+  const studentType = document.getElementById('editStudentType').value || '普通类';
+  const cfg = STUDENT_TYPE[studentType] || STUDENT_TYPE['普通类'];
   const score = parseInt(document.getElementById('editScore').value);
-  if(!score || score<450 || score>750){ showToast('⚠️ 请输入有效的预估分（450–750）'); return; }
+  if(!score || score < cfg.scoreMin || score > cfg.scoreMax){
+    showToast(`⚠️ ${studentType}分数范围 ${cfg.scoreMin}-${cfg.scoreMax}`);
+    return;
+  }
   const province = document.getElementById('editProvince').value;
   const mode = getMode(province);
   const prefs = document.getElementById('editPrefs').value;
 
-  let subjLabel;
-  const secList = getSecondSubjects();
-  // 校验再选科目：3+1+2 需选 2 门，3+3 需选 3 门
-  const needCount = mode === '3+3' ? 3 : 2;
-  if(secList.length < needCount){
-    showToast(`⚠️ 请选择${needCount}门再选科目（当前 ${secList.length} 门）`);
-    return;
-  }
-  if(new Set(secList).size !== secList.length){
-    showToast('⚠️ 再选科目不能重复');
-    return;
-  }
-  if(mode === '3+3'){
-    subjLabel = secList.join('+') || '未选择';
+  let subjLabel = '';
+  if(cfg.hasSubj){
+    const secList = getSecondSubjects();
+    const needCount = mode === '3+3' ? 3 : 2;
+    if(secList.length < needCount){
+      showToast(`⚠️ 请选择${needCount}门再选科目（当前 ${secList.length} 门）`);
+      return;
+    }
+    if(new Set(secList).size !== secList.length){
+      showToast('⚠️ 再选科目不能重复');
+      return;
+    }
+    if(mode === '3+3'){
+      subjLabel = secList.join('+') || '未选择';
+    } else {
+      const first = document.getElementById('editFirstSubj').value;
+      subjLabel = first + secList.join('') || '未选择';
+    }
   } else {
-    const first = document.getElementById('editFirstSubj').value;
-    subjLabel = first + secList.join('') || '未选择';
+    subjLabel = '无（'+studentType+'不需选科）';
   }
 
   // 收集各科成绩
@@ -29767,6 +29875,7 @@ function saveProfile(){
   userProfile = {...userProfile, province, subject: subjLabel, score,
     prefs: prefs.split(/[,，]/).filter(s=>s.trim()),
     exclude: document.getElementById('editExclude').value,
+    studentType,
     subjects: subjScores};
 
   // 关键：当前方案的分数同步更新（保证 4 个页面 "当前方案" 一致）
